@@ -11,9 +11,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTests", "UnitTests", "{
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{53C57D7B-F25E-4F9F-B58C-CACBD97C1F03}"
 	ProjectSection(SolutionItems) = preProject
+		.dockerignore = .dockerignore
 		.editorconfig = .editorconfig
 		.gitignore = .gitignore
 		docker-compose.yml = docker-compose.yml
+		Dockerfile = Dockerfile
+		scripts\init-db.js = scripts\init-db.js
+		README.md = README.md
+		docs\ubiquitous-language.md = docs\ubiquitous-language.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{EAFE9B32-CB15-4CC2-93C8-BD8FB2CBC70D}"
