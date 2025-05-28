@@ -3,9 +3,11 @@ using Infrastructure.Connections.Interfaces;
 using Infrastructure.Exceptions;
 using Infrastructure.Factories;
 using Microsoft.Extensions.DependencyInjection;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Infrastructure.Extensions;
 
+[ExcludeFromCodeCoverage]
 public static class InfrastructureExtensions
 {
     const string MONGO_CONNECTION_STRING_VARIABLE_KEY = "MongoConnectionString";
@@ -33,7 +35,7 @@ public static class InfrastructureExtensions
         var connection = new MongoConnection(DEFAULT_CLUSTER_NAME, mongoConnectionString!, appName);
 
         services
-            .AddSingleton<IMongoConnection>()
+            .AddSingleton<IMongoConnection>(connection)
             .AddSingleton(MongoDataContextFactory.Create);
 
         return services;
