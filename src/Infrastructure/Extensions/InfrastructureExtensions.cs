@@ -1,7 +1,12 @@
-﻿using Infrastructure.Connections;
+﻿using Domain.Adapters.Repositories;
+using Infrastructure.Adapters;
+using Infrastructure.Connections;
 using Infrastructure.Connections.Interfaces;
 using Infrastructure.Exceptions;
 using Infrastructure.Factories;
+using Infrastructure.Options;
+using Infrastructure.Repositories;
+using Infrastructure.Repositories.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 using System.Diagnostics.CodeAnalysis;
 
@@ -17,12 +22,16 @@ public static class InfrastructureExtensions
     public static IServiceCollection InjectInfrastructureDependencies(this IServiceCollection services)
     {
         services
-            .AddConnections();
+            .RegisterConnections()
+            .RegisterAdapters()
+            .RegisterMongoDbRepositories();
+
+        MongoGlobalOptions.Init();
 
         return services;
     }
 
-    private static IServiceCollection AddConnections(this IServiceCollection services)
+    private static IServiceCollection RegisterConnections(this IServiceCollection services)
     {
         var mongoConnectionString = Environment.GetEnvironmentVariable(MONGO_CONNECTION_STRING_VARIABLE_KEY);
 
@@ -37,6 +46,20 @@ public static class InfrastructureExtensions
         services
             .AddSingleton<IMongoConnection>(connection)
             .AddSingleton(MongoDataContextFactory.Create);
+
+        return services;
+    }
+
+    private static IServiceCollection RegisterAdapters(this IServiceCollection services)
+    {
+        services.AddSingleton<ICustomerRepository, CustomerRepositoryAdapter>();
+
+        return services;
+    }
+
+    private static IServiceCollection RegisterMongoDbRepositories(this IServiceCollection services)
+    {
+        services.AddSingleton<ICustomerMongoDbRepository, CustomerMongoDbRepository>();
 
         return services;
     }

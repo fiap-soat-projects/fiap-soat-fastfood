@@ -8,18 +8,21 @@ namespace Infrastructure.Factories;
 
 public class MongoDataContextFactory
 {
+    const string APP_NAME_ENV_VAR_KEY = "AppName";
     const string DEFAULT_CLUSTER_NAME = "default";
 
     public static IMongoContext Create(IServiceProvider serviceProvider)
     {
+        var appName = Environment.GetEnvironmentVariable(APP_NAME_ENV_VAR_KEY) ?? DEFAULT_CLUSTER_NAME;
+
         var mongoConnection = serviceProvider
             .GetServices<IMongoConnection>()
-            .First(connection => connection.AppName == DEFAULT_CLUSTER_NAME);
+            .First(connection => connection.AppName == appName);
 
         var mongoDatabase = mongoConnection
             .Client
             .GetDatabase(mongoConnection.MongoUrl.DatabaseName);
 
-        return new MongoContext(DEFAULT_CLUSTER_NAME, mongoDatabase);
+        return new MongoContext(appName, mongoDatabase);
     }
 }
