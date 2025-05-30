@@ -17,7 +17,7 @@ public class Customer : IAggregateRoot
         get => _id!;
         set
         {
-            CustomerException.ThrowIfEmptyOrWhiteSpace(value, nameof(Id));
+            CustomerException.ThrowIfNullOrWhiteSpace(value, nameof(Id));
 
             _id = value;
         }
@@ -30,7 +30,7 @@ public class Customer : IAggregateRoot
         get => _name!;
         set
         {
-            CustomerException.ThrowIfEmptyOrWhiteSpace(value, nameof(Name));
+            CustomerException.ThrowIfNullOrWhiteSpace(value, nameof(Name));
 
             _name = value;
         }
@@ -40,8 +40,8 @@ public class Customer : IAggregateRoot
     {
         get => _cpf!;
         set
-{
-            CustomerException.ThrowIfEmptyOrWhiteSpace(value, nameof(Cpf));
+        {
+            CustomerException.ThrowIfNullOrWhiteSpace(value, nameof(Cpf));
 
             _cpf = value;
         }
@@ -52,7 +52,7 @@ public class Customer : IAggregateRoot
         get => _email!;
         set
         {
-            CustomerException.ThrowIfEmptyOrWhiteSpace(value, nameof(Email));
+            CustomerException.ThrowIfNullOrWhiteSpace(value, nameof(Email));
 
             _email = value;
         }

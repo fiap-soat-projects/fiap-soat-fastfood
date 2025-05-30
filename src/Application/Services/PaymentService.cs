@@ -1,8 +1,8 @@
 ﻿using Domain.Adapters.DTOs;
 using Domain.Adapters.Interfaces;
+using Domain.Adapters.Repositories;
 using Domain.Entities;
 using Domain.Entities.Enums;
-using Domain.Repositories.Interfaces;
 using Domain.Services.Interfaces;
 
 namespace Application.Services;

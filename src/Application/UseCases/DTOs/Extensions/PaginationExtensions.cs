@@ -1,5 +1,6 @@
 ﻿using Application.UseCases.DTOs.Response;
 using Domain.Entities;
+using Domain.Entities.Page;
 
 namespace Application.UseCases.DTOs.Extensions;
 internal static class PaginationExtensions

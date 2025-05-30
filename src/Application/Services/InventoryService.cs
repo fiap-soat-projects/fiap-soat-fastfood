@@ -1,6 +1,6 @@
-﻿using Domain.Adapters.Interfaces;
+﻿using Application.Exceptions;
+using Domain.Adapters.Interfaces;
 using Domain.Entities;
-using Domain.Entities.Exceptions;
 using Domain.Services.Interfaces;
 using System.Text;
 
@@ -21,7 +21,7 @@ internal class InventoryService : IInventoryService
         DateTime finishDate,
         IEnumerable<ItemQuantity> itemQuantities)
     {
-        InvalidInventoryOrderException.ThrowIfIsNotFinished(orderStatus, orderId!);
+        //InvalidInventoryOrderException.ThrowIfIsNotFinished(orderStatus, orderId!);
 
         var auditLogBuilder = new StringBuilder();
 

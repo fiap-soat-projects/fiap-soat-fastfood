@@ -1,4 +1,5 @@
-﻿namespace Domain.Entities;
+﻿namespace Domain.Entities.Page;
+
 public class Pagination<T>
 {
     public int Page { get; set; }

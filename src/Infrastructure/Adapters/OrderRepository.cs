@@ -1,11 +1,12 @@
-﻿using Domain.Entities;
+﻿using Domain.Adapters.Repositories;
+using Domain.Entities;
 using Domain.Entities.Enums;
-using Domain.Repositories.Interfaces;
+using Domain.Entities.Page;
 using Infrastructure.Repositories.Entities;
 using Infrastructure.Repositories.Entities.Extensions;
 using Infrastructure.Repositories.Interfaces;
 
-namespace Infrastructure.Repositories.Adapters;
+namespace Infrastructure.Adapters;
 internal class OrderRepository : IOrderRepository
 {
     private readonly IOrderMongoDbRepository _orderMongoDbRepository;
@@ -30,7 +31,7 @@ internal class OrderRepository : IOrderRepository
     {
         var pagedResult = await _orderMongoDbRepository.GetAllByStatus(status, page, size, cancellationToken);
 
-        var pagedDomain = pagedResult.ToDomain();
+        var pagedDomain = pagedResult.ToEntity();
         return pagedDomain;
     }
 
@@ -38,7 +39,7 @@ internal class OrderRepository : IOrderRepository
     {
         var pagedResult = await _orderMongoDbRepository.GetAllPaginate(page, size, cancellationToken);
 
-        var pagedDomain = pagedResult.ToDomain();
+        var pagedDomain = pagedResult.ToEntity();
         return pagedDomain;
     }
 

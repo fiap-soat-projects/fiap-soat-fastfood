@@ -1,12 +1,13 @@
 ﻿namespace Infrastructure.Repositories.Entities.Extensions;
 
 using Domain.Entities;
+using Domain.Entities.Page;
 using Infrastructure.Entities;
 using Infrastructure.Repositories.Entities;
 
 internal static class PaginationExtension
 {
-    internal static Pagination<Order> ToDomain(this PagedResult<OrderMongoDb> pagination)
+    internal static Pagination<Order> ToEntity(this PagedResult<OrderMongoDb> pagination)
     {
         return new Pagination<Order>()
         {

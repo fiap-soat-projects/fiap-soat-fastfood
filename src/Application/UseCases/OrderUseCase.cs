@@ -5,6 +5,7 @@ using Application.UseCases.DTOs.Response;
 using Application.UseCases.Interfaces;
 using Domain.Entities;
 using Domain.Entities.Enums;
+using Domain.Entities.Page;
 using Domain.Services.Exceptions;
 using Domain.Services.Interfaces;
 
@@ -47,7 +48,7 @@ internal class OrderUseCase : IOrderUseCase
             .Items
             .Select(item =>
             {
-                _ = Enum.TryParse(item.Category, out ItemCategory category);
+                _ = Enum.TryParse(item.Category, out MenuItemCategory category);
 
                 return new OrderItem
                 (

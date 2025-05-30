@@ -14,7 +14,7 @@ public class OrderItemMongoDb
     public int Amount { get; set; }
 
     [BsonRepresentation(BsonType.String)]
-    internal ItemCategory Category { get; set; }
+    internal MenuItemCategory Category { get; set; }
 
     public OrderItemMongoDb()
     {

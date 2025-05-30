@@ -1,6 +1,5 @@
 ﻿using Domain.Adapters.Interfaces;
 using Domain.Adapters.Repositories;
-using Domain.Repositories.Interfaces;
 using Infrastructure.Adapters;
 using Infrastructure.Clients;
 using Infrastructure.Connections;
@@ -10,7 +9,6 @@ using Infrastructure.Factories;
 using Infrastructure.Logger;
 using Infrastructure.Options;
 using Infrastructure.Repositories;
-using Infrastructure.Repositories.Adapters;
 using Infrastructure.Repositories.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 using Polly;

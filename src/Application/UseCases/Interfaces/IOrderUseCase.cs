@@ -1,7 +1,7 @@
 ﻿using Application.UseCases.DTOs;
 using Application.UseCases.DTOs.Request;
 using Application.UseCases.DTOs.Response;
-using Domain.Entities;
+using Domain.Entities.Page;
 
 namespace Application.UseCases.Interfaces;
 public interface IOrderUseCase

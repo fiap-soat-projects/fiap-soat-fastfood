@@ -1,8 +1,10 @@
 ﻿using Domain.Entities.Enums;
 using Domain.Entities.Exceptions;
+using Domain.Entities.Interfaces;
 
 namespace Domain.Entities;
-internal class Order
+
+public class Order : IAggregateRoot
 {
     private string? _id;
     private string? _customerId;
@@ -12,8 +14,65 @@ internal class Order
     private PaymentMethod _paymentMethod;
     private decimal _totalPrice;
 
+    public string Id
+    {
+        get => _id!;
+        set
+        {
+            OrderException.ThrowIfNullOrWhiteSpace(value, nameof(Id));
+
+            _id = value;
+        }
+    }
+
+    public string? CustomerId
+    {
+        get => _customerId;
+        set => _customerId = value;
+    }
+
+    public string? CustomerName
+    {
+        get => _customerName;
+        set => _customerName = value;
+    }
+
+    public OrderStatus Status
+    {
+        get => _status;
+        set
+        {
+            ValidateStatus(value);
+
+            _status = value;
+        }
+    }
+
+    public PaymentMethod PaymentMethod
+    {
+        get => _paymentMethod;
+        set => _paymentMethod = value;
+    }
+
+    public decimal TotalPrice
+    {
+        get => _totalPrice;
+        set
+        {
+            OrderException.ThrowIfIsEqualOrLowerThanZero(value, nameof(TotalPrice));
+
+            _totalPrice = value;
+        }
+    }
+
+    public IEnumerable<OrderItem> Items
+    {
+        get => _items;
+        set => _items = value;
+    }
+
     internal Order(
-        string? id,
+        string id,
         string? customerId,
         string? customerName,
         IEnumerable<OrderItem> items,
@@ -43,33 +102,14 @@ internal class Order
         PaymentMethod = PaymentMethod.None;
     }
 
-
-    public string? Id { get => _id; set => _id = value; }
-    public string? CustomerId { get => _customerId; set => _customerId = value; }
-    public string? CustomerName { get => _customerName; set => _customerName = value; }
-    public OrderStatus Status { get => _status; set => _status = ValidateCategory(value); }
-
-    public PaymentMethod PaymentMethod { get => _paymentMethod; set => _paymentMethod = value; }
-
-    public decimal TotalPrice
+    private static void ValidateStatus(OrderStatus status)
     {
-        get => _totalPrice;
-        set => _totalPrice = OrderPropertyException.ThrowIfZeroOrNegative(value, nameof(TotalPrice));
-    }
-
-    public IEnumerable<OrderItem> Items { get => _items; set => _items = value; }
-
-
-    private static OrderStatus ValidateCategory(OrderStatus value)
-    {
-        var isInvalidCategory = !Enum.IsDefined(typeof(OrderStatus), value) || value == OrderStatus.None;
+        var isInvalidCategory = !Enum.IsDefined(typeof(OrderStatus), status) || status == OrderStatus.None;
 
         if (isInvalidCategory)
         {
-            throw new OrderItemPropertyException(nameof(OrderStatus));
+            throw new OrderItemException(nameof(OrderStatus));
         }
-
-        return value;
     }
 
     private static decimal SumItems(IEnumerable<OrderItem> items)

@@ -12,10 +12,7 @@ public class ItemQuantity
         get => _itemId!;
         init
         {
-            InvalidInventoryItemPropertyException.ThrowIfIsNullOrWhiteSpace(
-                value,
-                nameof(ItemId),
-                GetType());
+            ItemQuantityException.ThrowIfNullOrWhiteSpace(value, nameof(ItemId));
 
             _itemId = value;
         }
@@ -26,10 +23,7 @@ public class ItemQuantity
         get => _quantity;
         init
         {
-            InvalidInventoryItemPropertyException.ThrowIfIsEqualOrLowerThanZero(
-                value,
-                nameof(Quantity),
-                GetType());
+            ItemQuantityException.ThrowIfIsEqualOrLowerThanZero(value, nameof(Quantity));
 
             _quantity = value;
         }

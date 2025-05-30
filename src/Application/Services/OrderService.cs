@@ -1,6 +1,7 @@
-﻿using Domain.Entities;
+﻿using Domain.Adapters.Repositories;
+using Domain.Entities;
 using Domain.Entities.Enums;
-using Domain.Repositories.Interfaces;
+using Domain.Entities.Page;
 using Domain.Services.Exceptions;
 using Domain.Services.Interfaces;
 
