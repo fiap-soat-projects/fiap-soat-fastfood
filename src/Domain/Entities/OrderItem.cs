@@ -77,7 +77,7 @@ public class OrderItem
         Amount = amount;
     }
 
-    public decimal GetTotalPrice()
+    internal decimal GetTotalPrice()
     {
         return Price * Amount;
     }
