@@ -1,9 +1,6 @@
-﻿using CrossCutting.Exceptions;
-using Order.Domain.Entities;
+﻿namespace Domain.Entities.Exceptions;
 
-namespace Domain.Entities.Exceptions;
-
-internal class InvalidInventoryOrderException(string message) : BaseEntityException<OrderEntity>(message)
+internal class InvalidInventoryOrderException(string message) : BaseEntityException<Order>(message)
 {
     internal static void ThrowIfIsNotFinished(string orderStatus, string orderId)
     {

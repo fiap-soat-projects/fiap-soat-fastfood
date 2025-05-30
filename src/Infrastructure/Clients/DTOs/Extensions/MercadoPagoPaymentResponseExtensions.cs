@@ -4,9 +4,9 @@ namespace Infrastructure.Clients.DTOs.Extensions;
 
 internal static class MercadoPagoPaymentResponseExtensions
 {
-    internal static OrderPaymentCheckoutEntity ToOrderPaymentCheckoutEntity(this MercadoPagoPaymentResponse response)
+    internal static PaymentCheckout ToOrderPaymentCheckoutEntity(this MercadoPagoPaymentResponse response)
     {
-        var orderPaymentCheckout = new OrderPaymentCheckoutEntity
+        var orderPaymentCheckout = new PaymentCheckout
         {
             Id = response.Id!,
             PaymentMethod = response.PaymentMethodId!,

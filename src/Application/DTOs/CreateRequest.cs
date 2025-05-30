@@ -1,4 +1,4 @@
-﻿namespace Domain.Services.DTOs;
+﻿namespace Application.DTOs;
 
 public record CreateRequest
 (

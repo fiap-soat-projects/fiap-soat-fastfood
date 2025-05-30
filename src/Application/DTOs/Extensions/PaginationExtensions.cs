@@ -1,11 +1,11 @@
 ﻿using Domain.Entities;
 
-namespace Domain.Services.DTOs.Extensions;
+namespace Application.DTOs.Extensions;
 internal static class PaginationExtensions
 {
-    internal static Pagination<GetResponse> ToResponse(this Pagination<Order> pagination)
+    internal static Pagination<OrderGetResponse> ToResponse(this Pagination<Order> pagination)
     {
-        return new Pagination<GetResponse>()
+        return new Pagination<OrderGetResponse>()
         {
             Page = pagination.Page,
             Size = pagination.Size,

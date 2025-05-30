@@ -1,10 +1,9 @@
-﻿using Application.Services.DTOs;
-using Domain.Entities;
+﻿using Domain.Entities;
 
-namespace Domain.Services.DTOs.Extensions;
+namespace Application.DTOs.Extensions;
 internal static class OrderEntityExtensions
 {
-    internal static GetResponse ToResponse(this Order order)
+    internal static OrderGetResponse ToResponse(this Order order)
     {
         var id = order.Id ?? string.Empty;
         var customerId = order.CustomerId ?? string.Empty;
@@ -21,6 +20,6 @@ internal static class OrderEntityExtensions
         var paymentMethod = order.PaymentMethod.ToString();
         var totalPrice = order.TotalPrice;
 
-        return new GetResponse(id, customerId, customerName, items, status, paymentMethod, totalPrice);
+        return new OrderGetResponse(id, customerId, customerName, items, status, paymentMethod, totalPrice);
     }
 }

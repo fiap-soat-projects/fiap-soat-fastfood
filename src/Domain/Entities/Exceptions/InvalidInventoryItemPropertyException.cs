@@ -1,7 +1,4 @@
-﻿using CrossCutting.Exceptions;
-using Domain.Entities;
-
-namespace Domain.Entities.Exceptions;
+﻿namespace Domain.Entities.Exceptions;
 
 public class InvalidInventoryItemPropertyException(string message) : BaseEntityException<ItemQuantity>(message)
 {

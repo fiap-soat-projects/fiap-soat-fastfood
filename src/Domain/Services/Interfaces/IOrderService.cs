@@ -1,18 +1,16 @@
 ﻿using Domain.Entities;
-using Domain.Services.DTOs;
+using Domain.Entities.Enums;
 
 namespace Domain.Services.Interfaces;
-public interface IOrderService
+internal interface IOrderService
 {
-    Task<GetResponse> GetByIdAsync(string id, CancellationToken cancellationToken);
-    Task<Pagination<GetResponse>> GetAllAsync(OrderFilter filter, CancellationToken cancellationToken);
-    Task<string> CreateAsync(CreateRequest request, CancellationToken cancellationToken);
-    Task<CheckoutResponse> CheckoutAsync(string id, CheckoutRequest request, CancellationToken cancellationToken);
-    Task ConfirmPaymentAsync(string id, CancellationToken cancellationToken);
+    Task<Order> GetByIdAsync(string id, CancellationToken cancellationToken);
+    Task<string> CreateAsync(Order order, CancellationToken cancellationToken);
     Task DeleteAsync(string id, CancellationToken cancellationToken);
-    Task<GetResponse> UpdateStatusAsync(
-        string id,
-        UpdateStatusRequest updateStatusRequest,
-        CancellationToken cancellationToken);
-
+    Task<Order> UpdateStatusAsync(string id, OrderStatus status, CancellationToken cancellationToken);
+    Task<Pagination<Order>> GetAllAsync(
+        CancellationToken cancellationToken,
+        OrderStatus? Status = null,
+        int Page = 0,
+        int Size = 0);
 }

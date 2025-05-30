@@ -1,6 +1,6 @@
-﻿namespace Domain.Services.DTOs;
+﻿namespace Application.DTOs;
 
-public record GetResponse
+public record OrderGetResponse
 (
     string Id,
     string CustomerId,

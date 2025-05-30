@@ -1,8 +1,7 @@
 ﻿namespace Domain.Entities;
 
-public class OrderPaymentCheckoutEntity
+public class PaymentCheckout
 {
-    // TODO: Auto validate
     public required long Id { get; set; }
     public required string PaymentMethod { get; set; }
     public required string QrCode { get; set; }

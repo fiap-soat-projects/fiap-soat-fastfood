@@ -11,7 +11,7 @@ using System.Text.Json.Serialization;
 
 namespace Infrastructure.Clients;
 
-public class MercadoPagoClient : IMercadoPagoPaymentAdapter
+public class MercadoPagoClient : IPixAdapter
 {
     private readonly HttpClient _httpClient;
     private readonly ILogger<MercadoPagoClient> _logger;
@@ -28,7 +28,7 @@ public class MercadoPagoClient : IMercadoPagoPaymentAdapter
         _logger = logger;
     }
 
-    public async Task<OrderPaymentCheckoutEntity> CreatePaymentAsync(
+    public async Task<PaymentCheckout> CreatePaymentAsync(
         CheckoutInput input,
         PaymentMethod paymentMethod,
         CancellationToken cancellationToken)

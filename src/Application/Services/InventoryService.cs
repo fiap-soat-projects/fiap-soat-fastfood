@@ -4,7 +4,7 @@ using Domain.Entities.Exceptions;
 using Domain.Services.Interfaces;
 using System.Text;
 
-namespace Inventory.Application.Services;
+namespace Application.Services;
 
 internal class InventoryService : IInventoryService
 {

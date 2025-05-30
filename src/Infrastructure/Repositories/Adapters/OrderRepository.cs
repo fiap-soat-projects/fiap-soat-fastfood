@@ -5,7 +5,7 @@ using Infrastructure.Repositories.Entities;
 using Infrastructure.Repositories.Entities.Extensions;
 using Infrastructure.Repositories.Interfaces;
 
-namespace Infrastructure.Adapters;
+namespace Infrastructure.Repositories.Adapters;
 internal class OrderRepository : IOrderRepository
 {
     private readonly IOrderMongoDbRepository _orderMongoDbRepository;

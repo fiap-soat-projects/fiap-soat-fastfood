@@ -1,4 +1,6 @@
-﻿using Domain.Services.DTOs;
+﻿using Application.DTOs;
+using Application.UseCases.Interfaces;
+using Domain.Services.DTOs;
 using Domain.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,9 +10,9 @@ namespace Api.Controllers;
 [Route("[controller]")]
 public class OrderController : ControllerBase
 {
-    private readonly IOrderService _orderService;
+    private readonly IOrderUseCase _orderService;
 
-    public OrderController(IOrderService orderService)
+    public OrderController(IOrderUseCase orderService)
     {
         _orderService = orderService;
     }

@@ -4,9 +4,9 @@ using Domain.Entities.Enums;
 
 namespace Domain.Adapters.Interfaces;
 
-public interface IMercadoPagoPaymentAdapter
+public interface IPixAdapter
 {
-    Task<OrderPaymentCheckoutEntity> CreatePaymentAsync(
+    Task<PaymentCheckout> CreatePaymentAsync(
         CheckoutInput checkoutInput,
         PaymentMethod paymentMethod,
         CancellationToken cancellationToken);

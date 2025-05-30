@@ -16,6 +16,7 @@ internal class PaymentMethodNotSupportedException : Exception
             throw new PaymentMethodNotSupportedException(paymentMethod);
 
         _ = Enum.TryParse(paymentMethod, out PaymentMethod paymentMethodEnum);
+
         if (paymentMethodEnum != PaymentMethod.Pix)
             throw new PaymentMethodNotSupportedException(paymentMethod);
     }
