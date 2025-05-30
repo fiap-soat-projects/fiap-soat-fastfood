@@ -1,7 +1,7 @@
 ﻿using Application.Exceptions;
 using Domain.Adapters.Repositories;
 using Domain.Entities;
-using Domain.Services;
+using Domain.Services.Interfaces;
 
 namespace Application.Services;
 

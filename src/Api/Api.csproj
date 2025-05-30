@@ -10,6 +10,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Controllers\DTOs\**" />
+    <Content Remove="Controllers\DTOs\**" />
+    <EmbeddedResource Remove="Controllers\DTOs\**" />
+    <None Remove="Controllers\DTOs\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.22.1-Preview.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
   </ItemGroup>
@@ -17,10 +24,6 @@
   <ItemGroup>
     <ProjectReference Include="..\Application\Application.csproj" />    
     <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Controllers\DTOs\" />
   </ItemGroup>
 
 </Project>

@@ -40,7 +40,7 @@ public class Customer : IAggregateRoot
     {
         get => _cpf!;
         set
-        {
+{
             CustomerException.ThrowIfEmptyOrWhiteSpace(value, nameof(Cpf));
 
             _cpf = value;

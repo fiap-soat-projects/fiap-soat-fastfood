@@ -2,7 +2,7 @@
 using Application.UseCases.DTOs.Response;
 using Application.UseCases.Interfaces;
 using Domain.Entities;
-using Domain.Services;
+using Domain.Services.Interfaces;
 
 namespace Application.UseCases;
 

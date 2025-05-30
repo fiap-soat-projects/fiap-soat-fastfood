@@ -1,5 +1,5 @@
-using Application.Extensions;
-using Infrastructure.Extensions;
+using Application;
+using Infrastructure;
 
 namespace Api;
 

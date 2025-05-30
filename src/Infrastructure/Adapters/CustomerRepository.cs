@@ -7,11 +7,11 @@ using System.Diagnostics.CodeAnalysis;
 namespace Infrastructure.Adapters;
 
 [ExcludeFromCodeCoverage]
-internal class CustomerRepositoryAdapter : ICustomerRepository
+internal class CustomerRepository : ICustomerRepository
 {
     private readonly ICustomerMongoDbRepository _repository;
 
-    public CustomerRepositoryAdapter(ICustomerMongoDbRepository repository)
+    public CustomerRepository(ICustomerMongoDbRepository repository)
     {
         _repository = repository;
     }
