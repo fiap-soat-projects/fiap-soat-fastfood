@@ -1,0 +1,74 @@
+﻿using Domain.Entities.Exceptions;
+using Domain.Entities.Interfaces;
+using Domain.ValueObjects;
+using System.Diagnostics.CodeAnalysis;
+
+namespace Domain.Entities;
+
+public class Customer : IAggregateRoot
+{
+    private string? _id;
+    private string? _name;
+    private string? _cpf;
+    private string? _email;
+
+    public string Id
+    {
+        get => _id!;
+        set
+        {
+            CustomerException.ThrowIfEmptyOrWhiteSpace(value, nameof(Id));
+
+            _id = value;
+        }
+    }
+
+    public DateTime CreatedAt { get; private set; }
+
+    public required string Name
+    {
+        get => _name!;
+        set
+        {
+            CustomerException.ThrowIfEmptyOrWhiteSpace(value, nameof(Name));
+
+            _name = value;
+        }
+    }
+
+    public required Cpf Cpf
+    {
+        get => _cpf!;
+        set
+{
+            CustomerException.ThrowIfEmptyOrWhiteSpace(value, nameof(Cpf));
+
+            _cpf = value;
+        }
+    }
+
+    public required Email Email
+    {
+        get => _email!;
+        set
+        {
+            CustomerException.ThrowIfEmptyOrWhiteSpace(value, nameof(Email));
+
+            _email = value;
+        }
+    }
+
+    [SetsRequiredMembers]
+    public Customer(string name, Cpf cpf, Email email)
+    {
+        Name = name;
+        Cpf = cpf;
+        Email = email;
+    }
+
+    public Customer(string id, DateTime createdAt)
+    {
+        Id = id;
+        CreatedAt = createdAt;
+    }
+}
