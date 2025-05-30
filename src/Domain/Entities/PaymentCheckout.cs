@@ -5,7 +5,7 @@ namespace Domain.Entities;
 public class PaymentCheckout
 {
     private long _id;
-    private string _paymentMethod;
+    private string? _paymentMethod;
     private string? _qrCode;
     private string? _qrCodeBase64;
     private decimal _amount;
@@ -24,7 +24,7 @@ public class PaymentCheckout
 
     public required string PaymentMethod
     {
-        get => _paymentMethod;
+        get => _paymentMethod!;
         set
         {
             PaymentCheckoutException.ThrowIfNullOrWhiteSpace(value, nameof(PaymentMethod));

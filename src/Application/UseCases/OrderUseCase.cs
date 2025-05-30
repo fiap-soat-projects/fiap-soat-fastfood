@@ -81,10 +81,7 @@ internal class OrderUseCase : IOrderUseCase
 
         if (orderStatus == OrderStatus.Finished)
         {
-            var itemsQuantity = order.Items
-                .Select(item => new ItemQuantity { ItemId = item.Id!, Quantity = item.Amount });
-
-            _inventoryService.RegisterOrder(id, orderStatus.ToString(), DateTime.UtcNow, itemsQuantity);
+            _inventoryService.GenerateAuditLog(order, DateTime.UtcNow);
         }
 
         return order.ToResponse();
