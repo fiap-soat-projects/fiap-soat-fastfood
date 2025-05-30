@@ -9,13 +9,13 @@ namespace Application.Services;
 internal class PaymentService : IPaymentService
 {
     private readonly IPixAdapter _pixAdapter;
-    private readonly ICustomerService _registerCustomerService;
+    private readonly ICustomerService _customerService;
     private readonly IOrderRepository _orderRepository;
 
     public PaymentService(IPixAdapter pixAdapter, ICustomerService registerCustomerService, IOrderRepository orderRepository)
     {
         _pixAdapter = pixAdapter;
-        _registerCustomerService = registerCustomerService;
+        _customerService = registerCustomerService;
         _orderRepository = orderRepository;
     }
 
@@ -52,7 +52,7 @@ internal class PaymentService : IPaymentService
 
     private async Task<PaymentCheckout> ExecuteCustomerCheckoutAsync(Order order, PaymentMethod paymentMethod, CancellationToken cancellationToken)
     {
-        var customer = await _registerCustomerService.GetByIdAsync(order!.CustomerId!, cancellationToken);
+        var customer = await _customerService.GetByIdAsync(order!.CustomerId!, cancellationToken);
 
         var checkoutInput = new CheckoutInput
         (
