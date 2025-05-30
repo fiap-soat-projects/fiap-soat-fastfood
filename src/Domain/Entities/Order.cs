@@ -57,7 +57,7 @@ internal class Order
         set => _totalPrice = OrderPropertyException.ThrowIfZeroOrNegative(value, nameof(TotalPrice));
     }
 
-    internal IEnumerable<OrderItem> Items { get => _items; set => _items = value; }
+    public IEnumerable<OrderItem> Items { get => _items; set => _items = value; }
 
 
     private static OrderStatus ValidateCategory(OrderStatus value)

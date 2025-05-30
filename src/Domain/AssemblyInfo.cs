@@ -2,3 +2,4 @@
 
 [assembly: InternalsVisibleTo("Domain.Tests")]
 [assembly: InternalsVisibleTo("Application")]
+[assembly: InternalsVisibleTo("Infrastructure")]
