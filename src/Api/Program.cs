@@ -1,3 +1,6 @@
+using Application;
+using Infrastructure;
+
 namespace Api;
 
 public class Program
@@ -9,6 +12,8 @@ public class Program
         builder.Services.AddControllers();
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
+        builder.Services.AddApplication();
+        builder.Services.AddInfrastructure();
 
         var app = builder.Build();
 

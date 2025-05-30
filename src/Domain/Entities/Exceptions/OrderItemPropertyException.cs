@@ -5,16 +5,6 @@ internal class OrderItemPropertyException : BaseEntityException<OrderItem>
     {
     }
 
-    internal static string ThrowIfNullOrEmpty(string? value, string propertyName)
-    {
-        if (string.IsNullOrEmpty(value))
-        {
-            throw new OrderItemPropertyException(propertyName);
-        }
-
-        return value;
-    }
-
     internal static int ThrowIfZeroOrNegative(int value, string propertyName)
     {
         if(value < 1)

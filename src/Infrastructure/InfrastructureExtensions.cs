@@ -1,13 +1,13 @@
 ﻿using Domain.Adapters.Interfaces;
 using Domain.Repositories.Interfaces;
 using Infrastructure.Clients;
+using Infrastructure.Logger;
 using Infrastructure.Repositories;
 using Infrastructure.Repositories.Adapters;
 using Infrastructure.Repositories.Interfaces;
-using Inventory.Infra.Logger;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Inventory.Infra;
+namespace Infrastructure;
 
 public static class InfrastructureExtensions
 {

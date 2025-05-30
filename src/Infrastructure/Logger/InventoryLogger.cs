@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Logging;
 using System.Diagnostics.CodeAnalysis;
 
-namespace Inventory.Infra.Logger;
+namespace Infrastructure.Logger;
 
 [ExcludeFromCodeCoverage]
 internal class InventoryLogger : IInventoryLogger
