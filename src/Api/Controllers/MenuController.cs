@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Api.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("/v1/[controller]")]
 public class MenuController : ControllerBase
 {
     private readonly IMenuUseCase _menu;
@@ -14,6 +14,17 @@ public class MenuController : ControllerBase
     public MenuController(IMenuUseCase menu)
     {
         _menu = menu;
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> RegisterAsync([FromBody] RegisterMenuItemRequest request, CancellationToken cancellationToken)
+    {
+        var response = await _menu.RegisterAsync(request, cancellationToken);
+
+        return Created(
+            Url.Action(nameof(RegisterAsync),
+            new { id = response.Id }),
+            response);
     }
 
     [HttpGet("{id:length(24)}")]
@@ -30,17 +41,6 @@ public class MenuController : ControllerBase
         var menuItems = await _menu.GetAllAsync(filter, cancellationToken);
 
         return Ok(menuItems);
-    }
-
-    [HttpPost]
-    public async Task<IActionResult> RegisterAsync([FromBody] RegisterMenuItemRequest request, CancellationToken cancellationToken)
-    {
-        var response = await _menu.RegisterAsync(request, cancellationToken);
-
-        return Created(
-            Url.Action(nameof(RegisterAsync),
-            new { id = response.Id }),
-            response);
     }
 
     [HttpPut("{id:length(24)}")]

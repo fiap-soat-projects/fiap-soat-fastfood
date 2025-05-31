@@ -21,17 +21,22 @@ internal class PaymentService : IPaymentService
 
     public async Task<PaymentCheckout> CheckoutAsync(Order order, PaymentMethod method, CancellationToken cancellationToken)
     {
+        order = await _orderRepository.UpdatePaymentMethodAsync(order.Id, method, cancellationToken);
+
         if (!string.IsNullOrWhiteSpace(order?.CustomerId))
         {
             return await ExecuteCustomerCheckoutAsync(order!, method, cancellationToken);
         }
 
         var orderPaymentCheckout = await ExecuteAnonymousCheckoutAsync(order!, method, cancellationToken);
+
         return orderPaymentCheckout;
     }
 
     public async Task ConfirmPaymentAsync(string id, CancellationToken cancellationToken)
     {
+        ArgumentException.ThrowIfNullOrWhiteSpace(id, nameof(id));
+
         await _orderRepository.UpdateStatusAsync(id, OrderStatus.Received, cancellationToken);
     }
 
@@ -47,6 +52,7 @@ internal class PaymentService : IPaymentService
         );
 
         var orderPaymentCheckout = await _pixAdapter.CreatePaymentAsync(checkoutInput!, paymentMethod, cancellationToken);
+
         return orderPaymentCheckout;
     }
 

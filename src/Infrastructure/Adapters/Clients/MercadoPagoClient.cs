@@ -3,7 +3,6 @@ using Domain.Adapters.Interfaces;
 using Domain.Entities;
 using Domain.Entities.Enums;
 using Infrastructure.Adapters.Clients.DTOs;
-using Infrastructure.Adapters.Clients.DTOs.Extensions;
 using Microsoft.Extensions.Logging;
 using System.Text;
 using System.Text.Json;
@@ -58,7 +57,7 @@ public class MercadoPagoClient : IPixAdapter
 
         var mercadoPagoResponse = JsonSerializer.Deserialize<MercadoPagoPaymentResponse>(responseContent, _jsonSerializerOptions);
 
-        return mercadoPagoResponse!.ToOrderPaymentCheckoutEntity();
+        return mercadoPagoResponse!.ToDomain();
 
     }
 

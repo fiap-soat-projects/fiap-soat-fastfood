@@ -1,7 +1,9 @@
 ﻿using Domain.Adapters.Repositories;
 using Domain.Entities;
+using Domain.Exceptions;
 using Infrastructure.Entities;
 using Infrastructure.Repositories.Interfaces;
+using MongoDB.Driver;
 using System.Diagnostics.CodeAnalysis;
 
 namespace Infrastructure.Adapters.Repositories;
@@ -18,11 +20,18 @@ internal class CustomerRepository : ICustomerRepository
 
     public async Task<Customer> CreateAsync(Customer customer, CancellationToken cancellationToken)
     {
-        var customerMongoDb = new CustomerMongoDb(customer);
+        try
+        {
+            var customerMongoDb = new CustomerMongoDb(customer);
 
-        customerMongoDb = await _repository.InsertOneAsync(customerMongoDb, cancellationToken);
+            customerMongoDb = await _repository.InsertOneAsync(customerMongoDb, cancellationToken);
 
-        return customerMongoDb.ToDomain();
+            return customerMongoDb.ToDomain();
+        }
+        catch (MongoWriteException exception) when (exception.WriteError.Category is ServerErrorCategory.DuplicateKey)
+        {
+            throw new DuplicatedItemException<Customer>(nameof(Customer.Cpf));
+        }
     }
 
     public async Task<Customer?> GetByIdAsync(string id, CancellationToken cancellationToken)

@@ -59,7 +59,10 @@ internal class MenuUseCase : IMenuUseCase
             input.Price,
             input.Description!,
             input.Category)
-        { Id = id };
+        {
+            Id = id,
+            IsActive = input.IsActive
+        };
 
         menuItem = await _menuItemService.UpdateAsync(menuItem, cancellationToken);
 

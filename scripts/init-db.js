@@ -414,5 +414,3 @@ db.menu.insertMany([
         isDeleted: false
     }
 ]);
-
-// TODO: Add some orders and users to query database when starts application first time

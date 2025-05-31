@@ -37,9 +37,9 @@ internal class MenuItemMongoDbRepository : BaseRepository<MenuItemMongoDb>, IMen
     public async Task<IEnumerable<MenuItemMongoDb>> GetAllAsync(MenuItemFilter filter, CancellationToken cancellationToken)
     {
         var builder = Builders<MenuItemMongoDb>.Filter;
+
         var filters = new List<FilterDefinition<MenuItemMongoDb>>
         {
-            builder.Eq(menuItem => menuItem.IsDeleted, false),
             builder.Eq(menuItem => menuItem.IsActive, true)
         };
 

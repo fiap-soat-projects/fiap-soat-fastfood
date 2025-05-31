@@ -19,6 +19,7 @@ internal class OrderRepository : IOrderRepository
     public Task<string> CreateAsync(Order order, CancellationToken cancellationToken)
     {
         var orderMongoDb = new OrderMongoDb(order);
+
         return _orderMongoDbRepository.InsertOneAsync(orderMongoDb, cancellationToken);
     }
 
@@ -27,7 +28,7 @@ internal class OrderRepository : IOrderRepository
         return _orderMongoDbRepository.DeleteAsync(id, cancellationToken);
     }
 
-    public async Task<Pagination<Order>> GetAllByStatus(OrderStatus status, int page, int size, CancellationToken cancellationToken)
+    public async Task<Pagination<Order>> GetAllByStatusAsync(OrderStatus status, int page, int size, CancellationToken cancellationToken)
     {
         var pagedResult = await _orderMongoDbRepository.GetAllByStatus(status, page, size, cancellationToken);
 
@@ -36,7 +37,7 @@ internal class OrderRepository : IOrderRepository
         return pagedDomain;
     }
 
-    public async Task<Pagination<Order>> GetAllPaginate(int page, int size, CancellationToken cancellationToken)
+    public async Task<Pagination<Order>> GetAllPaginateAsync(int page, int size, CancellationToken cancellationToken)
     {
         var pagedResult = await _orderMongoDbRepository.GetAllPaginate(page, size, cancellationToken);
 
@@ -55,6 +56,13 @@ internal class OrderRepository : IOrderRepository
     public async Task<Order> UpdateStatusAsync(string id, OrderStatus status, CancellationToken cancellationToken)
     {
         var orderMongoDb = await _orderMongoDbRepository.UpdateStatusAsync(id, status, cancellationToken);
+
+        return orderMongoDb.ToDomain();
+    }
+
+    public async Task<Order> UpdatePaymentMethodAsync(string id, PaymentMethod paymentMethod, CancellationToken cancellationToken)
+    {
+        var orderMongoDb = await _orderMongoDbRepository.UpdatePaymentMethodAsync(id, paymentMethod, cancellationToken);
 
         return orderMongoDb.ToDomain();
     }

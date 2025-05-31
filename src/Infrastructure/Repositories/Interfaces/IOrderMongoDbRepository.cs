@@ -3,6 +3,7 @@ using Infrastructure.Entities;
 using Infrastructure.Entities.Page;
 
 namespace Infrastructure.Repositories.Interfaces;
+
 internal interface IOrderMongoDbRepository
 {
     Task<string> InsertOneAsync(OrderMongoDb order, CancellationToken cancellationToken);
@@ -13,5 +14,9 @@ internal interface IOrderMongoDbRepository
     Task<OrderMongoDb> UpdateStatusAsync(
         string id,
         OrderStatus status,
+        CancellationToken cancellationToken);
+    Task<OrderMongoDb> UpdatePaymentMethodAsync(
+        string id,
+        PaymentMethod paymentMethod,
         CancellationToken cancellationToken);
 }

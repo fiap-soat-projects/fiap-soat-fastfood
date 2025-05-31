@@ -1,3 +1,21 @@
-﻿namespace Application.UseCases.DTOs.Request;
+﻿using System.Globalization;
 
-public record CheckoutRequest(string? PaymentType) { }
+namespace Application.UseCases.DTOs.Request;
+
+public record CheckoutRequest
+{
+    private string? _paymentType;
+
+    public string? PaymentType
+    {
+        get => _paymentType;
+        init
+        {
+            ArgumentException.ThrowIfNullOrWhiteSpace(value);
+
+            var paymentType = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(value.ToLower());
+
+            _paymentType = paymentType;
+        }
+    }
+}

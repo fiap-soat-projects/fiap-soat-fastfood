@@ -11,8 +11,8 @@ internal class OrderMongoDb : MongoEntity
     public string? CustomerId { get; set; }
     public string? CustomerName { get; set; }
     public List<OrderItemMongoDb> Items { get; set; } = [];
-    internal OrderStatus Status { get; set; }
-    internal PaymentMethod PaymentMethod { get; set; }
+    public OrderStatus Status { get; set; }
+    public PaymentMethod PaymentMethod { get; set; }
     public decimal TotalPrice { get; set; }
 
     public OrderMongoDb()

@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Api.Controllers;
 
 [ApiController]
-[Route("Order")]
+[Route("/v1/Order")]
 public class PaymentController : ControllerBase
 {
     private readonly IOrderUseCase _order;

@@ -12,12 +12,13 @@ internal class PaymentMethodNotSupportedException : Exception
 
     internal static void ThrowIfPaymentMethodIsNotSupported(string paymentMethod)
     {
-        if (!Enum.IsDefined(typeof(PaymentMethod), paymentMethod))
-            throw new PaymentMethodNotSupportedException(paymentMethod);
+        var isInvalid =
+            Enum.TryParse(paymentMethod, out PaymentMethod paymentMethodEnum) is false
+            || paymentMethodEnum != PaymentMethod.Pix;
 
-        _ = Enum.TryParse(paymentMethod, out PaymentMethod paymentMethodEnum);
-
-        if (paymentMethodEnum != PaymentMethod.Pix)
+        if (isInvalid)
+        {
             throw new PaymentMethodNotSupportedException(paymentMethod);
+        }
     }
 }

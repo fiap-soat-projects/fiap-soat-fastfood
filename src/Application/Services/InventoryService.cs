@@ -8,11 +8,11 @@ namespace Application.Services;
 
 internal class InventoryService : IInventoryService
 {
-    private readonly IInventoryLogger _logger;
+    private readonly IInventoryLogger _inventoryLogger;
 
-    public InventoryService(IInventoryLogger logger)
+    public InventoryService(IInventoryLogger inventoryLogger)
     {
-        _logger = logger;
+        _inventoryLogger = inventoryLogger;
     }
 
     public void GenerateAuditLog(Order order, DateTime date)
@@ -34,7 +34,7 @@ internal class InventoryService : IInventoryService
             auditLogBuilder.AppendLine(auditLog);
         }
 
-        _logger.SendAuditLog(auditLogBuilder.ToString());
+        _inventoryLogger.SendAuditLog(auditLogBuilder.ToString());
     }
 
     private static IEnumerable<ItemQuantity> ExtractItemQuantities(Order order)

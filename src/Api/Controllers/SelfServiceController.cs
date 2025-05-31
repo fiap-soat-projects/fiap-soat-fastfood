@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Api.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("/v1/[controller]")]
 public class SelfServiceController : ControllerBase
 {
     private readonly ISelfServiceUseCase _selfService;

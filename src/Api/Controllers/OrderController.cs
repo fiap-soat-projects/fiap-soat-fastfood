@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Api.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("/v1/[controller]")]
 public class OrderController : ControllerBase
 {
     private readonly IOrderUseCase _order;
@@ -14,6 +14,22 @@ public class OrderController : ControllerBase
     public OrderController(IOrderUseCase order)
     {
         _order = order;
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> PostAsync([FromBody] CreateRequest createRequest, CancellationToken cancellationToken)
+    {
+        var id = await _order.CreateAsync(createRequest, cancellationToken);
+
+        return new CreatedResult("/order", id);
+    }
+
+    [HttpGet("{id:length(24)}")]
+    public async Task<IActionResult> GetByIdAsync(string id, CancellationToken cancellationToken)
+    {
+        var order = await _order.GetByIdAsync(id, cancellationToken);
+
+        return Ok(order);
     }
 
     [HttpGet]
@@ -28,22 +44,6 @@ public class OrderController : ControllerBase
         var orders = await _order.GetAllAsync(orderFilter, cancellationToken);
 
         return Ok(orders);
-    }
-
-    [HttpGet("{id:length(24)}")]
-    public async Task<IActionResult> GetByIdAsync(string id, CancellationToken cancellationToken)
-    {
-        var order = await _order.GetByIdAsync(id, cancellationToken);
-
-        return Ok(order);
-    }
-
-    [HttpPost]
-    public async Task<IActionResult> PostAsync([FromBody] CreateRequest createRequest, CancellationToken cancellationToken)
-    {
-        var id = await _order.CreateAsync(createRequest, cancellationToken);
-
-        return new CreatedResult("/order", id);
     }
 
     [HttpPatch("{id:length(24)}/status")]

@@ -12,7 +12,6 @@ internal class MenuItemMongoDb : MongoEntity
     public string? Description { get; set; }
     public decimal Price { get; set; }
     public bool IsActive { get; set; }
-    public bool IsDeleted { get; set; }
     public ItemCategory Category { get; set; }
 
     public MenuItemMongoDb()
@@ -22,6 +21,7 @@ internal class MenuItemMongoDb : MongoEntity
 
     internal MenuItemMongoDb(MenuItem menuItem)
     {
+        Id = menuItem.Id;
         Name = menuItem.Name;
         Description = menuItem.Description;
         Price = menuItem.Price;

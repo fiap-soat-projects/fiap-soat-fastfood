@@ -5,10 +5,10 @@ services:
       context: .
       dockerfile: Dockerfile
     restart: always
+    env_file:
+      - .env
     ports:
-      - 5000:5000
-    environment:
-      MONGO_URI: mongodb://fastfooduser:f4sTf00dP4ssW0rd!@mongo:27017/fastfood
+      - 5000:5000    
     networks:
       - mongo-network
     depends_on:

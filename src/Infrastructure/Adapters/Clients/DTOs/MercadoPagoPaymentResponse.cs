@@ -1,4 +1,5 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using Domain.Entities;
+using System.Diagnostics.CodeAnalysis;
 using System.Text.Json.Serialization;
 
 namespace Infrastructure.Adapters.Clients.DTOs;
@@ -23,4 +24,18 @@ internal class MercadoPagoPaymentResponse
 
     [JsonPropertyName("point_of_interaction")]
     public MercadoPagoPointOfInteraction? PointOfInteraction { get; init; }
+
+    internal PaymentCheckout ToDomain()
+    {
+        var orderPaymentCheckout = new PaymentCheckout
+        {
+            Id = Id,
+            PaymentMethod = PaymentMethodId!,
+            QrCode = PointOfInteraction?.TransactionData?.QrCode!,
+            QrCodeBase64 = PointOfInteraction?.TransactionData?.QrCodeBase64!,
+            Amount = TransactionAmount,
+        };
+
+        return orderPaymentCheckout;
+    }
 }
