@@ -18,7 +18,7 @@ public static class ApplicationExtensions
     {
         return services
             .AddSingleton<IOrderUseCase, OrderUseCase>()
-            .AddSingleton<ISelfServiceUseCase, SelfServiceUseCase>()
+            .AddSingleton<ISelfOrderingUseCase, SelfOrderingUseCase>()
             .AddSingleton<IMenuUseCase, MenuUseCase>();
     }
 
