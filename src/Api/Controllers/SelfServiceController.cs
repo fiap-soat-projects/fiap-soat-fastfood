@@ -8,9 +8,9 @@ namespace Api.Controllers;
 [Route("[controller]")]
 public class SelfServiceController : ControllerBase
 {
-    private readonly ICustomerSelfServiceUseCase _customerSelfService;
+    private readonly ISelfServiceUseCase _customerSelfService;
 
-    public SelfServiceController(ICustomerSelfServiceUseCase customerSelfService)
+    public SelfServiceController(ISelfServiceUseCase customerSelfService)
     {
         _customerSelfService = customerSelfService;
     }

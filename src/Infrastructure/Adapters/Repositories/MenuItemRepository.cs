@@ -33,18 +33,33 @@ internal class MenuItemRepository : IMenuItemRepository
         }
     }
 
-    public Task<MenuItem?> GetByIdAsync(string id, CancellationToken cancellationToken)
+    public async Task<MenuItem?> GetByIdAsync(string id, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        var menuItemMongoDb = await _repository.GetByIdAsync(id, cancellationToken);
+
+        if (menuItemMongoDb is null)
+        {
+            return default;
+        }
+
+        return menuItemMongoDb.ToDomain();
     }
 
-    public Task<IEnumerable<MenuItem>> GetAllAsync(MenuItemFilter filter, CancellationToken cancellationToken)
+    public async Task<IEnumerable<MenuItem>> GetAllAsync(MenuItemFilter filter, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        var menuItemsMongoDb = await _repository.GetAllAsync(filter, cancellationToken);
+
+        var menuItems = menuItemsMongoDb?.Select(menuItem => menuItem.ToDomain()) ?? [];
+
+        return menuItems;
     }
 
-    public Task UpdateAsync(string id, MenuItem menuItem, CancellationToken cancellationToken)
+    public async Task<MenuItem> UpdateAsync(string id, MenuItem menuItem, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        var menuItemMongoDb = new MenuItemMongoDb(menuItem);
+
+        menuItemMongoDb = await _repository.UpdateAsync(id, menuItemMongoDb, cancellationToken);
+
+        return menuItemMongoDb.ToDomain();
     }
 }

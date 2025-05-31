@@ -3,7 +3,7 @@ using Application.UseCases.DTOs.Response;
 
 namespace Application.UseCases.Interfaces;
 
-public interface ICustomerSelfServiceUseCase
+public interface ISelfServiceUseCase
 {
     Task<RegisterCustomerResponse> RegisterAsync(RegisterCustomerRequest input, CancellationToken cancellationToken);
     Task<RegisterCustomerResponse> GetByIdAsync(string id, CancellationToken cancellationToken);

@@ -1,7 +1,6 @@
 ﻿using Domain.Entities.Enums;
-using System.Text.Json.Serialization;
 
-namespace Domain.Services.DTOs;
+namespace Application.UseCases.DTOs.Response;
 
 public record MenuItemResponse(
     string Id,
@@ -11,6 +10,5 @@ public record MenuItemResponse(
     string Description,
     bool IsActive)
 {
-    [JsonConverter(typeof(JsonStringEnumConverter))]
     public ItemCategory Category { get; init; } = Category;
 }

@@ -68,7 +68,7 @@ internal class MenuItemMongoDbRepository : BaseRepository<MenuItemMongoDb>, IMen
         return cursor.ToEnumerable(cancellationToken: cancellationToken);
     }
 
-    public async Task UpdateAsync(string id, MenuItemMongoDb item, CancellationToken cancellationToken)
+    public async Task<MenuItemMongoDb> UpdateAsync(string id, MenuItemMongoDb item, CancellationToken cancellationToken)
     {
         var filter = Builders<MenuItemMongoDb>
             .Filter
@@ -81,6 +81,8 @@ internal class MenuItemMongoDbRepository : BaseRepository<MenuItemMongoDb>, IMen
             .Set(menuItem => menuItem.Description, item.Description)
             .Set(menuItem => menuItem.IsActive, item.IsActive);
 
-        await _collection.UpdateOneAsync(filter, update, cancellationToken: cancellationToken);
+        _ = await _collection.UpdateOneAsync(filter, update, cancellationToken: cancellationToken);
+
+        return item;
     }
 }

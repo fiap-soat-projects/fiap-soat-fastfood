@@ -1,4 +1,4 @@
-﻿using Application.UseCases.DTOs;
+﻿using Application.UseCases.DTOs.Filters;
 using Application.UseCases.DTOs.Request;
 using Application.UseCases.DTOs.Response;
 using Domain.Entities.Page;

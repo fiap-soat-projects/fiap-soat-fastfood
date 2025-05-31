@@ -1,4 +1,4 @@
-﻿using Application.UseCases.DTOs;
+﻿using Application.UseCases.DTOs.Filters;
 using Application.UseCases.DTOs.Request;
 using Application.UseCases.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -15,8 +15,6 @@ public class OrderController : ControllerBase
     {
         _orderService = orderService;
     }
-
-    #region Get
 
     [HttpGet]
     public async Task<IActionResult> GetAllAsync(
@@ -41,10 +39,6 @@ public class OrderController : ControllerBase
         return Ok(order);
     }
 
-    #endregion
-
-    #region Post
-
     [HttpPost]
     public async Task<IActionResult> PostAsync(
         [FromBody] CreateRequest createRequest,
@@ -56,9 +50,6 @@ public class OrderController : ControllerBase
 
         return new CreatedResult("/order", id);
     }
-    #endregion
-
-    #region Patch
 
     [HttpPatch("{id}/status")]
     public async Task<IActionResult> UpdateStatusAsync(
@@ -74,10 +65,6 @@ public class OrderController : ControllerBase
         return Ok(updatedOrder);
     }
 
-    #endregion
-
-    #region Delete
-
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteAsync(
         string id,
@@ -86,6 +73,4 @@ public class OrderController : ControllerBase
         await _orderService.DeleteAsync(id, cancellationToken);
         return NoContent();
     }
-
-    #endregion
 }

@@ -40,11 +40,11 @@ internal class MenuItemService : IMenuItemService
         return items;
     }
 
-    public async Task UpdateAsync(MenuItem item, CancellationToken cancellationToken)
+    public async Task<MenuItem> UpdateAsync(MenuItem item, CancellationToken cancellationToken)
     {
         _ = await GetByIdAsync(item.Id, cancellationToken);
 
-        await _menuItemRepository.UpdateAsync(item.Id, item, cancellationToken);
+        return await _menuItemRepository.UpdateAsync(item.Id, item, cancellationToken);
     }
 
     public async Task SoftDeleteAsync(string id, CancellationToken cancellationToken)

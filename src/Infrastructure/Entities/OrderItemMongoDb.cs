@@ -5,7 +5,7 @@ using MongoDB.Bson.Serialization.Attributes;
 namespace Infrastructure.Entities;
 
 [BsonIgnoreExtraElements]
-public class OrderItemMongoDb
+internal class OrderItemMongoDb
 {
     public string? Id { get; set; }
     public string? Name { get; set; }

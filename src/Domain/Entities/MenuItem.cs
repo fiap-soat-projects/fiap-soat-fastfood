@@ -64,6 +64,7 @@ public class MenuItem : IAggregateRoot
     [SetsRequiredMembers]
     public MenuItem(string name, decimal price, string description, ItemCategory category)
     {
+        CreatedAt = DateTime.UtcNow;
         Name = name;
         Price = price;
         Category = category;
