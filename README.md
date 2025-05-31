@@ -62,14 +62,14 @@ Consulte o diretório [`/diagrams`](diagrams) para visualizar os arquivos e obte
 - `PATCH /Order/{id}/status` — Atualizar status do pedido
 - `DELETE /Order/{id}` — Remover pedido
 
-### 💸 Payment (Pagamento)
+### 💸 Transaction (Pagamento)
 - `POST /Order/{id}/checkout` — Iniciar checkout/pagamento
 - `POST /Order/{id}/confirm-payment` — Confirmar pagamento
 
-### 🤖 SelfService (Cliente)
-- `GET /SelfService/customer/{id}` — Buscar cliente por ID
-- `GET /SelfService/customer/{cpf}` — Buscar cliente por CPF
-- `POST /SelfService/customer` — Registrar cliente
+### 🤖 SelfOrdering (Cliente)
+- `GET /SelfOrdering/customer/{id}` — Buscar cliente por ID
+- `GET /SelfOrdering/customer/{cpf}` — Buscar cliente por CPF
+- `POST /SelfOrdering/customer` — Registrar cliente
 
 ### 📲 Menu (Cardápio)
 - `GET /Menu/{id}` — Detalhar item do cardápio

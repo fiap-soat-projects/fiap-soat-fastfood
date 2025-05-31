@@ -6,20 +6,20 @@ namespace Api.Controllers;
 
 [ApiController]
 [Route("/v1/[controller]")]
-public class SelfServiceController : ControllerBase
+public class SelfOrderingController : ControllerBase
 {
-    private readonly ISelfServiceUseCase _selfService;
+    private readonly ISelfOrderingUseCase _selfOrdering;
 
-    public SelfServiceController(ISelfServiceUseCase selfService)
+    public SelfOrderingController(ISelfOrderingUseCase selfOrdering)
     {
-        _selfService = selfService;
+        _selfOrdering = selfOrdering;
     }
 
     [HttpGet]
     [Route("customer/{id:length(24)}")]
     public async Task<IActionResult> GetByIdAsync([FromRoute] string id, CancellationToken cancellationToken)
     {
-        var response = await _selfService.GetByIdAsync(id, cancellationToken);
+        var response = await _selfOrdering.GetByIdAsync(id, cancellationToken);
 
         return Ok(response);
     }
@@ -28,7 +28,7 @@ public class SelfServiceController : ControllerBase
     [Route("customer/{cpf}")]
     public async Task<IActionResult> GetByCpfAsync([FromRoute] string cpf, CancellationToken cancellationToken)
     {
-        var response = await _selfService.GetByCpfAsync(cpf, cancellationToken);
+        var response = await _selfOrdering.GetByCpfAsync(cpf, cancellationToken);
 
         return Ok(response);
     }
@@ -37,7 +37,7 @@ public class SelfServiceController : ControllerBase
     [Route("customer")]
     public async Task<IActionResult> RegisterAsync([FromBody] RegisterCustomerRequest request, CancellationToken cancellationToken)
     {
-        var customer = await _selfService.RegisterAsync(request, cancellationToken);
+        var customer = await _selfOrdering.RegisterAsync(request, cancellationToken);
 
         return Created(
             Url.Action(nameof(RegisterAsync),

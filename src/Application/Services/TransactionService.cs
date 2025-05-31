@@ -6,13 +6,13 @@ using Domain.Entities.Enums;
 using Domain.Services.Interfaces;
 
 namespace Application.Services;
-internal class PaymentService : IPaymentService
+internal class TransactionService : ITransactionService
 {
     private readonly IPixAdapter _pixAdapter;
     private readonly ICustomerService _customerService;
     private readonly IOrderRepository _orderRepository;
 
-    public PaymentService(IPixAdapter pixAdapter, ICustomerService registerCustomerService, IOrderRepository orderRepository)
+    public TransactionService(IPixAdapter pixAdapter, ICustomerService registerCustomerService, IOrderRepository orderRepository)
     {
         _pixAdapter = pixAdapter;
         _customerService = registerCustomerService;

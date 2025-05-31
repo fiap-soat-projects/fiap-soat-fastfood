@@ -6,11 +6,11 @@ using Domain.Services.Interfaces;
 
 namespace Application.UseCases;
 
-internal class SelfServiceUseCase : ISelfServiceUseCase
+internal class SelfOrderingUseCase : ISelfOrderingUseCase
 {
     private readonly ICustomerService _customerService;
 
-    public SelfServiceUseCase(ICustomerService customerService)
+    public SelfOrderingUseCase(ICustomerService customerService)
     {
         _customerService = customerService;
     }

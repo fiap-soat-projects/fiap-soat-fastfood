@@ -6,11 +6,11 @@ namespace Api.Controllers;
 
 [ApiController]
 [Route("/v1/Order")]
-public class PaymentController : ControllerBase
+public class TransactionController : ControllerBase
 {
     private readonly IOrderUseCase _order;
 
-    public PaymentController(IOrderUseCase order)
+    public TransactionController(IOrderUseCase order)
     {
         _order = order;
     }
