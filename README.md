@@ -62,7 +62,7 @@ Consulte o diretório [`/diagrams`](diagrams) para visualizar os arquivos e obte
 - `PATCH /Order/{id}/status` — Atualizar status do pedido
 - `DELETE /Order/{id}` — Remover pedido
 
-### 💸 Payment (Pagamento)
+### 💸 Transaction (Pagamento)
 - `POST /Order/{id}/checkout` — Iniciar checkout/pagamento
 - `POST /Order/{id}/confirm-payment` — Confirmar pagamento
 

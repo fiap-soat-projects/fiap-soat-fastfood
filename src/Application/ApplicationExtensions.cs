@@ -26,7 +26,7 @@ public static class ApplicationExtensions
     {
         return services
             .AddSingleton<IOrderService, OrderService>()
-            .AddSingleton<IPaymentService, PaymentService>()
+            .AddSingleton<ITransactionService, TransactionService>()
             .AddSingleton<ICustomerService, CustomerService>()
             .AddSingleton<IInventoryService, InventoryService>()
             .AddSingleton<IMenuItemService, MenuItemService>();

@@ -16,13 +16,13 @@ internal class OrderUseCase : IOrderUseCase
     private readonly IOrderService _orderService;
     private readonly IMenuItemService _menuItemService;
     private readonly IInventoryService _inventoryService;
-    private readonly IPaymentService _paymentService;
+    private readonly ITransactionService _paymentService;
 
     public OrderUseCase(
         IOrderService orderService,
         IMenuItemService menuItemService,
         IInventoryService inventoryService,
-        IPaymentService paymentService)
+        ITransactionService paymentService)
     {
         _orderService = orderService;
         _menuItemService = menuItemService;

@@ -1,4 +1,4 @@
-# PaymentController
+# TransactionController
 
 POST {{Api_HostAddress}}/Order/{{orderId}}/checkout
 Content-Type: application/json
