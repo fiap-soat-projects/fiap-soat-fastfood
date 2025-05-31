@@ -18,7 +18,7 @@ public static class ApplicationExtensions
     {
         return services
             .AddSingleton<IOrderUseCase, OrderUseCase>()
-            .AddSingleton<ICustomerSelfService, CustomerSelfService>();
+            .AddSingleton<ICustomerSelfServiceUseCase, CustomerSelfServiceUseCase>();
     }
 
     private static IServiceCollection RegisterServices(this IServiceCollection services)

@@ -10,7 +10,6 @@ public class PaymentCheckout
     private string? _qrCodeBase64;
     private decimal _amount;
 
-
     public required long Id
     {
         get => _id;

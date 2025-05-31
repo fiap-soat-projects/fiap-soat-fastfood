@@ -8,6 +8,8 @@ db.createUser({
 
 const now = new Date();
 
+db.customer.createIndex({ cpf: 1 }, { unique: true });
+
 db.menu.createIndex({ name: 1 }, { unique: true });
 
 db.menu.insertMany([
@@ -412,3 +414,5 @@ db.menu.insertMany([
         isDeleted: false
     }
 ]);
+
+// TODO: Add some orders and users to query database when starts application first time

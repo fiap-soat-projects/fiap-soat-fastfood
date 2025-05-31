@@ -1,7 +1,7 @@
 ﻿using Domain.Entities.Enums;
-using Infrastructure.Contexts.Interfaces;
 using Infrastructure.Entities;
-using Infrastructure.Repositories.Entities;
+using Infrastructure.Entities.Page;
+using Infrastructure.MongoDb.Contexts.Interfaces;
 using Infrastructure.Repositories.Interfaces;
 using MongoDB.Driver;
 
@@ -10,9 +10,10 @@ internal class OrderMongoDbRepository : BaseRepository<OrderMongoDb>, IOrderMong
 {
     public OrderMongoDbRepository(IMongoContext mongoContext) : base(mongoContext)
     {
+
     }
 
-    public async Task<string> CreateAsync(OrderMongoDb order, CancellationToken cancellationToken)
+    public async Task<string> InsertOneAsync(OrderMongoDb order, CancellationToken cancellationToken)
     {
         await _collection.InsertOneAsync(order, null, cancellationToken);
         return order.Id;
@@ -36,13 +37,7 @@ internal class OrderMongoDbRepository : BaseRepository<OrderMongoDb>, IOrderMong
 
     public async Task<PagedResult<OrderMongoDb>> GetAllPaginate(int page, int size, CancellationToken cancellationToken)
     {
-
         var filter = Builders<OrderMongoDb>.Filter.Empty;
-        var options = new FindOptions<OrderMongoDb>
-        {
-            Skip = (page - 1) * size,
-            Limit = size
-        };
 
         var pagedResult = await GetPagedAsync(page, size, filter, cancellationToken);
 
@@ -52,6 +47,7 @@ internal class OrderMongoDbRepository : BaseRepository<OrderMongoDb>, IOrderMong
     public async Task<OrderMongoDb?> GetByIdAsync(string id, CancellationToken cancellationToken)
     {
         var filter = Builders<OrderMongoDb>.Filter.Eq(entity => entity.Id, id);
+
         var order = await _collection.Find(filter).FirstOrDefaultAsync(cancellationToken);
 
         return order;
@@ -60,6 +56,7 @@ internal class OrderMongoDbRepository : BaseRepository<OrderMongoDb>, IOrderMong
     public Task<OrderMongoDb> UpdateStatusAsync(string id, OrderStatus status, CancellationToken cancellationToken)
     {
         var filter = Builders<OrderMongoDb>.Filter.Eq(entity => entity.Id, id);
+
         var update = Builders<OrderMongoDb>.Update.Set(entity => entity.Status, status);
 
         var options = new FindOneAndUpdateOptions<OrderMongoDb>

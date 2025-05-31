@@ -48,12 +48,12 @@ internal class OrderUseCase : IOrderUseCase
             .Items
             .Select(item =>
             {
-                _ = Enum.TryParse(item.Category, out MenuItemCategory category);
+                var category = ParseItemCategory(item);
 
                 return new OrderItem
                 (
-                    item.Id,
-                    item.Name,
+                    item.Id!,
+                    item.Name!,
                     category,
                     item.Price,
                     item.Amount
@@ -123,6 +123,13 @@ internal class OrderUseCase : IOrderUseCase
         }
 
         return ParseOrderStatus(filter.Status!);
+    }
+
+    private static ItemCategory ParseItemCategory(OrderItemRequest item)
+    {
+        _ = Enum.TryParse(item.Category, out ItemCategory category);
+
+        return category;
     }
 
     private static OrderStatus ParseOrderStatus(string text)

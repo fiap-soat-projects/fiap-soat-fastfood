@@ -13,8 +13,8 @@ public class MenuItem : IAggregateRoot
     private string? _description;
 
     public DateTime CreatedAt { get; init; }
-    public bool IsActive { get; private set; }
-    public required MenuItemCategory Category { get; init; }
+    public bool IsActive { get; internal set; }
+    public required ItemCategory Category { get; init; }
 
     public string Id
     {
@@ -62,7 +62,7 @@ public class MenuItem : IAggregateRoot
     }
 
     [SetsRequiredMembers]
-    public MenuItem(string name, decimal price, string description, MenuItemCategory category)
+    public MenuItem(string name, decimal price, string description, ItemCategory category)
     {
         Name = name;
         Price = price;
@@ -75,5 +75,10 @@ public class MenuItem : IAggregateRoot
         Id = id;
         CreatedAt = createdAt;
         IsActive = isActive;
+    }
+
+    internal void SetInactive()
+    {
+        IsActive = false;
     }
 }

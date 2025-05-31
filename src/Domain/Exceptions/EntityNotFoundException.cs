@@ -2,7 +2,7 @@
 
 namespace Domain.Exceptions;
 
-public abstract class EntityNotFoundException<TEntity> : DomainException where TEntity : IAggregateRoot
+public class EntityNotFoundException<TEntity> : DomainException where TEntity : IAggregateRoot
 {
     private static readonly string _entityClassName = typeof(TEntity).Name;
 
@@ -12,5 +12,13 @@ public abstract class EntityNotFoundException<TEntity> : DomainException where T
         : base(string.Format(ENTITY_NOT_FOUND_TEMPLATE_MESSAGE, _entityClassName, id))
     {
 
+    }
+
+    public static void ThrowIfNull(TEntity? entity, string identifier)
+    {
+        if (entity is null)
+        {
+            throw new EntityNotFoundException<TEntity>(identifier);
+        }
     }
 }

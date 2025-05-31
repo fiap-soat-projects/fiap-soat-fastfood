@@ -6,10 +6,10 @@ namespace Domain.Services.DTOs;
 public record UpdateMenuItemRequest(
     string? Name,
     decimal Price,
-    MenuItemCategory Category,
+    ItemCategory Category,
     string? Description,
     bool IsActive)
 {
     [JsonConverter(typeof(JsonStringEnumConverter))]
-    public MenuItemCategory Category { get; init; } = Category;
+    public ItemCategory Category { get; init; } = Category;
 }

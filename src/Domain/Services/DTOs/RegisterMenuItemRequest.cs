@@ -6,9 +6,9 @@ namespace Domain.Services.DTOs;
 public record RegisterMenuItemRequest(
     string? Name,
     decimal Price,
-    MenuItemCategory Category,
+    ItemCategory Category,
     string? Description)
 {
     [JsonConverter(typeof(JsonStringEnumConverter))]
-    public MenuItemCategory Category { get; init; } = Category;
+    public ItemCategory Category { get; init; } = Category;
 }

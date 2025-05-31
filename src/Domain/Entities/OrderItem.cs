@@ -8,7 +8,7 @@ public class OrderItem
 {
     private string? _id;
     private string? _name;
-    private MenuItemCategory _category;
+    private ItemCategory _category;
     private decimal _price;
     private int _amount;
 
@@ -34,7 +34,7 @@ public class OrderItem
         }
     }
 
-    public required MenuItemCategory Category
+    public required ItemCategory Category
     {
         get => _category;
         set
@@ -68,7 +68,7 @@ public class OrderItem
     }
 
     [SetsRequiredMembers]
-    internal OrderItem(string id, string name, MenuItemCategory category, decimal price, int amount)
+    internal OrderItem(string id, string name, ItemCategory category, decimal price, int amount)
     {
         Id = id;
         Name = name;
@@ -82,9 +82,9 @@ public class OrderItem
         return Price * Amount;
     }
 
-    private static void ValidateCategory(MenuItemCategory value)
+    private static void ValidateCategory(ItemCategory value)
     {
-        var isInvalidCategory = !Enum.IsDefined(typeof(MenuItemCategory), value) || value == MenuItemCategory.None;
+        var isInvalidCategory = !Enum.IsDefined(typeof(ItemCategory), value) || value == ItemCategory.None;
 
         if (isInvalidCategory)
         {

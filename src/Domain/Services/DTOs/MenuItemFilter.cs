@@ -4,6 +4,6 @@ namespace Domain.Services.DTOs;
 
 public record MenuItemFilter(
     string? Name,
-    MenuItemCategory? Category,
+    ItemCategory? Category,
     int Skip,
     int Limit);

@@ -1,5 +1,19 @@
 services:
 
+  fastfood-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - 5000:5000
+    environment:
+      MONGO_URI: mongodb://fastfooduser:f4sTf00dP4ssW0rd!@mongo:27017/fastfood
+    networks:
+      - mongo-network
+    depends_on:
+      - mongo
+
   mongo:
     image: mongo
     restart: always
