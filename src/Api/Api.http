@@ -58,19 +58,19 @@ Accept: application/json
 
 ###
 
-# SelfServiceController
+# SelfOrderingController
 
-GET {{Api_HostAddress}}/SelfService/customer/{{customerId}}
+GET {{Api_HostAddress}}/SelfOrdering/customer/{{customerId}}
 Accept: application/json
 
 ###
 
-GET {{Api_HostAddress}}/SelfService/customer/{{cpf}}
+GET {{Api_HostAddress}}/SelfOrdering/customer/{{cpf}}
 Accept: application/json
 
 ###
 
-POST {{Api_HostAddress}}/SelfService/customer
+POST {{Api_HostAddress}}/SelfOrdering/customer
 Content-Type: application/json
 Accept: application/json
 

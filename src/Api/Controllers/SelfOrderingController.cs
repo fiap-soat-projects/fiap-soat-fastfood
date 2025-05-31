@@ -10,9 +10,9 @@ public class SelfOrderingController : ControllerBase
 {
     private readonly ISelfOrderingUseCase _selfOrdering;
 
-    public SelfOrderingController(ISelfOrderingUseCase selfService)
+    public SelfOrderingController(ISelfOrderingUseCase selfOrdering)
     {
-        _selfOrdering = selfService;
+        _selfOrdering = selfOrdering;
     }
 
     [HttpGet]
