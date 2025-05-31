@@ -17,7 +17,7 @@ internal class MenuUseCase : IMenuUseCase
         _menuItemService = menuItemService;
     }
 
-    public async Task<MenuItemResponse> CreateAsync(RegisterMenuItemRequest input, CancellationToken cancellationToken)
+    public async Task<MenuItemResponse> RegisterAsync(RegisterMenuItemRequest input, CancellationToken cancellationToken)
     {
         var menuItem = new MenuItem(
             input.Name!,

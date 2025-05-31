@@ -2,7 +2,7 @@
 
 namespace Domain.Services.DTOs;
 
-public record MenuItemFilter(
+internal record MenuItemFilter(
     string? Name,
     ItemCategory? Category,
     int Skip,

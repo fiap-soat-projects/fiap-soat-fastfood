@@ -3,6 +3,7 @@ using Domain.Entities.Enums;
 using Domain.Entities.Page;
 
 namespace Domain.Adapters.Repositories;
+
 internal interface IOrderRepository
 {
     Task<string> CreateAsync(Order order, CancellationToken cancellationToken);

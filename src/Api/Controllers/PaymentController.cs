@@ -8,29 +8,29 @@ namespace Api.Controllers;
 [Route("Order")]
 public class PaymentController : ControllerBase
 {
-    private readonly IOrderUseCase _orderUseCase;
+    private readonly IOrderUseCase _order;
 
-    public PaymentController(IOrderUseCase orderService)
+    public PaymentController(IOrderUseCase order)
     {
-        _orderUseCase = orderService;
+        _order = order;
     }
 
-    [HttpPost("{id}/checkout")]
+    [HttpPost("{id:length(24)}/checkout")]
     public async Task<IActionResult> CheckoutAsync(
         [FromBody] CheckoutRequest checkoutRequest,
         string id,
         CancellationToken cancellationToken)
     {
-        var checkoutResponse = await _orderUseCase.CheckoutAsync(id, checkoutRequest, cancellationToken);
+        var checkoutResponse = await _order.CheckoutAsync(id, checkoutRequest, cancellationToken);
+
         return Ok(checkoutResponse);
     }
 
-    [HttpPost("{id}/confirm-payment")]
-    public async Task<IActionResult> ConfirmPaymentAsync(
-        string id,
-        CancellationToken cancellationToken)
+    [HttpPost("{id:length(24)}/confirm-payment")]
+    public async Task<IActionResult> ConfirmPaymentAsync(string id, CancellationToken cancellationToken)
     {
-        await _orderUseCase.ConfirmPaymentAsync(id, cancellationToken);
+        await _order.ConfirmPaymentAsync(id, cancellationToken);
+
         return NoContent();
     }
 }

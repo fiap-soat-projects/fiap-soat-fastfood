@@ -3,7 +3,7 @@ using Domain.Services.DTOs;
 
 namespace Domain.Services.Interfaces;
 
-public interface IMenuItemService
+internal interface IMenuItemService
 {
     Task<MenuItem> CreateAsync(MenuItem item, CancellationToken cancellationToken);
     Task<MenuItem> GetByIdAsync(string id, CancellationToken cancellationToken);

@@ -9,11 +9,11 @@ namespace Api.Controllers;
 [Route("[controller]")]
 public class OrderController : ControllerBase
 {
-    private readonly IOrderUseCase _orderService;
+    private readonly IOrderUseCase _order;
 
-    public OrderController(IOrderUseCase orderService)
+    public OrderController(IOrderUseCase order)
     {
-        _orderService = orderService;
+        _order = order;
     }
 
     [HttpGet]
@@ -24,53 +24,44 @@ public class OrderController : ControllerBase
         CancellationToken cancellationToken)
     {
         var orderFilter = new OrderFilter(status, page, size);
-        var orders = await _orderService.GetAllAsync(orderFilter, cancellationToken);
+
+        var orders = await _order.GetAllAsync(orderFilter, cancellationToken);
 
         return Ok(orders);
     }
 
-    [HttpGet("{id}")]
-    public async Task<IActionResult> GetByIdAsync(
-        string id,
-        CancellationToken cancellationToken)
+    [HttpGet("{id:length(24)}")]
+    public async Task<IActionResult> GetByIdAsync(string id, CancellationToken cancellationToken)
     {
-        var order = await _orderService.GetByIdAsync(id, cancellationToken);
+        var order = await _order.GetByIdAsync(id, cancellationToken);
 
         return Ok(order);
     }
 
     [HttpPost]
-    public async Task<IActionResult> PostAsync(
-        [FromBody] CreateRequest createRequest,
-        CancellationToken cancellationToken)
+    public async Task<IActionResult> PostAsync([FromBody] CreateRequest createRequest, CancellationToken cancellationToken)
     {
-        var id = await _orderService.CreateAsync(
-            createRequest,
-            cancellationToken);
+        var id = await _order.CreateAsync(createRequest, cancellationToken);
 
         return new CreatedResult("/order", id);
     }
 
-    [HttpPatch("{id}/status")]
+    [HttpPatch("{id:length(24)}/status")]
     public async Task<IActionResult> UpdateStatusAsync(
-        [FromBody] UpdateStatusRequest updateRequest,
+        [FromBody] UpdateStatusRequest request,
         string id,
         CancellationToken cancellationToken)
     {
-        var updatedOrder = await _orderService.UpdateStatusAsync(
-            id,
-            updateRequest,
-            cancellationToken);
+        var updatedOrder = await _order.UpdateStatusAsync(id, request, cancellationToken);
 
         return Ok(updatedOrder);
     }
 
-    [HttpDelete("{id}")]
-    public async Task<IActionResult> DeleteAsync(
-        string id,
-        CancellationToken cancellationToken)
+    [HttpDelete("{id:length(24)}")]
+    public async Task<IActionResult> DeleteAsync(string id, CancellationToken cancellationToken)
     {
-        await _orderService.DeleteAsync(id, cancellationToken);
+        await _order.DeleteAsync(id, cancellationToken);
+
         return NoContent();
     }
 }

@@ -6,7 +6,7 @@ namespace Application.UseCases.Interfaces;
 
 public interface IMenuUseCase
 {
-    Task<MenuItemResponse> CreateAsync(RegisterMenuItemRequest input, CancellationToken cancellationToken);
+    Task<MenuItemResponse> RegisterAsync(RegisterMenuItemRequest input, CancellationToken cancellationToken);
     Task<MenuItemResponse> GetByIdAsync(string id, CancellationToken cancellationToken);
     Task<IEnumerable<MenuItemResponse>> GetAllAsync(MenuFilter filter, CancellationToken cancellationToken);
     Task<MenuItemResponse> UpdateAsync(string id, UpdateMenuItemRequest input, CancellationToken cancellationToken);
