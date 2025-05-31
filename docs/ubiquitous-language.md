@@ -1,28 +1,46 @@
-## Linguagem Ubíqua - FastFood
+# 🌟 Linguagem Ubíqua - FastFood API
 
-### Cliente
-Também chamado de **customer**, é o usuário do sistema da lanchonete que se identifica e realiza os pedidos.
+## 👤 Usuário (User)
+Também chamado de *consumidor* ou *cliente final*, é a pessoa que interage com o sistema da lanchonete para se identificar e realizar pedidos.
 
-### Totem
-Dispositivo de interação do cliente, possibilitando o registro, montagem de pedido e pagamento.
+---
 
-### Sistema
-Refere-se ao software responsável por processar as operações da lanchonete, realizando o registro de clientes, gerenciamento de pedidos e integrações com sistemas extenos.
+## 🖥️ Terminal 
+Estação digital utilizada pelo usuário para **iniciar**, **personalizar** e **finalizar** seu pedido, incluindo o **pagamento**.
 
-### Self-Service / Auto-Atendimento / Totem
-Modulo de gerenciamento do auto atendimento do cliente.
+---
 
-### Menu / Cardápio
-Modulo de gestão de cardápio e categorias.
+## 🧠 Plataforma (Platform)
+Software responsável por gerenciar as operações da lanchonete, como:  
+- Cadastro de usuários 👥  
+- Coordenação de pedidos 🍔  
+- Integrações com serviços externos 🔗
+---
 
-### Kitchen / Cozinha
-Modulo de controle de fluxo de trabalho/preparo da cozinha.
+## 🤖 Autoatendimento (Self-Ordering)
+Módulo responsável por gerenciar a experiência de autoatendimento do usuário.
 
-### Inventory / Estoque
-Modulo de gestão de estoque e disponibilidade de produtos.
+---
 
-### Payment / Pagamento
-Modulo de controle de pagamento.
+## 📋 Gestão de Cardápio (Menu)
+Organiza as **opções de alimentos** e **categorias**, garantindo fácil acesso e atualização dos itens oferecidos.
 
-### Order / Pedido
-Modulo de gerenciamento dos pedidos
+---
+
+## 🍳 Fluxo de Cozinha (Kitchen)
+Supervisiona o processo de **preparo dos pedidos**, organização de tarefas e fluxo de trabalho interno da cozinha.
+
+---
+
+## 💳 Processamento de Transações (Transaction)
+Controla todos os aspectos relacionados a **pagamentos** e **operações financeiras**.
+
+---
+
+## 🧾 Gestão de Pedidos (Order)
+Acompanha, processa e atualiza os pedidos dos usuários ao longo de todo o seu ciclo — do envio até a entrega.
+
+---
+
+## 📦 Gestão de Estoque (Inventory)
+Controla o **estoque** e a **disponibilidade dos produtos**, ajudando a manter o fluxo de vendas sem interrupções.
