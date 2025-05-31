@@ -1,9 +1,9 @@
 ﻿using Domain.Entities;
 using Domain.Exceptions;
 
-namespace Domain.Services.Exceptions;
+namespace Application.Exceptions;
 
-internal class OrderNotFoundException : EntityNotFoundException<Order>
+public class OrderNotFoundException : EntityNotFoundException<Order>
 {
     protected OrderNotFoundException(string id) : base(id)
     {

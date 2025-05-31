@@ -1,8 +1,8 @@
-﻿using Domain.Adapters.Repositories;
+﻿using Application.Exceptions;
+using Domain.Adapters.Repositories;
 using Domain.Entities;
 using Domain.Entities.Enums;
 using Domain.Entities.Page;
-using Domain.Services.Exceptions;
 using Domain.Services.Interfaces;
 
 namespace Application.Services;

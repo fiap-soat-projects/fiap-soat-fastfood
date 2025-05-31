@@ -1,3 +1,4 @@
+using Api.Middlewares;
 using Application;
 using Infrastructure;
 using System.Text.Json.Serialization;
@@ -29,6 +30,8 @@ public class Program
             });
 
         var app = builder.Build();
+
+        app.UseMiddleware<ErrorHandlingMiddleware>();
 
         if (app.Environment.IsDevelopment())
         {
