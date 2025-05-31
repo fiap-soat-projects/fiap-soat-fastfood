@@ -80,7 +80,7 @@ Consulte o diretório [`/diagrams`](diagrams) para visualizar os arquivos e obte
 
 Se preferir, as requisições descritas acima podem ser acessadas via [postman](https://www.postman.com/) por meio da seguinte collection:
 
-- [fiap-soat-fastfood](https://.postman.co/workspace/Jeferson~8dd10144-bd26-4ac4-8dac-84f00b898f8e/collection/7741479-5aac83c6-65ae-48cb-a231-a30e86ad0485?action=share&creator=7741479&active-environment=7741479-66a17c5f-15ba-4aaa-91e6-913ed673a82d)
+- [fiap-soat-fastfood](https://www.postman.com/jefersondsgomes/workspace/fiap-soat-fastfood/collection/7741479-dde54050-3ced-4dcb-830c-bf6e9ec5a8da?action=share&creator=7741479&active-environment=7741479-37d60702-c589-45f8-834c-83c5462c84e7)
 
 ## 👤 Convenções
 
