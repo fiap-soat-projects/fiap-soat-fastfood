@@ -1,16 +1,14 @@
 ﻿using Domain.Adapters.Interfaces;
 using Domain.Adapters.Repositories;
-using Domain.Repositories.Interfaces;
-using Infrastructure.Adapters;
-using Infrastructure.Clients;
-using Infrastructure.Connections;
-using Infrastructure.Connections.Interfaces;
+using Infrastructure.Adapters.Clients;
+using Infrastructure.Adapters.Logger;
+using Infrastructure.Adapters.Repositories;
 using Infrastructure.Exceptions;
-using Infrastructure.Factories;
-using Infrastructure.Logger;
-using Infrastructure.Options;
+using Infrastructure.MongoDb.Connections;
+using Infrastructure.MongoDb.Connections.Interfaces;
+using Infrastructure.MongoDb.Factories;
+using Infrastructure.MongoDb.Options;
 using Infrastructure.Repositories;
-using Infrastructure.Repositories.Adapters;
 using Infrastructure.Repositories.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 using Polly;
@@ -43,7 +41,8 @@ public static class InfrastructureExtensions
         services
             .AddSingleton<IInventoryLogger, InventoryLogger>()
             .AddSingleton<IOrderMongoDbRepository, OrderMongoDbRepository>()
-            .AddSingleton<ICustomerMongoDbRepository, CustomerMongoDbRepository>();
+            .AddSingleton<ICustomerMongoDbRepository, CustomerMongoDbRepository>()
+            .AddSingleton<IMenuItemMongoDbRepository, MenuItemMongoDbRepository>();
 
         return services;
     }
@@ -52,7 +51,8 @@ public static class InfrastructureExtensions
     {
         services
             .AddSingleton<IOrderRepository, OrderRepository>()
-            .AddSingleton<ICustomerRepository, CustomerRepository>();
+            .AddSingleton<ICustomerRepository, CustomerRepository>()
+            .AddSingleton<IMenuItemRepository, MenuItemRepository>();
 
         return services;
     }
@@ -60,7 +60,7 @@ public static class InfrastructureExtensions
     public static IServiceCollection RegisterAdapters(this IServiceCollection services)
     {
         services
-            .AddSingleton<IPixAdapter, MercadoPagoClient>() 
+            .AddSingleton<IPixAdapter, MercadoPagoClient>()
             .AddSingleton<IInventoryLogger, InventoryLogger>();
 
         return services;
@@ -92,7 +92,7 @@ public static class InfrastructureExtensions
         const int RETRY_COUNT = 3;
 
         var mercadoPagoApiUrl = Environment.GetEnvironmentVariable(MERCADO_PAGO_API_URL_KEY);
-        EnvironmentVariableNotFoundException.ThrowIfIsNullOrWhiteSpace(mercadoPagoApiUrl, MERCADO_PAGO_API_URL_KEY);   
+        EnvironmentVariableNotFoundException.ThrowIfIsNullOrWhiteSpace(mercadoPagoApiUrl, MERCADO_PAGO_API_URL_KEY);
 
         var mercadoPagoApiToken = Environment.GetEnvironmentVariable(MERCADO_PAGO_API_TOKEN_KEY);
         EnvironmentVariableNotFoundException.ThrowIfIsNullOrWhiteSpace(mercadoPagoApiToken, MERCADO_PAGO_API_TOKEN_KEY);

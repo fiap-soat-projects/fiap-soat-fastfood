@@ -1,5 +1,19 @@
 services:
 
+  fastfood-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    env_file:
+      - .env
+    ports:
+      - 8080:8080
+    networks:
+      - mongo-network
+    depends_on:
+      - mongo
+
   mongo:
     image: mongo
     restart: always

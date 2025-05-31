@@ -1,6 +1,127 @@
-@Api_HostAddress = http://localhost:5103
+# PaymentController
 
-GET {{Api_HostAddress}}/weatherforecast/
+POST {{Api_HostAddress}}/Order/{{orderId}}/checkout
+Content-Type: application/json
+Accept: application/json
+
+{
+  "paymentType": "PIX"
+}
+
+###
+
+POST {{Api_HostAddress}}/Order/{{orderId}}/confirm-payment
+Accept: application/json
+
+###
+
+# OrderController
+
+GET {{Api_HostAddress}}/Order?page=1&size=10&status=OPEN
+Accept: application/json
+
+###
+
+GET {{Api_HostAddress}}/Order/{{orderId}}
+Accept: application/json
+
+###
+
+POST {{Api_HostAddress}}/Order
+Content-Type: application/json
+Accept: application/json
+
+{
+  "customerId": "string",
+  "customerName": "string",
+  "items": [
+    {
+      // Preencha conforme o modelo OrderItemRequest
+    }
+  ]
+}
+
+###
+
+PATCH {{Api_HostAddress}}/Order/{{orderId}}/status
+Content-Type: application/json
+Accept: application/json
+
+{
+  "status": "PAID"
+}
+
+###
+
+DELETE {{Api_HostAddress}}/Order/{{orderId}}
+Accept: application/json
+
+###
+
+# SelfServiceController
+
+GET {{Api_HostAddress}}/SelfService/customer/{{customerId}}
+Accept: application/json
+
+###
+
+GET {{Api_HostAddress}}/SelfService/customer/{{cpf}}
+Accept: application/json
+
+###
+
+POST {{Api_HostAddress}}/SelfService/customer
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": "string",
+  "cpf": "string",
+  "email": "string"
+}
+
+###
+
+# MenuController
+
+GET {{Api_HostAddress}}/Menu/{{menuItemId}}
+Accept: application/json
+
+###
+
+GET {{Api_HostAddress}}/Menu?name=string&category=0&skip=0&limit=10
+Accept: application/json
+
+###
+
+POST {{Api_HostAddress}}/Menu
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": "string",
+  "price": 0,
+  "category": 0,
+  "description": "string"
+}
+
+###
+
+PUT {{Api_HostAddress}}/Menu/{{menuItemId}}
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": "string",
+  "price": 0,
+  "category": 0,
+  "description": "string",
+  "isActive": true
+}
+
+###
+
+DELETE {{Api_HostAddress}}/Menu/{{menuItemId}}
 Accept: application/json
 
 ###

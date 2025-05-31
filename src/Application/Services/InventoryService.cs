@@ -1,6 +1,6 @@
-﻿using Domain.Adapters.Interfaces;
+﻿using Application.Exceptions;
+using Domain.Adapters.Interfaces;
 using Domain.Entities;
-using Domain.Entities.Exceptions;
 using Domain.Services.Interfaces;
 using System.Text;
 
@@ -8,36 +8,44 @@ namespace Application.Services;
 
 internal class InventoryService : IInventoryService
 {
-    private readonly IInventoryLogger _logger;
+    private readonly IInventoryLogger _inventoryLogger;
 
-    public InventoryService(IInventoryLogger logger)
+    public InventoryService(IInventoryLogger inventoryLogger)
     {
-        _logger = logger;
+        _inventoryLogger = inventoryLogger;
     }
 
-    public void RegisterOrder(
-        string orderId,
-        string orderStatus,
-        DateTime finishDate,
-        IEnumerable<ItemQuantity> itemQuantities)
+    public void GenerateAuditLog(Order order, DateTime date)
     {
-        InvalidInventoryOrderException.ThrowIfIsNotFinished(orderStatus, orderId!);
+        InvalidInventoryOrderException.ThrowIfIsNotFinished(order.Status, order.Id);
 
         var auditLogBuilder = new StringBuilder();
 
         const string AUDIT_LOG_TEMPLATE = "The order {0} was finished in {1} with: {2}";
 
-        foreach (var itemQuantity in itemQuantities)
+        foreach (var itemQuantity in ExtractItemQuantities(order))
         {
             var auditLog = string.Format(
                 AUDIT_LOG_TEMPLATE,
-                orderId,
-                finishDate.ToString("yyyy-MM-dd HH:mm:ss"),
+                order.Id,
+                date.ToString("yyyy-MM-dd HH:mm:ss"),
                 itemQuantity.ToString());
 
             auditLogBuilder.AppendLine(auditLog);
         }
 
-        _logger.SendAuditLog(auditLogBuilder.ToString());
+        _inventoryLogger.SendAuditLog(auditLogBuilder.ToString());
+    }
+
+    private static IEnumerable<ItemQuantity> ExtractItemQuantities(Order order)
+    {
+        return order
+            .Items
+            .GroupBy(item => item.Id)
+            .Select(group => new ItemQuantity
+            {
+                ItemId = group.Key,
+                Quantity = group.Sum(item => item.Amount)
+            });
     }
 }

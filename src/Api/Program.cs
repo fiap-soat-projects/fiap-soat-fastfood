@@ -1,5 +1,7 @@
+using Api.Middlewares;
 using Application;
 using Infrastructure;
+using System.Text.Json.Serialization;
 
 namespace Api;
 
@@ -18,9 +20,18 @@ public class Program
         services
             .AddEndpointsApiExplorer()
             .AddSwaggerGen()
-            .AddControllers();
+            .AddControllers()
+            .AddJsonOptions(options =>
+            {
+                var jsonStringEnumConverter = new JsonStringEnumConverter();
+
+                options.JsonSerializerOptions.Converters.Add(jsonStringEnumConverter);
+                options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
+            });
 
         var app = builder.Build();
+
+        app.UseMiddleware<ErrorHandlingMiddleware>();
 
         if (app.Environment.IsDevelopment())
         {

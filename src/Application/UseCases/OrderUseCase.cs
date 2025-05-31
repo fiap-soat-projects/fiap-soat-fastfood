@@ -1,10 +1,12 @@
-﻿using Application.UseCases.DTOs;
+﻿using Application.Exceptions;
 using Application.UseCases.DTOs.Extensions;
+using Application.UseCases.DTOs.Filters;
 using Application.UseCases.DTOs.Request;
 using Application.UseCases.DTOs.Response;
 using Application.UseCases.Interfaces;
 using Domain.Entities;
 using Domain.Entities.Enums;
+using Domain.Entities.Page;
 using Domain.Services.Exceptions;
 using Domain.Services.Interfaces;
 
@@ -12,24 +14,28 @@ namespace Application.UseCases;
 internal class OrderUseCase : IOrderUseCase
 {
     private readonly IOrderService _orderService;
+    private readonly IMenuItemService _menuItemService;
     private readonly IInventoryService _inventoryService;
     private readonly IPaymentService _paymentService;
 
     public OrderUseCase(
         IOrderService orderService,
+        IMenuItemService menuItemService,
         IInventoryService inventoryService,
         IPaymentService paymentService)
     {
         _orderService = orderService;
+        _menuItemService = menuItemService;
         _inventoryService = inventoryService;
         _paymentService = paymentService;
     }
 
     public async Task<Pagination<OrderGetResponse>> GetAllAsync(OrderFilter filter, CancellationToken cancellationToken)
     {
-        var status = ParseOrderStatusFilter(filter);
+        var status = ParseOrderStatus(filter.Status!);
 
         var orderPage = await _orderService.GetAllAsync(cancellationToken, status, filter.Page, filter.Size);
+
         return orderPage.ToResponse();
     }
 
@@ -37,36 +43,37 @@ internal class OrderUseCase : IOrderUseCase
     {
         var order = await _orderService.GetByIdAsync(id, cancellationToken);
 
-        OrderNotFoundException.ThrowIfNullOrEmpty(id, order);
+        OrderNotFoundException.ThrowIfNull(order, id);
+
         return order!.ToResponse();
     }
 
-    public Task<string> CreateAsync(CreateRequest request, CancellationToken cancellationToken)
+    public async Task<string> CreateAsync(CreateRequest request, CancellationToken cancellationToken)
     {
-        var items = request
-            .Items
-            .Select(item =>
-            {
-                _ = Enum.TryParse(item.Category, out ItemCategory category);
+        var orderItems = new List<OrderItem>();
 
-                return new OrderItem
-                (
-                    item.Id,
-                    item.Name,
-                    category,
-                    item.Price,
-                    item.Amount
-                );
-            });
+        foreach (var item in request.Items)
+        {
+            var menuItem = await _menuItemService.GetByIdAsync(item.Id!, cancellationToken);
+
+            orderItems.Add(new OrderItem
+            (
+                menuItem.Id!,
+                menuItem.Name!,
+                menuItem.Category,
+                menuItem.Price,
+                item.Amount
+            ));
+        }
 
         var order = new Order
         (
             request.CustomerId,
             request.CustomerName,
-            items
+            orderItems
         );
 
-        var orderId = _orderService.CreateAsync(order, cancellationToken);
+        var orderId = await _orderService.CreateAsync(order, cancellationToken);
 
         return orderId;
     }
@@ -74,16 +81,14 @@ internal class OrderUseCase : IOrderUseCase
     public async Task<OrderGetResponse> UpdateStatusAsync(string id, UpdateStatusRequest updateStatusRequest, CancellationToken cancellationToken)
     {
         InvalidOrderStatusException.ThrowIfNullOrEmpty(updateStatusRequest.Status);
+
         var orderStatus = ParseOrderStatus(updateStatusRequest.Status!);
 
         var order = await _orderService.UpdateStatusAsync(id, orderStatus, cancellationToken);
 
         if (orderStatus == OrderStatus.Finished)
         {
-            var itemsQuantity = order.Items
-                .Select(item => new ItemQuantity { ItemId = item.Id!, Quantity = item.Amount });
-
-            _inventoryService.RegisterOrder(id, orderStatus.ToString(), DateTime.UtcNow, itemsQuantity);
+            _inventoryService.GenerateAuditLog(order, DateTime.UtcNow);
         }
 
         return order.ToResponse();
@@ -96,10 +101,10 @@ internal class OrderUseCase : IOrderUseCase
 
     public async Task<CheckoutResponse> CheckoutAsync(string id, CheckoutRequest request, CancellationToken cancellationToken)
     {
-        var order = await _orderService.GetByIdAsync(id, cancellationToken);
-        OrderNotFoundException.ThrowIfNullOrEmpty(id, order);
+        var order = await _orderService.GetByIdAsync(id, cancellationToken);        
 
         PaymentMethodNotSupportedException.ThrowIfPaymentMethodIsNotSupported(request.PaymentType!);
+
         _ = Enum.TryParse(request.PaymentType, out PaymentMethod paymentMethod);
 
         var orderPaymentCheckout = await _paymentService.CheckoutAsync(order!, paymentMethod, cancellationToken);
@@ -115,16 +120,6 @@ internal class OrderUseCase : IOrderUseCase
     public async Task ConfirmPaymentAsync(string id, CancellationToken cancellationToken)
     {
         await _paymentService.ConfirmPaymentAsync(id, cancellationToken);
-    }
-
-    private static OrderStatus ParseOrderStatusFilter(OrderFilter filter)
-    {
-        if (!Enum.IsDefined(typeof(OrderStatus), filter.Status!))
-        {
-            throw new InvalidOrderStatusFilterException(filter.Status!);
-        }
-
-        return ParseOrderStatus(filter.Status!);
     }
 
     private static OrderStatus ParseOrderStatus(string text)

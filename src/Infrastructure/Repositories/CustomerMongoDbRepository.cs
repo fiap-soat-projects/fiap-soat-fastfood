@@ -1,5 +1,5 @@
-﻿using Infrastructure.Contexts.Interfaces;
-using Infrastructure.Repositories.Entities;
+﻿using Infrastructure.Entities;
+using Infrastructure.MongoDb.Contexts.Interfaces;
 using Infrastructure.Repositories.Interfaces;
 using MongoDB.Driver;
 using System.Diagnostics.CodeAnalysis;

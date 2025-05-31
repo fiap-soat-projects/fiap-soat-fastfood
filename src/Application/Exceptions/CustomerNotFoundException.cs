@@ -9,12 +9,4 @@ public class CustomerNotFoundException : EntityNotFoundException<Customer>
     {
 
     }
-
-    public static void ThrowIfNull(Customer? customer, string identifier)
-    {
-        if (customer is null)
-        {
-            throw new CustomerNotFoundException(identifier);
-        }
-    }
 }

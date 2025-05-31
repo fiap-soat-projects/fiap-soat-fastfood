@@ -1,8 +1,10 @@
 ﻿using Domain.Entities.Enums;
 using Domain.Entities.Exceptions;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Domain.Entities;
-internal class OrderItem
+
+public class OrderItem
 {
     private string? _id;
     private string? _name;
@@ -10,64 +12,83 @@ internal class OrderItem
     private decimal _price;
     private int _amount;
 
-    internal OrderItem(
-        string? id,
-        string? name,
-        ItemCategory category,
-        decimal price,
-        int amount)
+    public required string Id
     {
-        _name = name;
-        _category = category;
-        _price = price;
-        _amount = amount;
-        Id = id;
+        get => _id!;
+        set
+        {
+            OrderItemException.ThrowIfNullOrWhiteSpace(value, nameof(Id));
+
+            _id = value;
+        }
     }
 
-    public string? Id 
-    { 
-        get => _id; 
-        set => _id = OrderItemPropertyException.ThrowIfEmptyOrWhiteSpace(value, nameof(Id));
-    }
-
-    public string? Name
+    public required string Name
     {
-        get => _name;
-        set => _name = OrderItemPropertyException.ThrowIfEmptyOrWhiteSpace(value, nameof(Name));
+        get => _name!;
+        set
+        {
+            OrderItemException.ThrowIfNullOrWhiteSpace(value, nameof(Name));
+
+            _name = value;
+        }
     }
 
-    public ItemCategory Category
+    public required ItemCategory Category
     {
         get => _category;
-        set => _category = ValidateCategory(value);
+        set
+        {
+            ValidateCategory(value);
+
+            _category = value;
+        }
     }
 
-    public decimal Price
+    public required decimal Price
     {
         get => _price;
-        set => _price = OrderItemPropertyException.ThrowIfZeroOrNegative(value, nameof(Price));
+        set
+        {
+            OrderItemException.ThrowIfIsEqualOrLowerThanZero(value, nameof(Price));
+
+            _price = value;
+        }
     }
 
-    public int Amount
+    public required int Amount
     {
         get => _amount;
-        set => _amount = OrderItemPropertyException.ThrowIfZeroOrNegative(value, nameof(Amount));
+        set
+        {
+            OrderItemException.ThrowIfIsEqualOrLowerThanZero(value, nameof(Amount));
+
+            _amount = value;
+        }
     }
 
-    private static ItemCategory ValidateCategory(ItemCategory value)
+    [SetsRequiredMembers]
+    internal OrderItem(string id, string name, ItemCategory category, decimal price, int amount)
+    {
+        Id = id;
+        Name = name;
+        Category = category;
+        Price = price;
+        Amount = amount;
+    }
+
+    internal decimal GetTotalPrice()
+    {
+        return Price * Amount;
+    }
+
+    private static void ValidateCategory(ItemCategory value)
     {
         var isInvalidCategory = !Enum.IsDefined(typeof(ItemCategory), value) || value == ItemCategory.None;
 
         if (isInvalidCategory)
         {
-            throw new OrderItemPropertyException(nameof(Category));
+            throw new OrderItemException(nameof(Category));
         }
-
-        return value;
-    }
-
-    public decimal GetTotalPrice()
-    {
-        return Price * Amount;
     }
 }
