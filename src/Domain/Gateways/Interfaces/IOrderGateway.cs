@@ -1,0 +1,22 @@
+﻿using Domain.Entities;
+using Domain.Entities.Enums;
+using Domain.Entities.Page;
+
+namespace Domain.Gateways.Interfaces;
+
+internal interface IOrderGateway
+{
+    Task<string> CreateAsync(Order order, CancellationToken cancellationToken);
+    Task<Order?> GetByIdAsync(string id, CancellationToken cancellationToken);
+    Task<Pagination<Order>> GetAllByStatusAsync(OrderStatus status, int page, int size, CancellationToken cancellationToken);
+    Task<Pagination<Order>> GetAllPaginateAsync(int page, int size, CancellationToken cancellationToken);
+    Task DeleteAsync(string id, CancellationToken cancellationToken);
+    Task<Order> UpdateStatusAsync(
+        string id,
+        OrderStatus status,
+        CancellationToken cancellationToken);
+    Task<Order> UpdatePaymentMethodAsync(
+        string id,
+        PaymentMethod paymentMethod,
+        CancellationToken cancellationToken);
+}

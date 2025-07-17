@@ -1,4 +1,4 @@
-﻿using Domain.Services.DTOs;
+﻿using Domain.UseCases.DTOs;
 using Infrastructure.Entities;
 
 namespace Infrastructure.Repositories.Interfaces;

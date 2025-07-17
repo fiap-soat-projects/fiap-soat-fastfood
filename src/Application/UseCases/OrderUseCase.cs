@@ -1,131 +1,60 @@
 ﻿using Application.Exceptions;
-using Application.UseCases.DTOs.Extensions;
-using Application.UseCases.DTOs.Filters;
-using Application.UseCases.DTOs.Request;
-using Application.UseCases.DTOs.Response;
-using Application.UseCases.Interfaces;
 using Domain.Entities;
 using Domain.Entities.Enums;
 using Domain.Entities.Page;
-using Domain.Services.Exceptions;
-using Domain.Services.Interfaces;
+using Domain.Gateways.Interfaces;
+using Domain.UseCases.Interfaces;
 
 namespace Application.UseCases;
+
 internal class OrderUseCase : IOrderUseCase
 {
-    private readonly IOrderService _orderService;
-    private readonly IMenuItemService _menuItemService;
-    private readonly IInventoryService _inventoryService;
-    private readonly ITransactionService _paymentService;
+    private readonly IOrderGateway _orderGateway;
 
-    public OrderUseCase(
-        IOrderService orderService,
-        IMenuItemService menuItemService,
-        IInventoryService inventoryService,
-        ITransactionService paymentService)
+    public OrderUseCase(IOrderGateway orderRepository)
     {
-        _orderService = orderService;
-        _menuItemService = menuItemService;
-        _inventoryService = inventoryService;
-        _paymentService = paymentService;
+        _orderGateway = orderRepository;
     }
 
-    public async Task<Pagination<OrderGetResponse>> GetAllAsync(OrderFilter filter, CancellationToken cancellationToken)
+    public Task<string> CreateAsync(Order order, CancellationToken cancellationToken)
     {
-        var status = ParseOrderStatus(filter.Status!);
-
-        var orderPage = await _orderService.GetAllAsync(cancellationToken, status, filter.Page, filter.Size);
-
-        return orderPage.ToResponse();
-    }
-
-    public async Task<OrderGetResponse> GetByIdAsync(string id, CancellationToken cancellationToken)
-    {
-        var order = await _orderService.GetByIdAsync(id, cancellationToken);
-
-        OrderNotFoundException.ThrowIfNull(order, id);
-
-        return order!.ToResponse();
-    }
-
-    public async Task<string> CreateAsync(CreateRequest request, CancellationToken cancellationToken)
-    {
-        var orderItems = new List<OrderItem>();
-
-        foreach (var item in request.Items)
-        {
-            var menuItem = await _menuItemService.GetByIdAsync(item.Id!, cancellationToken);
-
-            orderItems.Add(new OrderItem
-            (
-                menuItem.Id!,
-                menuItem.Name!,
-                menuItem.Category,
-                menuItem.Price,
-                item.Amount
-            ));
-        }
-
-        var order = new Order
-        (
-            request.CustomerId,
-            request.CustomerName,
-            orderItems
-        );
-
-        var orderId = await _orderService.CreateAsync(order, cancellationToken);
+        var orderId = _orderGateway.CreateAsync(order, cancellationToken);
 
         return orderId;
     }
 
-    public async Task<OrderGetResponse> UpdateStatusAsync(string id, UpdateStatusRequest updateStatusRequest, CancellationToken cancellationToken)
+    public async Task<Order> GetByIdAsync(string id, CancellationToken cancellationToken)
     {
-        InvalidOrderStatusException.ThrowIfNullOrEmpty(updateStatusRequest.Status);
+        var order = await _orderGateway.GetByIdAsync(id, cancellationToken);
 
-        var orderStatus = ParseOrderStatus(updateStatusRequest.Status!);
+        OrderNotFoundException.ThrowIfNull(order, id);
 
-        var order = await _orderService.UpdateStatusAsync(id, orderStatus, cancellationToken);
+        return order!;
+    }
 
-        if (orderStatus == OrderStatus.Finished)
+    public async Task<Pagination<Order>> GetAllAsync(CancellationToken cancellationToken, OrderStatus? status = null, int page = 0, int size = 0)
+    {
+        if (status is null)
         {
-            _inventoryService.GenerateAuditLog(order, DateTime.UtcNow);
+            var pageWithoutFilters = await _orderGateway.GetAllPaginateAsync(page, size, cancellationToken);
+
+            return pageWithoutFilters;
         }
 
-        return order.ToResponse();
+        var pageWithStatusFilter = await _orderGateway.GetAllByStatusAsync(status.Value, page, size, cancellationToken);
+
+        return pageWithStatusFilter;
+    }
+
+    public async Task<Order> UpdateStatusAsync(string id, OrderStatus status, CancellationToken cancellationToken)
+    {
+        var order = await _orderGateway.UpdateStatusAsync(id, status, cancellationToken);
+
+        return order;
     }
 
     public async Task DeleteAsync(string id, CancellationToken cancellationToken)
     {
-        await _orderService.DeleteAsync(id, cancellationToken);
-    }
-
-    public async Task<CheckoutResponse> CheckoutAsync(string id, CheckoutRequest request, CancellationToken cancellationToken)
-    {
-        var order = await _orderService.GetByIdAsync(id, cancellationToken);        
-
-        PaymentMethodNotSupportedException.ThrowIfPaymentMethodIsNotSupported(request.PaymentType!);
-
-        _ = Enum.TryParse(request.PaymentType, out PaymentMethod paymentMethod);
-
-        var orderPaymentCheckout = await _paymentService.CheckoutAsync(order!, paymentMethod, cancellationToken);
-
-        return new CheckoutResponse(
-            orderPaymentCheckout.Id,
-            orderPaymentCheckout.PaymentMethod,
-            orderPaymentCheckout.QrCode,
-            orderPaymentCheckout.QrCodeBase64,
-            orderPaymentCheckout.Amount);
-    }
-
-    public async Task ConfirmPaymentAsync(string id, CancellationToken cancellationToken)
-    {
-        await _paymentService.ConfirmPaymentAsync(id, cancellationToken);
-    }
-
-    private static OrderStatus ParseOrderStatus(string text)
-    {
-        _ = Enum.TryParse(text, out OrderStatus status);
-
-        return status;
+        await _orderGateway.DeleteAsync(id, cancellationToken);
     }
 }

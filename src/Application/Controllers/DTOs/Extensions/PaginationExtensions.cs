@@ -1,0 +1,19 @@
+﻿using Application.Controllers.DTOs.Response;
+using Domain.Entities;
+using Domain.Entities.Page;
+
+namespace Application.Controllers.DTOs.Extensions;
+internal static class PaginationExtensions
+{
+    internal static Pagination<OrderGetResponse> ToResponse(this Pagination<Order> pagination)
+    {
+        return new Pagination<OrderGetResponse>()
+        {
+            Page = pagination.Page,
+            Size = pagination.Size,
+            TotalPages = pagination.TotalPages,
+            TotalCount = pagination.TotalCount,
+            Items = pagination.Items.Select(item => item.ToResponse())
+        };
+    }
+}

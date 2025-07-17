@@ -10,10 +10,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Controllers\DTOs\**" />
-    <Content Remove="Controllers\DTOs\**" />
-    <EmbeddedResource Remove="Controllers\DTOs\**" />
-    <None Remove="Controllers\DTOs\**" />
+    <Compile Remove="Endpoints\DTOs\**" />
+    <Content Remove="Endpoints\DTOs\**" />
+    <EmbeddedResource Remove="Endpoints\DTOs\**" />
+    <None Remove="Endpoints\DTOs\**" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,7 +1,7 @@
-﻿using Application.Services;
+﻿using Application.Controllers;
+using Application.Controllers.Interfaces;
 using Application.UseCases;
-using Application.UseCases.Interfaces;
-using Domain.Services.Interfaces;
+using Domain.UseCases.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Application;
@@ -11,24 +11,26 @@ public static class ApplicationExtensions
     {
         return services
             .RegisterUseCases()
-            .RegisterServices();
+            .RegisterControllers();
     }
 
     private static IServiceCollection RegisterUseCases(this IServiceCollection services)
     {
+
         return services
-            .AddSingleton<IOrderUseCase, OrderUseCase>()
-            .AddSingleton<ISelfOrderingUseCase, SelfOrderingUseCase>()
-            .AddSingleton<IMenuUseCase, MenuUseCase>();
+         .AddSingleton<IOrderUseCase, OrderUseCase>()
+         .AddSingleton<ITransactionUseCase, TransactionService>()
+         .AddSingleton<ICustomerUseCase, CustomerUseCase>()
+         .AddSingleton<IInventoryUseCase, InventoryUseCase>()
+         .AddSingleton<IMenuItemUseCase, MenuItemUseCase>();
+      
     }
 
-    private static IServiceCollection RegisterServices(this IServiceCollection services)
+    private static IServiceCollection RegisterControllers(this IServiceCollection services)
     {
         return services
-            .AddSingleton<IOrderService, OrderService>()
-            .AddSingleton<ITransactionService, TransactionService>()
-            .AddSingleton<ICustomerService, CustomerService>()
-            .AddSingleton<IInventoryService, InventoryService>()
-            .AddSingleton<IMenuItemService, MenuItemService>();
+             .AddSingleton<IOrderController, OrderController>()
+             .AddSingleton<ISelfOrderingController, SelfOrderingController>()
+             .AddSingleton<IMenuController, MenuController>();
     }
 }
