@@ -1,7 +1,7 @@
-﻿using Domain.Entities;
-using Domain.UseCases.DTOs;
+﻿using Business.Entities;
+using Business.UseCases.DTOs;
 
-namespace Domain.UseCases.Interfaces;
+namespace Business.UseCases.Interfaces;
 
 internal interface IMenuItemUseCase
 {

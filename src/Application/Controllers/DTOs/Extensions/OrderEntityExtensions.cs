@@ -1,8 +1,7 @@
-﻿using Application.Controllers.DTOs.Response;
-using Application.UseCases.DTOs.Response;
-using Domain.Entities;
+﻿using Adapter.Presenters;
+using Business.Entities;
 
-namespace Application.Controllers.DTOs.Extensions;
+namespace Adapter.Controllers.DTOs.Extensions;
 internal static class OrderEntityExtensions
 {
     internal static OrderGetResponse ToResponse(this Order order)

@@ -1,8 +1,8 @@
-﻿using Application.Controllers.DTOs.Response;
-using Domain.Entities;
-using Domain.Entities.Page;
+﻿using Adapter.Presenters;
+using Business.Entities;
+using Business.Entities.Page;
 
-namespace Application.Controllers.DTOs.Extensions;
+namespace Adapter.Controllers.DTOs.Extensions;
 internal static class PaginationExtensions
 {
     internal static Pagination<OrderGetResponse> ToResponse(this Pagination<Order> pagination)

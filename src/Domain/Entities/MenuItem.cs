@@ -1,9 +1,9 @@
-﻿using Domain.Entities.Enums;
-using Domain.Entities.Exceptions;
-using Domain.Entities.Interfaces;
+﻿using Business.Entities.Enums;
+using Business.Entities.Exceptions;
+using Business.Entities.Interfaces;
 using System.Diagnostics.CodeAnalysis;
 
-namespace Domain.Entities;
+namespace Business.Entities;
 
 public class MenuItem : IAggregateRoot
 {

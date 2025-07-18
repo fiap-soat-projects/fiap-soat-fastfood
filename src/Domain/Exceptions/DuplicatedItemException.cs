@@ -1,4 +1,4 @@
-﻿namespace Domain.Exceptions;
+﻿namespace Business.Exceptions;
 
 public class DuplicatedItemException<TEntity> : Exception where TEntity : class
 {

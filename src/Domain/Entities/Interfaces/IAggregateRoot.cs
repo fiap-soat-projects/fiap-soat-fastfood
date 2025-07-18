@@ -1,3 +1,3 @@
-﻿namespace Domain.Entities.Interfaces;
+﻿namespace Business.Entities.Interfaces;
 
 public interface IAggregateRoot { }

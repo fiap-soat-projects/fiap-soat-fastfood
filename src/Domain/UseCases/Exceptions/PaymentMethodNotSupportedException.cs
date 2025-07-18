@@ -1,6 +1,6 @@
-﻿using Domain.Entities.Enums;
+﻿using Business.Entities.Enums;
 
-namespace Domain.UseCases.Exceptions;
+namespace Business.UseCases.Exceptions;
 internal class PaymentMethodNotSupportedException : Exception
 {
     private const string DEFAULT_MESSAGE = "Payment method '{0}' not supported.";

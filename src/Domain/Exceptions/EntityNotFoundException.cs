@@ -1,6 +1,6 @@
-﻿using Domain.Entities.Interfaces;
+﻿using Business.Entities.Interfaces;
 
-namespace Domain.Exceptions;
+namespace Business.Exceptions;
 
 public class EntityNotFoundException<TEntity> : DomainException where TEntity : IAggregateRoot
 {

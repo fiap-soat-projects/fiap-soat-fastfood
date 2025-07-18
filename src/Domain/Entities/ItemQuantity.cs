@@ -1,6 +1,6 @@
-﻿using Domain.Entities.Exceptions;
+﻿using Business.Entities.Exceptions;
 
-namespace Domain.Entities;
+namespace Business.Entities;
 
 public class ItemQuantity
 {

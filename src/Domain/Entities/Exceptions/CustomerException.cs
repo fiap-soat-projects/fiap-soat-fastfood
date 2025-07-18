@@ -1,6 +1,7 @@
-﻿using Domain.Exceptions;
+﻿using Business.Entities;
+using Business.Exceptions;
 
-namespace Domain.Entities.Exceptions;
+namespace Business.Entities.Exceptions;
 
 internal class CustomerException : InvalidEntityPropertyException<Customer>
 {

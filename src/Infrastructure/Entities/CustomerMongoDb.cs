@@ -1,4 +1,4 @@
-﻿using Domain.Entities;
+﻿using Business.Entities;
 using MongoDB.Bson.Serialization.Attributes;
 
 namespace Infrastructure.Entities;

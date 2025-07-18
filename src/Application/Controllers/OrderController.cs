@@ -1,16 +1,16 @@
-﻿using Application.Controllers.DTOs.Extensions;
-using Application.Controllers.DTOs.Filters;
-using Application.Controllers.DTOs.Request;
-using Application.Controllers.DTOs.Response;
-using Application.Controllers.Interfaces;
-using Application.Exceptions;
-using Domain.Entities;
-using Domain.Entities.Enums;
-using Domain.Entities.Page;
-using Domain.UseCases.Exceptions;
-using Domain.UseCases.Interfaces;
+﻿using Adapter.Controllers.DTOs;
+using Adapter.Controllers.DTOs.Extensions;
+using Adapter.Controllers.DTOs.Filters;
+using Adapter.Controllers.Interfaces;
+using Adapter.Presenters;
+using Business.Entities;
+using Business.Entities.Enums;
+using Business.Entities.Page;
+using Business.Exceptions;
+using Business.UseCases.Exceptions;
+using Business.UseCases.Interfaces;
 
-namespace Application.Controllers;
+namespace Adapter.Controllers;
 internal class OrderController : IOrderController
 {
     private readonly IOrderUseCase _orderUseCase;
@@ -101,7 +101,7 @@ internal class OrderController : IOrderController
 
     public async Task<CheckoutResponse> CheckoutAsync(string id, CheckoutRequest request, CancellationToken cancellationToken)
     {
-        var order = await _orderUseCase.GetByIdAsync(id, cancellationToken);        
+        var order = await _orderUseCase.GetByIdAsync(id, cancellationToken);
 
         PaymentMethodNotSupportedException.ThrowIfPaymentMethodIsNotSupported(request.PaymentType!);
 

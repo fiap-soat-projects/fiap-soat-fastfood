@@ -1,4 +1,4 @@
-﻿namespace Domain.UseCases.Exceptions;
+﻿namespace Business.UseCases.Exceptions;
 internal class InvalidOrderStatusFilterException : Exception
 {
     private const string DEFAULT_MESSAGE = "Invalid order status filter provided. Value: {0}";

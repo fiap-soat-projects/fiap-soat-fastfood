@@ -1,7 +1,7 @@
 ﻿namespace Infrastructure.Entities.Extensions;
 
-using Domain.Entities;
-using Domain.Entities.Page;
+using Business.Entities;
+using Business.Entities.Page;
 using Infrastructure.Entities;
 using Infrastructure.Entities.Page;
 

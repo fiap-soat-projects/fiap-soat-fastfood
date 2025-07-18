@@ -10,10 +10,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Endpoints\DTOs\**" />
-    <Content Remove="Endpoints\DTOs\**" />
-    <EmbeddedResource Remove="Endpoints\DTOs\**" />
-    <None Remove="Endpoints\DTOs\**" />
+    <Compile Remove="Apis\DTOs\**" />
+    <Content Remove="Apis\DTOs\**" />
+    <EmbeddedResource Remove="Apis\DTOs\**" />
+    <None Remove="Apis\DTOs\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -22,7 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Application\Application.csproj" />    
+    <ProjectReference Include="..\Application\Adapter.csproj" />    
     <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
   </ItemGroup>
 

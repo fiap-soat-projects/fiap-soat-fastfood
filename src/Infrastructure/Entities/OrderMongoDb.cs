@@ -1,5 +1,5 @@
-﻿using Domain.Entities;
-using Domain.Entities.Enums;
+﻿using Business.Entities;
+using Business.Entities.Enums;
 using MongoDB.Bson.Serialization.Attributes;
 
 namespace Infrastructure.Entities;

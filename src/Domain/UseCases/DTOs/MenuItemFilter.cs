@@ -1,6 +1,6 @@
-﻿using Domain.Entities.Enums;
+﻿using Business.Entities.Enums;
 
-namespace Domain.UseCases.DTOs;
+namespace Business.UseCases.DTOs;
 
 internal record MenuItemFilter(
     string? Name,

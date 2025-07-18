@@ -1,10 +1,10 @@
-﻿using Application.Controllers.DTOs.Request;
-using Application.Controllers.DTOs.Response;
-using Application.Controllers.Interfaces;
-using Domain.Entities;
-using Domain.UseCases.Interfaces;
+﻿using Adapter.Controllers.DTOs;
+using Adapter.Controllers.Interfaces;
+using Adapter.Presenters;
+using Business.Entities;
+using Business.UseCases.Interfaces;
 
-namespace Application.Controllers;
+namespace Adapter.Controllers;
 
 internal class SelfOrderingController : ISelfOrderingController
 {

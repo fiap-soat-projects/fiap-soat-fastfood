@@ -1,8 +1,8 @@
-﻿using Domain.Entities;
+﻿using Business.Entities;
 
-namespace Domain.UseCases.Interfaces;
+namespace Business.UseCases.Interfaces;
 
-public interface IInventoryUseCase
+internal interface IInventoryUseCase
 {
     void GenerateAuditLog(Order order, DateTime date);
 }

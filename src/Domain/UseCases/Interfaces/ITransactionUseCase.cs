@@ -1,7 +1,7 @@
-﻿using Domain.Entities;
-using Domain.Entities.Enums;
+﻿using Business.Entities;
+using Business.Entities.Enums;
 
-namespace Domain.UseCases.Interfaces;
+namespace Business.UseCases.Interfaces;
 internal interface ITransactionUseCase
 {
     Task<PaymentCheckout> CheckoutAsync(Order order, PaymentMethod method, CancellationToken cancellationToken);

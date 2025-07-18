@@ -1,8 +1,8 @@
-﻿using Domain.Entities;
-using Domain.Entities.Enums;
-using Domain.Entities.Page;
+﻿using Business.Entities;
+using Business.Entities.Enums;
+using Business.Entities.Page;
 
-namespace Domain.UseCases.Interfaces;
+namespace Business.UseCases.Interfaces;
 
 internal interface IOrderUseCase
 {

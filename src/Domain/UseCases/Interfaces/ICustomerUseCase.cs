@@ -1,6 +1,6 @@
-﻿using Domain.Entities;
+﻿using Business.Entities;
 
-namespace Domain.UseCases.Interfaces;
+namespace Business.UseCases.Interfaces;
 
 internal interface ICustomerUseCase
 {

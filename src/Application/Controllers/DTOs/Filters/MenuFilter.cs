@@ -1,6 +1,6 @@
-﻿using Domain.Entities.Enums;
+﻿using Business.Entities.Enums;
 
-namespace Application.Controllers.DTOs.Filters;
+namespace Adapter.Controllers.DTOs.Filters;
 
 public record MenuFilter(
     string? Name,

@@ -1,8 +1,8 @@
-﻿using Application.Controllers.DTOs.Filters;
-using Application.Controllers.DTOs.Request;
-using Application.Controllers.DTOs.Response;
+﻿using Adapter.Controllers.DTOs;
+using Adapter.Controllers.DTOs.Filters;
+using Adapter.Presenters;
 
-namespace Application.Controllers.Interfaces;
+namespace Adapter.Controllers.Interfaces;
 
 public interface IMenuController
 {

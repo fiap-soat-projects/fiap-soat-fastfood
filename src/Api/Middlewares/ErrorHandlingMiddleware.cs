@@ -1,6 +1,5 @@
-﻿using Application.Exceptions;
-using Domain.Entities;
-using Domain.Exceptions;
+﻿using Business.Entities;
+using Business.Exceptions;
 using System.Net;
 using System.Text.Json;
 

@@ -1,9 +1,9 @@
-﻿using Application.Controllers.DTOs.Filters;
-using Application.Controllers.DTOs.Request;
-using Application.Controllers.DTOs.Response;
-using Domain.Entities.Page;
+﻿using Adapter.Controllers.DTOs;
+using Adapter.Controllers.DTOs.Filters;
+using Adapter.Presenters;
+using Business.Entities.Page;
 
-namespace Application.Controllers.Interfaces;
+namespace Adapter.Controllers.Interfaces;
 
 public interface IOrderController
 {

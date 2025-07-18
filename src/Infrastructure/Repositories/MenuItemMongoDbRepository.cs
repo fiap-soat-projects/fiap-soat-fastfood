@@ -1,4 +1,4 @@
-﻿using Domain.UseCases.DTOs;
+﻿using Business.UseCases.DTOs;
 using Infrastructure.Entities;
 using Infrastructure.MongoDb.Contexts.Interfaces;
 using Infrastructure.Repositories.Interfaces;
