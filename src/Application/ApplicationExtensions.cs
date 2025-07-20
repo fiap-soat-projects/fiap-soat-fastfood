@@ -1,34 +1,52 @@
-﻿using Application.Services;
-using Application.UseCases;
-using Application.UseCases.Interfaces;
-using Domain.Services.Interfaces;
+﻿using Adapter.Controllers;
+using Adapter.Controllers.Interfaces;
+using Adapter.Gateways.Logger;
+using Adapter.Gateways.Repositories;
+using Business.Gateways.Loggers.Interfaces;
+using Business.Gateways.Repositories.Interfaces;
+using Business.UseCases;
+using Business.UseCases.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Application;
+namespace Adapter;
 public static class ApplicationExtensions
 {
     public static IServiceCollection InjectApplicationDependencies(this IServiceCollection services)
     {
         return services
             .RegisterUseCases()
-            .RegisterServices();
+            .RegisterControllers()
+            .RegisterGateways();
     }
 
     private static IServiceCollection RegisterUseCases(this IServiceCollection services)
     {
+
         return services
-            .AddSingleton<IOrderUseCase, OrderUseCase>()
-            .AddSingleton<ISelfOrderingUseCase, SelfOrderingUseCase>()
-            .AddSingleton<IMenuUseCase, MenuUseCase>();
+         .AddSingleton<IOrderUseCase, OrderUseCase>()
+         .AddSingleton<ITransactionUseCase, TransactionUseCase>()
+         .AddSingleton<ICustomerUseCase, CustomerUseCase>()
+         .AddSingleton<IInventoryUseCase, InventoryUseCase>()
+         .AddSingleton<IMenuItemUseCase, MenuItemUseCase>();
+
     }
 
-    private static IServiceCollection RegisterServices(this IServiceCollection services)
+    private static IServiceCollection RegisterControllers(this IServiceCollection services)
     {
         return services
-            .AddSingleton<IOrderService, OrderService>()
-            .AddSingleton<ITransactionService, TransactionService>()
-            .AddSingleton<ICustomerService, CustomerService>()
-            .AddSingleton<IInventoryService, InventoryService>()
-            .AddSingleton<IMenuItemService, MenuItemService>();
+             .AddSingleton<IOrderController, OrderController>()
+             .AddSingleton<ISelfOrderingController, SelfOrderingController>()
+             .AddSingleton<IMenuController, MenuController>();
+    }
+
+    public static IServiceCollection RegisterGateways(this IServiceCollection services)
+    {
+        services
+            .AddSingleton<IInventoryLogger, InventoryLoggerGateway>()
+            .AddSingleton<IOrderRepository, OrderGateway>()
+            .AddSingleton<ICustomerRepository, CustomerGateway>()
+            .AddSingleton<IMenuItemRepository, MenuItemGateway>();
+
+        return services;
     }
 }

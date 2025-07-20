@@ -1,4 +1,4 @@
-﻿using Domain.Entities.Enums;
+﻿using Business.Entities.Enums;
 using Infrastructure.Entities;
 using Infrastructure.Entities.Page;
 using Infrastructure.MongoDb.Contexts.Interfaces;

@@ -1,8 +1,5 @@
-﻿using Domain.Adapters.Interfaces;
-using Domain.Adapters.Repositories;
-using Infrastructure.Adapters.Clients;
-using Infrastructure.Adapters.Logger;
-using Infrastructure.Adapters.Repositories;
+﻿using Business.Gateways.Clients.Interfaces;
+using Infrastructure.Clients;
 using Infrastructure.Exceptions;
 using Infrastructure.MongoDb.Connections;
 using Infrastructure.MongoDb.Connections.Interfaces;
@@ -26,8 +23,6 @@ public static class InfrastructureExtensions
     {
         services
             .RegisterMongoDbRepositories()
-            .RegisterMongoDbAdapters()
-            .RegisterAdapters()
             .RegisterConnections()
             .RegisterClients();
 
@@ -39,29 +34,9 @@ public static class InfrastructureExtensions
     public static IServiceCollection RegisterMongoDbRepositories(this IServiceCollection services)
     {
         services
-            .AddSingleton<IInventoryLogger, InventoryLogger>()
             .AddSingleton<IOrderMongoDbRepository, OrderMongoDbRepository>()
             .AddSingleton<ICustomerMongoDbRepository, CustomerMongoDbRepository>()
             .AddSingleton<IMenuItemMongoDbRepository, MenuItemMongoDbRepository>();
-
-        return services;
-    }
-
-    public static IServiceCollection RegisterMongoDbAdapters(this IServiceCollection services)
-    {
-        services
-            .AddSingleton<IOrderRepository, OrderRepository>()
-            .AddSingleton<ICustomerRepository, CustomerRepository>()
-            .AddSingleton<IMenuItemRepository, MenuItemRepository>();
-
-        return services;
-    }
-
-    public static IServiceCollection RegisterAdapters(this IServiceCollection services)
-    {
-        services
-            .AddSingleton<IPixAdapter, MercadoPagoClient>()
-            .AddSingleton<IInventoryLogger, InventoryLogger>();
 
         return services;
     }
@@ -97,7 +72,7 @@ public static class InfrastructureExtensions
         var mercadoPagoApiToken = Environment.GetEnvironmentVariable(MERCADO_PAGO_API_TOKEN_KEY);
         EnvironmentVariableNotFoundException.ThrowIfIsNullOrWhiteSpace(mercadoPagoApiToken, MERCADO_PAGO_API_TOKEN_KEY);
 
-        services.AddHttpClient<IPixAdapter, MercadoPagoClient>(client =>
+        services.AddHttpClient<IPixClient, MercadoPagoGateway>(client =>
         {
             client.BaseAddress = new Uri(mercadoPagoApiUrl!);
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", mercadoPagoApiToken);

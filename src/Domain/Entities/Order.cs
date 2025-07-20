@@ -1,8 +1,8 @@
-﻿using Domain.Entities.Enums;
-using Domain.Entities.Exceptions;
-using Domain.Entities.Interfaces;
+﻿using Business.Entities.Enums;
+using Business.Entities.Exceptions;
+using Business.Entities.Interfaces;
 
-namespace Domain.Entities;
+namespace Business.Entities;
 
 public class Order : IAggregateRoot
 {

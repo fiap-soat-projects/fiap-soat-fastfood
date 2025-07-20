@@ -1,4 +1,4 @@
-﻿namespace Domain.Entities.Enums;
+﻿namespace Business.Entities.Enums;
 
 public enum ItemCategory
 {

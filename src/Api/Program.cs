@@ -1,5 +1,5 @@
+using Adapter;
 using Api.Middlewares;
-using Application;
 using Infrastructure;
 using System.Text.Json.Serialization;
 

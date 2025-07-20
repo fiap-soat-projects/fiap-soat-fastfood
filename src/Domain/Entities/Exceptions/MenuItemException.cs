@@ -1,6 +1,6 @@
-﻿using Domain.Exceptions;
+﻿using Business.Exceptions;
 
-namespace Domain.Entities.Exceptions;
+namespace Business.Entities.Exceptions;
 
 public class MenuItemException : InvalidEntityPropertyException<MenuItem>
 {

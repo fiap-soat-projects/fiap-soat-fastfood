@@ -1,4 +1,4 @@
-﻿namespace Domain.Exceptions;
+﻿namespace Business.Exceptions;
 
 public class InvalidEntityPropertyException<TEntity> : DomainException where TEntity : class
 {

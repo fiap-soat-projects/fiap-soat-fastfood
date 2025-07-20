@@ -1,4 +1,4 @@
-﻿namespace Domain.Entities.Page;
+﻿namespace Business.Entities.Page;
 
 public class Pagination<T>
 {
