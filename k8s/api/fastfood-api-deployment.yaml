@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fastfood-api
+  labels:
+    app: fastfood-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fastfood-api
+  template:
+    metadata:
+      labels:
+        app: fastfood-api
+    spec:
+      containers:
+        - name: fastfood-api
+          image: fiap-soat-fastfood-fastfood-api:latest
+          # Change here when tag image
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8080
+          envFrom:
+            - configMapRef:
+                name: fastfood-api
+            - secretRef:
+                name: fastfood-api
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
