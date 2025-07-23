@@ -4,9 +4,10 @@ metadata:
   name: fastfood-api
 spec:
   selector:
-    app: fastfood-api
-  type: NodePort
+    app: fastfood-api  
   ports:
     - protocol: TCP
       port: 80
       targetPort: 8080
+      nodePort: 30080
+  type: NodePort
