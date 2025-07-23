@@ -19,6 +19,20 @@ spec:
           image: fiap-soat-fastfood-fastfood-api:latest
           # Change here when tag image
           imagePullPolicy: Never
+          startupProbe:
+            httpGet:
+              path: /healthz
+              port: 8080
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            failureThreshold: 10
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            failureThreshold: 3
           ports:
             - containerPort: 8080
           envFrom:
@@ -32,4 +46,4 @@ spec:
               memory: "128Mi"
             limits:
               cpu: "500m"
-              memory: "512Mi"
+              memory: "512Mi"              
