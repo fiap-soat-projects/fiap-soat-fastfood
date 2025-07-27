@@ -50,7 +50,9 @@ internal class OrderMongoDbRepository : BaseRepository<OrderMongoDb>, IOrderMong
     {
         var filter = Builders<OrderMongoDb>.Filter.Nin(x => x.Status, [OrderStatus.Finished, OrderStatus.Canceled, OrderStatus.None]);
 
-        var sort = Builders<OrderMongoDb>.Sort.Ascending(x => x.Status);
+        var sort = Builders<OrderMongoDb>.Sort.Combine(
+            Builders<OrderMongoDb>.Sort.Ascending(x => x.Status),
+            Builders<OrderMongoDb>.Sort.Ascending(x => x.CreatedAt));
 
         var pagedResult = await GetPagedAsync(page, size, filter, sort, cancellationToken);     
         

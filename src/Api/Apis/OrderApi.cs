@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Api.Apis;
 
 [ApiController]
-[Route("/v1/[controller]")]
+[Route("/v1/order")]
 public class OrderApi : ControllerBase
 {
     private readonly IOrderController _orderController;
