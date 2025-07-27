@@ -30,7 +30,7 @@ internal class OrderGateway : IOrderRepository
 
     public async Task<Pagination<Order>> GetAllByStatusAsync(OrderStatus status, int page, int size, CancellationToken cancellationToken)
     {
-        var pagedResult = await _orderMongoDbRepository.GetAllByStatus(status, page, size, cancellationToken);
+        var pagedResult = await _orderMongoDbRepository.GetAllByStatusAsync(status, page, size, cancellationToken);
 
         var pagedDomain = pagedResult.ToDomain();
 
@@ -39,7 +39,16 @@ internal class OrderGateway : IOrderRepository
 
     public async Task<Pagination<Order>> GetAllPaginateAsync(int page, int size, CancellationToken cancellationToken)
     {
-        var pagedResult = await _orderMongoDbRepository.GetAllPaginate(page, size, cancellationToken);
+        var pagedResult = await _orderMongoDbRepository.GetAllPaginateAsync(page, size, cancellationToken);
+
+        var pagedDomain = pagedResult.ToDomain();
+
+        return pagedDomain;
+    }
+
+    public async Task<Pagination<Order>> GetActivePaginateAsync(int page, int size, CancellationToken cancellationToken)
+    {
+        var pagedResult = await _orderMongoDbRepository.GetActivePaginateAsync(page, size, cancellationToken);
 
         var pagedDomain = pagedResult.ToDomain();
 

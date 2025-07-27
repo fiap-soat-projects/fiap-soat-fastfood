@@ -46,6 +46,13 @@ internal class OrderUseCase : IOrderUseCase
         return pageWithStatusFilter;
     }
 
+    public async Task<Pagination<Order>> GetActiveAsync(CancellationToken cancellationToken, int page = 0, int size = 0)
+    {
+        var pageWithoutFilters = await _orderRepository.GetActivePaginateAsync(page, size, cancellationToken);
+
+        return pageWithoutFilters;    
+    }
+
     public async Task<Order> UpdateStatusAsync(string id, OrderStatus status, CancellationToken cancellationToken)
     {
         var order = await _orderRepository.UpdateStatusAsync(id, status, cancellationToken);

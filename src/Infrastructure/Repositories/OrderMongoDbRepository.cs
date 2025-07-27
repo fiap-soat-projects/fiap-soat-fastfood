@@ -4,6 +4,7 @@ using Infrastructure.Entities.Page;
 using Infrastructure.MongoDb.Contexts.Interfaces;
 using Infrastructure.Repositories.Interfaces;
 using MongoDB.Driver;
+using System.Linq.Expressions;
 
 namespace Infrastructure.Repositories;
 internal class OrderMongoDbRepository : BaseRepository<OrderMongoDb>, IOrderMongoDbRepository
@@ -27,21 +28,32 @@ internal class OrderMongoDbRepository : BaseRepository<OrderMongoDb>, IOrderMong
         await _collection.DeleteOneAsync(filter, cancellationToken);
     }
 
-    public async Task<PagedResult<OrderMongoDb>> GetAllByStatus(OrderStatus status, int page, int size, CancellationToken cancellationToken)
+    public async Task<PagedResult<OrderMongoDb>> GetAllByStatusAsync(OrderStatus status, int page, int size, CancellationToken cancellationToken)
     {
         var filter = Builders<OrderMongoDb>.Filter.Eq(entity => entity.Status, status);
 
-        var pagedResult = await GetPagedAsync(page, size, filter, cancellationToken);
+        var pagedResult = await GetPagedAsync(page, size, filter, cancellationToken: cancellationToken);
 
         return pagedResult;
     }
 
-    public async Task<PagedResult<OrderMongoDb>> GetAllPaginate(int page, int size, CancellationToken cancellationToken)
+    public async Task<PagedResult<OrderMongoDb>> GetAllPaginateAsync(int page, int size, CancellationToken cancellationToken)
     {
         var filter = Builders<OrderMongoDb>.Filter.Empty;
 
-        var pagedResult = await GetPagedAsync(page, size, filter, cancellationToken);
+        var pagedResult = await GetPagedAsync(page, size, filter, cancellationToken: cancellationToken);
 
+        return pagedResult;
+    }
+
+    public async Task<PagedResult<OrderMongoDb>> GetActivePaginateAsync(int page, int size, CancellationToken cancellationToken)
+    {
+        var filter = Builders<OrderMongoDb>.Filter.Nin(x => x.Status, [OrderStatus.Finished, OrderStatus.Canceled, OrderStatus.None]);
+
+        var sort = Builders<OrderMongoDb>.Sort.Ascending(x => x.Status);
+
+        var pagedResult = await GetPagedAsync(page, size, filter, sort, cancellationToken);     
+        
         return pagedResult;
     }
 

@@ -10,6 +10,7 @@ public interface IOrderRepository
     Task<Order?> GetByIdAsync(string id, CancellationToken cancellationToken);
     Task<Pagination<Order>> GetAllByStatusAsync(OrderStatus status, int page, int size, CancellationToken cancellationToken);
     Task<Pagination<Order>> GetAllPaginateAsync(int page, int size, CancellationToken cancellationToken);
+    Task<Pagination<Order>> GetActivePaginateAsync(int page, int size, CancellationToken cancellationToken);
     Task DeleteAsync(string id, CancellationToken cancellationToken);
     Task<Order> UpdateStatusAsync(
         string id,

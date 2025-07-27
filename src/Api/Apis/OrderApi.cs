@@ -46,6 +46,19 @@ public class OrderApi : ControllerBase
         return Ok(orders);
     }
 
+    [HttpGet("active")]
+    public async Task<IActionResult> GetActiveAsync(
+    [FromQuery] int page,
+    [FromQuery] int size,
+    CancellationToken cancellationToken)
+    {
+        var orderFilter = new OrderFilter(null, page, size);
+
+        var orders = await _orderController.GetActiveAsync(orderFilter, cancellationToken);
+
+        return Ok(orders);
+    }
+
     [HttpPatch("{id:length(24)}/status")]
     public async Task<IActionResult> UpdateStatusAsync(
         [FromBody] UpdateStatusRequest request,

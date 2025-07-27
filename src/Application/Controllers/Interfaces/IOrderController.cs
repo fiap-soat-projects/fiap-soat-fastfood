@@ -10,6 +10,7 @@ public interface IOrderController
     Task<string> CreateAsync(CreateRequest request, CancellationToken cancellationToken);
     Task<OrderGetResponse> GetByIdAsync(string id, CancellationToken cancellationToken);
     Task<Pagination<OrderGetResponse>> GetAllAsync(OrderFilter filter, CancellationToken cancellationToken);
+    Task<Pagination<OrderGetResponse>> GetActiveAsync(OrderFilter filter, CancellationToken cancellationToken);
     Task<CheckoutResponse> CheckoutAsync(string id, CheckoutRequest request, CancellationToken cancellationToken);
     Task ConfirmPaymentAsync(string id, CancellationToken cancellationToken);
     Task<OrderGetResponse> UpdateStatusAsync(string id, UpdateStatusRequest updateStatusRequest, CancellationToken cancellationToken);

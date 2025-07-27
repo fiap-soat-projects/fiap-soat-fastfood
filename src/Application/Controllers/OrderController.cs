@@ -39,6 +39,13 @@ internal class OrderController : IOrderController
         return orderPage.ToResponse();
     }
 
+    public async Task<Pagination<OrderGetResponse>> GetActiveAsync(OrderFilter filter, CancellationToken cancellationToken)
+    {
+        var orderPage = await _orderUseCase.GetActiveAsync(cancellationToken, filter.Page, filter.Size);
+
+        return orderPage.ToResponse();
+    }
+
     public async Task<OrderGetResponse> GetByIdAsync(string id, CancellationToken cancellationToken)
     {
         var order = await _orderUseCase.GetByIdAsync(id, cancellationToken);
