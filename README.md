@@ -43,6 +43,45 @@ Consulte o diretório [`/diagrams`](diagrams) para visualizar os arquivos e obte
 
 - 🐳 Instalação do [Docker](https://www.docker.com/get-started/)
 
+
+### TODO: Formatar
+
+1. Habilitar K8S no docker-desktop
+
+2. Criar os namespaces abaixo:
+- kubectl create namespace fiap
+- kubectl create namespace keda
+- kubectl create namespace monitoring
+
+3. Instalar Apps auxiliares:
+
+- Helm (gerenciador de pkgs para k8s): curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
+- K6 (CLI para execução de scripts para testes de carga): sudo apt install -y k6
+
+4. Configuração de dependencias no cluster K8S:
+
+Instalação do Keda (Orquestrador de pods baseado em eventos): 
+- helm repo add kedacore https://kedacore.github.io/charts
+- helm repo update
+- helm install keda kedacore/keda --n keda
+
+Instalação do Prometheus para coleta e propagação de métricas da nossa api:
+
+
+helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+helm repo update
+
+helm install prometheus prometheus-community/kube-prometheus-stack -n monitoring
+helm install prometheus-adapter prometheus-community/prometheus-adapter -n monitoring 
+
+5. Aplicar manifestos:
+
+navegar até o diretório k8s e executar o comando: kubectl apply -f .
+
+Isso fará com que toda a infraestrutura da API seja criada no k8s.
+
+As APIs ficam disponíveis em http://localhost:30080
+
 ### Passos
 
 1. Clone o repositório:

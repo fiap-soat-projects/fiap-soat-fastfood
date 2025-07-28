@@ -6,6 +6,7 @@ using Api.Middlewares;
 using Infrastructure;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
+using Prometheus;
 using System.Diagnostics.CodeAnalysis;
 using System.Text.Json.Serialization;
 
@@ -89,9 +90,11 @@ public class Program
             app.UseSwagger();
             app.UseSwaggerUI();
         }
-        
+
         app.UseHttpsRedirection();
         app.UseAuthorization();
         app.MapControllers();
+        app.UseHttpMetrics();        
+        app.MapMetrics();
     }
 }

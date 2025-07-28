@@ -1,0 +1,19 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: fastfood-api
+  namespace: fiap
+  labels:
+    app: fastfood-api
+    release: prometheus
+spec:
+  selector:
+    matchLabels:
+      app: fastfood-api
+  endpoints:
+  - port: http
+    path: /metrics
+    interval: 10s
+  namespaceSelector:
+    matchNames:
+      - fiap
