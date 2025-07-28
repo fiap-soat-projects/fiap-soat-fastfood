@@ -85,16 +85,12 @@ public class Program
 
     private static void ConfigureApplication(WebApplication app)
     {
-        if (app.Environment.IsDevelopment())
-        {
-            app.UseSwagger();
-            app.UseSwaggerUI();
-        }
-
+        app.UseSwagger();
+        app.UseSwaggerUI();
         app.UseHttpsRedirection();
         app.UseAuthorization();
         app.MapControllers();
-        app.UseHttpMetrics();        
+        app.UseHttpMetrics();
         app.MapMetrics();
     }
 }
