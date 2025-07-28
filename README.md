@@ -2,7 +2,7 @@
 
 Este projeto foi desenvolvido para o curso de [pós-graduação em Arquitetura de Software (Soat Póstech) da FIAP](https://postech.fiap.com.br/curso/software-architecture/).
 
-A API presente nesse repositório disponibiliza rotas para gerenciamento de clientes, cardápio, pedidos e pagamento, com integração direta com [MongoDb](https://www.mongodb.com/) e [Mercado Pago](https://www.mercadopago.com.br/developers/pt/reference)
+A API presente neste repositório disponibiliza rotas para gerenciamento de clientes, cardápio, pedidos e pagamentos, com integração direta com [MongoDB](https://www.mongodb.com/) e [Mercado Pago](https://www.mercadopago.com.br/developers/pt/reference).
 
 ## 🏃 Integrantes do grupo 21
 
@@ -31,8 +31,11 @@ Consulte o diretório [`/diagrams`](diagrams) para visualizar os arquivos e obte
 - **.NET 8** (C# 12)
 - **ASP.NET Core Web API**
 - **MongoDB** (banco de dados)
-- **Mongo Express** (client web para MongoDB)
+- **Mongo Express** (cliente web para MongoDB)
 - **Docker** e **Docker Compose**
+- **Kubernetes** (gerenciamento de containers)
+- **Keda** (escalonamento)
+- **Prometheus** (métricas)
 - **Polly** (resiliência HTTP)
 - **Swagger** (documentação automática)
 - **MercadoPago** (integração de pagamentos via Pix)
@@ -41,56 +44,78 @@ Consulte o diretório [`/diagrams`](diagrams) para visualizar os arquivos e obte
 
 ### Pré-requisitos
 
-- 🐳 Instalação do [Docker](https://www.docker.com/get-started/)
+- 🐈‍⬛ Clonar este [Repositório](https://github.com/jefersondsgomes/fiap-soat-fastfood)
+- 🐳 Instalar o [Docker](https://www.docker.com/get-started/)
+- ☸️ Habilitar o Kubernetes no [Docker](https://docs.docker.com/desktop/features/kubernetes/)
 
+Podemos executar essa aplicação de 2 maneiras diferentes:
 
-### TODO: Formatar
+### 1. **Docker**:
 
-1. Habilitar K8S no docker-desktop
+No diretório raiz do projeto, utilize uma ferramenta de linha de comando de sua preferência e execute o comando `docker-compose up --build`.
 
-2. Criar os namespaces abaixo:
-- kubectl create namespace fiap
-- kubectl create namespace keda
-- kubectl create namespace monitoring
+A API e seus recursos estão disponíveis em:
+- **API**: [http://localhost:8080/swagger](http://localhost:8080/swagger)
+- **Mongo Express**: [http://localhost:8081](http://localhost:8081)
 
-3. Instalar Apps auxiliares:
+### 2. **Kubernetes**:
 
-- Helm (gerenciador de pkgs para k8s): curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
-- K6 (CLI para execução de scripts para testes de carga): sudo apt install -y k6
+No nosso repositório temos o diretório `/k8s` onde disponibilizamos todos os manifestos associados ao deploy e configuração da nossa API e banco de dados. Nesse contexto, temos a possibilidade de escalar nossa aplicação com base em métricas fornecidas pela API.
 
-4. Configuração de dependencias no cluster K8S:
+Para utilizar esses recursos, precisaremos de alguns passos adicionais para preparação do ambiente:
 
-Instalação do Keda (Orquestrador de pods baseado em eventos): 
-- helm repo add kedacore https://kedacore.github.io/charts
-- helm repo update
-- helm install keda kedacore/keda --n keda
+1. **Criar `namespaces` personalizados no Kubernetes**:
 
-Instalação do Prometheus para coleta e propagação de métricas da nossa api:
+   Com o cluster **K8s** habilitado, precisaremos executar os seguintes comandos:
 
+   - `kubectl create namespace fiap`
+   - `kubectl create namespace keda`
+   - `kubectl create namespace monitoring`
 
-helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
-helm repo update
+2. **⚓ [Instalar o Helm](https://helm.sh/docs/intro/install/)**
 
-helm install prometheus prometheus-community/kube-prometheus-stack -n monitoring
-helm install prometheus-adapter prometheus-community/prometheus-adapter -n monitoring 
+   O Helm é um gerenciador de pacotes para o Kubernetes e, através dele, podemos provisionar aplicações e ambientes inteiros de maneira simplificada. 
 
-5. Aplicar manifestos:
+   Para facilitar as coisas, essa instalação também pode ser feita a partir do comando abaixo:
 
-navegar até o diretório k8s e executar o comando: kubectl apply -f .
+   - `curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash`
 
-Isso fará com que toda a infraestrutura da API seja criada no k8s.
+3. **Configurar serviços adicionais no K8s**:
 
-As APIs ficam disponíveis em http://localhost:30080
+   Temos 2 serviços principais que precisam estar em execução no nosso cluster **K8s** para que seja possível coletar as métricas da nossa aplicação e ajustar a escala dinamicamente. Para instalar esses recursos, precisamos que o **Helm** (passo 2) esteja disponível.
 
-### Passos
+   3.1. **Instalação do [KEDA](https://keda.sh/docs/2.9/deploy/)**
 
-1. Clone o repositório:
+   O **KEDA** é um componente para o **K8s** que estende as capacidades do HPA. Ele permite que as aplicações escalem automaticamente com base em métricas de eventos externas, indo muito além das métricas de CPU e memória padrão.
 
-2. No diretório raíz do projeto, utilize uma ferramenta de linha de comando de sua preferência e execute o comando `docker-compose up --build`
+   Utilizando o **Helm**, execute os comandos abaixo:
+   
+   - `helm repo add kedacore https://kedacore.github.io/charts`
+   - `helm repo update`
+   - `helm install keda kedacore/keda -n keda`
 
-3. Acesse a API e seus recursos:
-   - API: [http://localhost:8080/swagger](http://localhost:8080/swagger)
-   - Mongo Express: [http://localhost:8081](http://localhost:8081)
+   3.2. **Instalação do [Prometheus](https://grafana.com/docs/grafana-cloud/monitor-infrastructure/kubernetes-monitoring/configuration/config-other-methods/prometheus/prometheus-operator/)**
+
+   O **Prometheus** é uma ferramenta de monitoramento e alertas voltada para métricas de sistemas. Ele coleta dados em tempo real por meio de pulls em endpoints HTTP. As métricas são armazenadas em uma base de dados temporal e podem ser consultadas com a linguagem PromQL.
+
+   Execute os comandos abaixo:
+
+   - `helm repo add prometheus-community https://prometheus-community.github.io/helm-charts`
+   - `helm repo update`
+   - `helm install prometheus prometheus-community/kube-prometheus-stack -n monitoring`
+   - `helm install prometheus-adapter prometheus-community/prometheus-adapter -n monitoring`
+
+4. Aplicar manifestos
+
+Acesse o diretório `/k8s` e execute o comando `kubectl apply -f .`, isso fará com que todos os recursos descritos nos manifestos sejam aplicados no **K8s**. Com essa ação, teremos as APIs disponíveis em `http://localhost:30080`.
+
+## Dicas e Truques:
+
+- Utilize o Kubernetes com **[K9S](https://k9scli.io/)**: O **K9S** é uma interface para terminal que permite uma navegação simplificada entre os recursos do Kubernetes. É uma excelente ferramenta de produtividade, pois elimina as diversas chamadas que normalmente são realizadas através do `kubectl`.
+
+- Utilize o **[K6](https://k6.io/)** para testar o scaling: O **K6** é uma ferramenta para execução de testes de carga. Neste projeto, temos o diretório `/k6` onde disponibilizamos scripts que irão estressar alguns endpoints do nosso serviço e, caso esteja executando no **K8s**, será possível verificar o scaling up e scaling down.
+
+- Visualize as informações no **Prometheus**: No **K8s** temos uma stack do Prometheus em execução e é possível fazer um port-forward para que a UI seja acessível externamente. Para isso, execute o comando `kubectl port-forward -n monitoring svc/prometheus-kube-prometheus-prometheus 9090` e acesse em `http://localhost:9090`.
 
 ## Endpoints Disponíveis
 
@@ -117,7 +142,14 @@ As APIs ficam disponíveis em http://localhost:30080
 - `PUT /Menu/{id}` — Atualizar item do cardápio
 - `DELETE /Menu/{id}` — Remover item do cardápio
 
-Se preferir, as requisições descritas acima podem ser acessadas via [postman](https://www.postman.com/) por meio da seguinte collection:
+### 🏥 HealthCheck (Saúde)
+- `GET /healthz` — Saúde da API
+- `GET /health` — Saúde da API e suas dependências
+
+### 📈 Metrics (Métricas)
+- `GET /metrics` — Métricas do Prometheus
+
+Se preferir, as requisições descritas acima podem ser acessadas via [Postman](https://www.postman.com/) por meio da seguinte collection:
 
 - [fiap-soat-fastfood](https://www.postman.com/jefersondsgomes/workspace/fiap-soat-fastfood/collection/7741479-dde54050-3ced-4dcb-830c-bf6e9ec5a8da?action=share&creator=7741479&active-environment=7741479-37d60702-c589-45f8-834c-83c5462c84e7)
 
@@ -128,7 +160,7 @@ Se preferir, as requisições descritas acima podem ser acessadas via [postman](
 
 ## 🏦 Banco de Dados
 
-- O MongoDB inicializa com uma seed de dados para um cardápio pré preenchido. Isso ocorre via script em `scripts/init-db.js`.
+- O MongoDB inicializa com uma seed de dados para um cardápio pré-preenchido. Isso ocorre via script em `scripts/init-db.js`.
 - Usuário padrão: `fastfooduser` / `f4sTf00dP4ssW0rd!`
 - Admin: `admin` / `admin` (para Mongo Express)
 
