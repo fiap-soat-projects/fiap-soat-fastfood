@@ -8,8 +8,9 @@ internal interface IOrderMongoDbRepository
 {
     Task<string> InsertOneAsync(OrderMongoDb order, CancellationToken cancellationToken);
     Task<OrderMongoDb?> GetByIdAsync(string id, CancellationToken cancellationToken);
-    Task<PagedResult<OrderMongoDb>> GetAllByStatus(OrderStatus status, int page, int size, CancellationToken cancellationToken);
-    Task<PagedResult<OrderMongoDb>> GetAllPaginate(int page, int size, CancellationToken cancellationToken);
+    Task<PagedResult<OrderMongoDb>> GetAllByStatusAsync(OrderStatus status, int page, int size, CancellationToken cancellationToken);
+    Task<PagedResult<OrderMongoDb>> GetAllPaginateAsync(int page, int size, CancellationToken cancellationToken);
+    Task<PagedResult<OrderMongoDb>> GetActivePaginateAsync(int page, int size, CancellationToken cancellationToken);
     Task DeleteAsync(string id, CancellationToken cancellationToken);
     Task<OrderMongoDb> UpdateStatusAsync(
         string id,

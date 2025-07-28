@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Api.Apis;
 
 [ApiController]
-[Route("/v1/[controller]")]
+[Route("/v1/menu")]
 public class MenuApi : ControllerBase
 {
     private readonly IMenuController _menuController;

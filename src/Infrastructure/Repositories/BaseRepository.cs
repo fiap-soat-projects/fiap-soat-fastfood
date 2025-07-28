@@ -19,13 +19,15 @@ public abstract class BaseRepository<TEntity> where TEntity : IMongoEntity
     protected async Task<PagedResult<TEntity>> GetPagedAsync(
         int page,
         int size,
-        FilterDefinition<TEntity> filter,
-        CancellationToken cancellationToken)
+        FilterDefinition<TEntity> filter,   
+        SortDefinition<TEntity>? sort = null,
+        CancellationToken cancellationToken = default)
     {
         var options = new FindOptions<TEntity>
         {
             Skip = (page - 1) * size,
-            Limit = size
+            Limit = size,
+            Sort = sort
         };
 
         var cursor = await _collection.FindAsync(

@@ -11,4 +11,5 @@ internal interface IOrderUseCase
     Task DeleteAsync(string id, CancellationToken cancellationToken);
     Task<Order> UpdateStatusAsync(string id, OrderStatus status, CancellationToken cancellationToken);
     Task<Pagination<Order>> GetAllAsync(CancellationToken cancellationToken, OrderStatus? status = null, int page = 0, int size = 0);
+    Task<Pagination<Order>> GetActiveAsync(CancellationToken cancellationToken, int page = 0, int size = 0);
 }

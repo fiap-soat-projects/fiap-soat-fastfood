@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Api.Apis;
 
 [ApiController]
-[Route("/v1/[controller]")]
+[Route("/v1/order")]
 public class OrderApi : ControllerBase
 {
     private readonly IOrderController _orderController;
@@ -42,6 +42,19 @@ public class OrderApi : ControllerBase
         var orderFilter = new OrderFilter(status, page, size);
 
         var orders = await _orderController.GetAllAsync(orderFilter, cancellationToken);
+
+        return Ok(orders);
+    }
+
+    [HttpGet("active")]
+    public async Task<IActionResult> GetActiveAsync(
+    [FromQuery] int page,
+    [FromQuery] int size,
+    CancellationToken cancellationToken)
+    {
+        var orderFilter = new OrderFilter(null, page, size);
+
+        var orders = await _orderController.GetActiveAsync(orderFilter, cancellationToken);
 
         return Ok(orders);
     }
