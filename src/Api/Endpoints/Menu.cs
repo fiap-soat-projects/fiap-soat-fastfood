@@ -3,15 +3,15 @@ using Adapter.Controllers.DTOs.Filters;
 using Adapter.Controllers.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Api.Apis;
+namespace Api.Endpoints;
 
 [ApiController]
 [Route("/v1/menu")]
-public class MenuApi : ControllerBase
+public class Menu : ControllerBase
 {
     private readonly IMenuController _menuController;
 
-    public MenuApi(IMenuController menuController)
+    public Menu(IMenuController menuController)
     {
         _menuController = menuController;
     }

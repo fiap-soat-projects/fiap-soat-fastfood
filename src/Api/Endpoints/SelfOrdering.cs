@@ -2,15 +2,15 @@
 using Adapter.Controllers.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Api.Apis;
+namespace Api.Endpoints;
 
 [ApiController]
-[Route("/v1/self-ordering")]
-public class SelfOrderingApi : ControllerBase
+[Route("/v1/selfordering")]
+public class SelfOrdering : ControllerBase
 {
     private readonly ISelfOrderingController _selfOrderingController;
 
-    public SelfOrderingApi(ISelfOrderingController selfOrderingController)
+    public SelfOrdering(ISelfOrderingController selfOrderingController)
     {
         _selfOrderingController = selfOrderingController;
     }

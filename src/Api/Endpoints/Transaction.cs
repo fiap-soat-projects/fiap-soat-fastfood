@@ -2,15 +2,15 @@
 using Adapter.Controllers.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Api.Apis;
+namespace Api.Endpoints;
 
 [ApiController]
 [Route("/v1/order")]
-public class TransactionApi : ControllerBase
+public class Transaction : ControllerBase
 {
     private readonly IOrderController _orderController;
 
-    public TransactionApi(IOrderController orderController)
+    public Transaction(IOrderController orderController)
     {
         _orderController = orderController;
     }
