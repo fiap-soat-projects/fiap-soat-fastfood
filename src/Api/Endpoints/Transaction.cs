@@ -35,7 +35,7 @@ public class Transaction : ControllerBase
     }
 
 
-    [HttpPost("payment/webhoook")]
+    [HttpPost("payment/webhook")]
     public async Task<IActionResult> PaymentWebhookAsync([FromBody] PaymentWebhook webhook, CancellationToken cancellationToken)
     {
         await _orderController.ProcessPaymentAsync(webhook, cancellationToken);
