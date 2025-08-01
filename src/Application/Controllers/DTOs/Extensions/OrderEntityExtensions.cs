@@ -18,7 +18,7 @@ internal static class OrderEntityExtensions
         ));
 
         var status = order.Status.ToString();
-        var paymentMethod = order.Payment.ToString();
+        var paymentMethod = order.Payment;
         var totalPrice = order.TotalPrice;
 
         return new OrderGetResponse(id, customerId, customerName, items, status, paymentMethod, totalPrice);
