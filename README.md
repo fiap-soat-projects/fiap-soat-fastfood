@@ -109,6 +109,12 @@ Para utilizar esses recursos, precisaremos de alguns passos adicionais para prep
 
 Acesse o diretório `/k8s` e execute o comando `kubectl apply -f .`, isso fará com que todos os recursos descritos nos manifestos sejam aplicados no **K8s**. Com essa ação, teremos as APIs disponíveis em `http://localhost:30080`.
 
+---
+
+### Arquitetura K8s:
+
+![soat-fastfood-architecture.drawio.png](./diagrams/img/soat-fastfood-architecture.drawio.png)
+
 ## Dicas e Truques:
 
 - Utilize o Kubernetes com **[K9S](https://k9scli.io/)**: O **K9S** é uma interface para terminal que permite uma navegação simplificada entre os recursos do Kubernetes. É uma excelente ferramenta de produtividade, pois elimina as diversas chamadas que normalmente são realizadas através do `kubectl`.
