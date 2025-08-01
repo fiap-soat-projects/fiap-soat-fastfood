@@ -69,10 +69,10 @@ internal class OrderGateway : IOrderRepository
         return orderMongoDb.ToDomain();
     }
 
-    public async Task<Order> UpdatePaymentMethodAsync(string id, PaymentMethod paymentMethod, CancellationToken cancellationToken)
+    public async Task UpdatePaymentAsync(string id, OrderStatus orderStatus, Payment payment, CancellationToken cancellationToken)
     {
-        var orderMongoDb = await _orderMongoDbRepository.UpdatePaymentMethodAsync(id, paymentMethod, cancellationToken);
+        var paymentMongoDb = new PaymentMongoDb(payment);   
 
-        return orderMongoDb.ToDomain();
+        await _orderMongoDbRepository.UpdatePaymentAsync(id, orderStatus, paymentMongoDb, cancellationToken);
     }
 }

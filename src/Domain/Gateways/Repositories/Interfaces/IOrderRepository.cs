@@ -12,12 +12,15 @@ public interface IOrderRepository
     Task<Pagination<Order>> GetAllPaginateAsync(int page, int size, CancellationToken cancellationToken);
     Task<Pagination<Order>> GetActivePaginateAsync(int page, int size, CancellationToken cancellationToken);
     Task DeleteAsync(string id, CancellationToken cancellationToken);
+
     Task<Order> UpdateStatusAsync(
         string id,
         OrderStatus status,
         CancellationToken cancellationToken);
-    Task<Order> UpdatePaymentMethodAsync(
+
+    Task UpdatePaymentAsync(
         string id,
-        PaymentMethod paymentMethod,
+        OrderStatus status,
+        Payment payment,
         CancellationToken cancellationToken);
 }

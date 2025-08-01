@@ -12,6 +12,14 @@ public class InvalidEntityPropertyException<TEntity> : DomainException where TEn
 
     }
 
+    public static void ThrowIfNull(object? value, string propertyName)
+    {
+        if (value is null)
+        {
+            throw new InvalidEntityPropertyException<TEntity>(propertyName);
+        }
+    }
+
     public static void ThrowIfNullOrWhiteSpace(string? value, string propertyName)
     {
         if (string.IsNullOrWhiteSpace(value))

@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Api.Endpoints;
 
 [ApiController]
-[Route("/v1/selfordering")]
+[Route("/v1/self-ordering")]
 public class SelfOrdering : ControllerBase
 {
     private readonly ISelfOrderingController _selfOrderingController;

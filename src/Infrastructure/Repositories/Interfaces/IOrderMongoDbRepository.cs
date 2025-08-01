@@ -12,12 +12,15 @@ internal interface IOrderMongoDbRepository
     Task<PagedResult<OrderMongoDb>> GetAllPaginateAsync(int page, int size, CancellationToken cancellationToken);
     Task<PagedResult<OrderMongoDb>> GetActivePaginateAsync(int page, int size, CancellationToken cancellationToken);
     Task DeleteAsync(string id, CancellationToken cancellationToken);
+
     Task<OrderMongoDb> UpdateStatusAsync(
         string id,
         OrderStatus status,
         CancellationToken cancellationToken);
-    Task<OrderMongoDb> UpdatePaymentMethodAsync(
+
+    Task UpdatePaymentAsync(
         string id,
-        PaymentMethod paymentMethod,
+        OrderStatus orderStatus,
+        PaymentMongoDb payment,
         CancellationToken cancellationToken);
 }

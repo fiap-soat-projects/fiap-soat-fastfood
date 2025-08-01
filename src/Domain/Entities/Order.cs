@@ -11,7 +11,7 @@ public class Order : IAggregateRoot
     private string? _customerName;
     private IEnumerable<OrderItem> _items = [];
     private OrderStatus _status;
-    private PaymentMethod _paymentMethod;
+    private Payment? _payment;
     private decimal _totalPrice;
 
     public string Id
@@ -48,10 +48,15 @@ public class Order : IAggregateRoot
         }
     }
 
-    public PaymentMethod PaymentMethod
+    public Payment? Payment
     {
-        get => _paymentMethod;
-        set => _paymentMethod = value;
+        get => _payment;
+        set
+        {
+            OrderException.ThrowIfNull(value, nameof(TotalPrice));
+
+            _payment = value;
+        }
     }
 
     public decimal TotalPrice
@@ -77,7 +82,7 @@ public class Order : IAggregateRoot
         string? customerName,
         IEnumerable<OrderItem> items,
         OrderStatus status,
-        PaymentMethod paymentMethod,
+        Payment? payment,
         decimal totalPrice)
     {
         Id = id;
@@ -85,7 +90,7 @@ public class Order : IAggregateRoot
         CustomerName = customerName;
         Items = items;
         Status = status;
-        PaymentMethod = paymentMethod;
+        Payment = payment;
         TotalPrice = totalPrice;
     }
 
@@ -99,7 +104,7 @@ public class Order : IAggregateRoot
         Items = items;
         TotalPrice = SumItems(items);
         Status = OrderStatus.Pending;
-        PaymentMethod = PaymentMethod.None;
+        Payment = new Payment { Method = PaymentMethod.None};
     }
 
     private static void ValidateStatus(OrderStatus status)
