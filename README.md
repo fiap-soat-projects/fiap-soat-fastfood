@@ -126,7 +126,8 @@ Acesse o diretório `/k8s` e execute o comando `kubectl apply -f .`, isso fará 
 ## Endpoints Disponíveis
 
 ### 🍔 Order (Pedido)
-- `GET /order?page=1&size=10&status=Received` — Listar pedidos em página
+- `GET /order?page=1&size=10&status=Received` — Listar todos pedidos em página
+- `GET /order/active?page=1&size=10` — Listar pedidos ativos em página
 - `GET /order/{id}` — Detalhar pedido
 - `POST /order` — Criar pedido
 - `PATCH /order/{id}/status` — Atualizar status do pedido
