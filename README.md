@@ -109,6 +109,12 @@ Para utilizar esses recursos, precisaremos de alguns passos adicionais para prep
 
 Acesse o diretório `/k8s` e execute o comando `kubectl apply -f .`, isso fará com que todos os recursos descritos nos manifestos sejam aplicados no **K8s**. Com essa ação, teremos as APIs disponíveis em `http://localhost:30080`.
 
+---
+
+### Arquitetura K8s:
+
+![soat-fastfood-architecture.drawio.png](./diagrams/img/soat-fastfood-architecture.drawio.png)
+
 ## Dicas e Truques:
 
 - Utilize o Kubernetes com **[K9S](https://k9scli.io/)**: O **K9S** é uma interface para terminal que permite uma navegação simplificada entre os recursos do Kubernetes. É uma excelente ferramenta de produtividade, pois elimina as diversas chamadas que normalmente são realizadas através do `kubectl`.
@@ -120,28 +126,28 @@ Acesse o diretório `/k8s` e execute o comando `kubectl apply -f .`, isso fará 
 ## Endpoints Disponíveis
 
 ### 🍔 Order (Pedido)
-- `GET /Order?page=1&size=10&status=Received` — Listar pedidos em página
-- `GET /Order/{id}` — Detalhar pedido
-- `POST /Order` — Criar pedido
-- `PATCH /Order/{id}/status` — Atualizar status do pedido
-- `DELETE /Order/{id}` — Remover pedido
+- `GET /order?page=1&size=10&status=Received` — Listar pedidos em página
+- `GET /order/{id}` — Detalhar pedido
+- `POST /order` — Criar pedido
+- `PATCH /order/{id}/status` — Atualizar status do pedido
+- `DELETE /order/{id}` — Remover pedido
 
 ### 💸 Transaction (Pagamento)
-- `POST /Order/{id}/checkout` — Iniciar checkout/pagamento
-- `POST /Order/{id}/confirm-payment` — Confirmar pagamento
-- `POST /Order/payment/webhook` — Webhook de pagamento
+- `POST /order/{id}/checkout` — Iniciar checkout/pagamento
+- `POST /order/{id}/confirm-payment` — Confirmar pagamento
+- `POST /order/payment/webhook` — Webhook de pagamento
 
 ### 🤖 SelfOrdering (Cliente)
-- `GET /Self-Ordering/customer/{id}` — Buscar cliente por ID
-- `GET /Self-Ordering/customer/{cpf}` — Buscar cliente por CPF
-- `POST /Self-Ordering/customer` — Registrar cliente
+- `GET /self-ordering/customer/{id}` — Buscar cliente por ID
+- `GET /self-ordering/customer/{cpf}` — Buscar cliente por CPF
+- `POST /self-ordering/customer` — Registrar cliente
 
 ### 📲 Menu (Cardápio)
-- `GET /Menu/{id}` — Detalhar item do cardápio
-- `GET /Menu?name=string&category=0&skip=0&limit=10` — Listar itens do cardápio
-- `POST /Menu` — Cadastrar item no cardápio
-- `PUT /Menu/{id}` — Atualizar item do cardápio
-- `DELETE /Menu/{id}` — Remover item do cardápio
+- `GET /menu/{id}` — Detalhar item do cardápio
+- `GET /menu?name=string&category=0&skip=0&limit=10` — Listar itens do cardápio
+- `POST /menu` — Cadastrar item no cardápio
+- `PUT /menu/{id}` — Atualizar item do cardápio
+- `DELETE /menu/{id}` — Remover item do cardápio
 
 ### 🏥 HealthCheck (Saúde)
 - `GET /healthz` — Saúde da API
@@ -150,9 +156,9 @@ Acesse o diretório `/k8s` e execute o comando `kubectl apply -f .`, isso fará 
 ### 📈 Metrics (Métricas)
 - `GET /metrics` — Métricas do Prometheus
 
-Se preferir, as requisições descritas acima podem ser acessadas via [Postman](https://www.postman.com/) por meio da seguinte collection:
+Se preferir, as requisições descritas acima podem ser acessadas via [Postman](https://www.postman.com/) por meio da seguinte documentação:
 
-- [fiap-soat-fastfood](https://www.postman.com/jefersondsgomes/workspace/fiap-soat-fastfood/collection/7741479-dde54050-3ced-4dcb-830c-bf6e9ec5a8da?action=share&creator=7741479&active-environment=7741479-37d60702-c589-45f8-834c-83c5462c84e7)
+- [fiap-soat-fastfood](https://documenter.getpostman.com/view/7741479/2sB3BAMYQs)
 
 ## 👤 Convenções
 
