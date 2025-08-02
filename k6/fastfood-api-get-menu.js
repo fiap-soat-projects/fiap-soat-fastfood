@@ -21,6 +21,6 @@ export const options = {
 };
 
 export default function () {
-    const res = http.get(`${BASE_URL}/v1/menuapi`);
+    const res = http.get(`${BASE_URL}/v1/menu`);
     check(res, { 'status is 200': (r) => r.status === 200 });
 }

@@ -33,7 +33,7 @@ export default function () {
         },
     };
 
-    const res = http.post(`${BASE_URL}/v1/SelfOrderingApi/customer`, payload, params);
+    const res = http.post(`${BASE_URL}/v1/self-ordering/customer`, payload, params);
     check(res, { 'status is 201': (r) => r.status === 201 });
 
     sleep(1);
