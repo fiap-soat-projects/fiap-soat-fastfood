@@ -38,7 +38,7 @@ public class Program
     {
         services
             .InjectInfrastructureDependencies()
-            .InjectApplicationDependencies();
+            .InjectAdapterDependencies();
 
         services
             .AddEndpointsApiExplorer()
