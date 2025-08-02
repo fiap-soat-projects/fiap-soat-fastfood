@@ -9,9 +9,9 @@ using Business.UseCases.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Adapter;
-public static class ApplicationExtensions
+public static class AdapterExtensions
 {
-    public static IServiceCollection InjectApplicationDependencies(this IServiceCollection services)
+    public static IServiceCollection InjectAdapterDependencies(this IServiceCollection services)
     {
         return services
             .RegisterUseCases()
