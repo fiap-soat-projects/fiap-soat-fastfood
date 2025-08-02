@@ -3,15 +3,15 @@ using Adapter.Controllers.DTOs.Filters;
 using Adapter.Controllers.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Api.Apis;
+namespace Api.Endpoints;
 
 [ApiController]
 [Route("/v1/order")]
-public class OrderApi : ControllerBase
+public class Order : ControllerBase
 {
     private readonly IOrderController _orderController;
 
-    public OrderApi(IOrderController orderController)
+    public Order(IOrderController orderController)
     {
         _orderController = orderController;
     }

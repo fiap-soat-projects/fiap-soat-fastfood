@@ -10,10 +10,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Apis\DTOs\**" />
-    <Content Remove="Apis\DTOs\**" />
-    <EmbeddedResource Remove="Apis\DTOs\**" />
-    <None Remove="Apis\DTOs\**" />
+    <Compile Remove="Endpoints\DTOs\**" />
+    <Content Remove="Endpoints\DTOs\**" />
+    <EmbeddedResource Remove="Endpoints\DTOs\**" />
+    <None Remove="Endpoints\DTOs\**" />
   </ItemGroup>
 
   <ItemGroup>

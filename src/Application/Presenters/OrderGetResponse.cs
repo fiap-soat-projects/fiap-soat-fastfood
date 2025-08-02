@@ -1,4 +1,6 @@
-﻿namespace Adapter.Presenters;
+﻿using Business.Entities;
+
+namespace Adapter.Presenters;
 
 public record OrderGetResponse
 (
@@ -7,6 +9,6 @@ public record OrderGetResponse
     string CustomerName,
     IEnumerable<OrderItemResponse> Items,
     string Status,
-    string PaymentMethod,
+    Payment? payment,
     decimal TotalPrice
 ) { }

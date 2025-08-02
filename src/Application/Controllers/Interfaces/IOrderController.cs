@@ -13,6 +13,7 @@ public interface IOrderController
     Task<Pagination<OrderGetResponse>> GetActiveAsync(OrderFilter filter, CancellationToken cancellationToken);
     Task<CheckoutResponse> CheckoutAsync(string id, CheckoutRequest request, CancellationToken cancellationToken);
     Task ConfirmPaymentAsync(string id, CancellationToken cancellationToken);
+    Task ProcessPaymentAsync(PaymentWebhook request, CancellationToken cancellationToken);
     Task<OrderGetResponse> UpdateStatusAsync(string id, UpdateStatusRequest updateStatusRequest, CancellationToken cancellationToken);
     Task DeleteAsync(string id, CancellationToken cancellationToken);
 }

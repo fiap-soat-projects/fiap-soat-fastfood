@@ -129,11 +129,12 @@ Acesse o diretório `/k8s` e execute o comando `kubectl apply -f .`, isso fará 
 ### 💸 Transaction (Pagamento)
 - `POST /Order/{id}/checkout` — Iniciar checkout/pagamento
 - `POST /Order/{id}/confirm-payment` — Confirmar pagamento
+- `POST /Order/payment/webhook` — Webhook de pagamento
 
 ### 🤖 SelfOrdering (Cliente)
-- `GET /SelfOrdering/customer/{id}` — Buscar cliente por ID
-- `GET /SelfOrdering/customer/{cpf}` — Buscar cliente por CPF
-- `POST /SelfOrdering/customer` — Registrar cliente
+- `GET /Self-Ordering/customer/{id}` — Buscar cliente por ID
+- `GET /Self-Ordering/customer/{cpf}` — Buscar cliente por CPF
+- `POST /Self-Ordering/customer` — Registrar cliente
 
 ### 📲 Menu (Cardápio)
 - `GET /Menu/{id}` — Detalhar item do cardápio

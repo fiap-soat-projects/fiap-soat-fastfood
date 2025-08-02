@@ -129,6 +129,18 @@ internal class OrderController : IOrderController
         await _paymentUseCase.ConfirmPaymentAsync(id, cancellationToken);
     }
 
+    public async Task ProcessPaymentAsync(PaymentWebhook request, CancellationToken cancellationToken)
+    {
+        var payment = new Payment
+        {
+            Id = request.PaymentId,
+            Status = request.PaymentStatus,
+            Method = request.PaymentMethod
+        };
+
+        await _paymentUseCase.ProcessPaymentAsync(request.OrderId!, payment, cancellationToken);
+    }
+
     private static OrderStatus ParseOrderStatus(string text)
     {
         _ = Enum.TryParse(text, out OrderStatus status);

@@ -2,15 +2,15 @@
 using Adapter.Controllers.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Api.Apis;
+namespace Api.Endpoints;
 
 [ApiController]
 [Route("/v1/order")]
-public class TransactionApi : ControllerBase
+public class Transaction : ControllerBase
 {
     private readonly IOrderController _orderController;
 
-    public TransactionApi(IOrderController orderController)
+    public Transaction(IOrderController orderController)
     {
         _orderController = orderController;
     }
@@ -30,6 +30,15 @@ public class TransactionApi : ControllerBase
     public async Task<IActionResult> ConfirmPaymentAsync(string id, CancellationToken cancellationToken)
     {
         await _orderController.ConfirmPaymentAsync(id, cancellationToken);
+
+        return NoContent();
+    }
+
+
+    [HttpPost("payment/webhook")]
+    public async Task<IActionResult> PaymentWebhookAsync([FromBody] PaymentWebhook webhook, CancellationToken cancellationToken)
+    {
+        await _orderController.ProcessPaymentAsync(webhook, cancellationToken);
 
         return NoContent();
     }
