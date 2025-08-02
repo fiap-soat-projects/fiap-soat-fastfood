@@ -21,9 +21,8 @@ spec:
     spec:
       containers:
         - name: fastfood-api
-          image: fiap-soat-fastfood-fastfood-api:latest
-          # Change here when tag image
-          imagePullPolicy: Never
+          image: jefersondsgomes/fiap-soat-fastfood-api:latest
+          imagePullPolicy: IfNotPresent
           startupProbe:
             httpGet:
               path: /healthz
