@@ -51,6 +51,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "k8s", "k8s", "{48ADCC53-36B
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "k6", "k6", "{C0635555-09F4-4FC6-A6B9-DE0C7C7F864E}"
+	ProjectSection(SolutionItems) = preProject
+		k6\fastfood-api-create-user.js = k6\fastfood-api-create-user.js
+		k6\fastfood-api-get-menu.js = k6\fastfood-api-get-menu.js
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
