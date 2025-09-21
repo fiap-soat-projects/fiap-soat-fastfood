@@ -10,11 +10,35 @@ const now = new Date();
 
 db.customer.createIndex({ cpf: 1 }, { unique: true });
 
+db.customer.insertMany([
+    {
+        "_id": ObjectId("68d076b6020449f7b3d993e6"),
+        "createdAt": "2025-09-21T22:05:42.4275297Z",
+        "name": "alison",
+        "cpf": "11122233377",
+        "email": "alison@test.com"
+    },
+    {
+        "_id": ObjectId("68d07795a84df29051d120e8"),
+        "createdAt": "2025-09-21T22:05:42.4275297Z",
+        "name": "jeferson",
+        "cpf": "11122333377",
+        "email": "jeferson@test.com"
+    },
+    {
+        "_id": ObjectId("68d0779da84df29051d120e9"),
+        "createdAt": "2025-09-21T22:05:42.4275297Z",
+        "name": "jamison",
+        "cpf": "11122333379",
+        "email": "jeferson@test.com"
+    }
+]);
+
 db.menu.createIndex({ name: 1 }, { unique: true });
 
 db.menu.insertMany([
     {
-        _id: ObjectId(),
+        _id: ObjectId('68d069e748439d63f889b03d'),
         createdAt: now,
         name: "X-Burguer",
         price: 15.90,
@@ -412,5 +436,128 @@ db.menu.insertMany([
         category: "Dessert",
         isActive: true,
         isDeleted: false
+    }
+]);
+
+db.order.insertMany([
+    {
+        "_id": ObjectId(),
+        "customerId": "",
+        "customerName": "",
+        "items": [
+            {
+                "_id": "68d069e748439d63f889b03d",
+                "name": "X-Burguer",
+                "category": "MainCourse",
+                "price": 15.9,
+                "amount": 3
+            }
+        ],
+        "status": "Pending",
+        "payment": {
+            "method": "None",
+            "status": "None"
+        },
+        "totalPrice": 47.7
+    },
+    {
+        "_id": ObjectId(),
+        "customerId": "",
+        "customerName": "",
+        "items": [
+            {
+                "_id": "68d069e748439d63f889b03d",
+                "name": "X-Burguer",
+                "category": "MainCourse",
+                "price": 15.9,
+                "amount": 3
+            }
+        ],
+        "status": "Received",
+        "payment": {
+            "method": "Pix",
+            "status": "Authorized"
+        },
+        "totalPrice": 47.7
+    },
+    {
+        "_id": ObjectId(),
+        "customerId": "",
+        "customerName": "",
+        "items": [
+            {
+                "_id": "68d069e748439d63f889b03d",
+                "name": "X-Burguer",
+                "category": "MainCourse",
+                "price": 15.9,
+                "amount": 3
+            }
+        ],
+        "status": "InProgress",
+        "payment": {
+            "method": "Pix",
+            "status": "Authorized"
+        },
+        "totalPrice": 47.7
+    },
+    {
+        "_id": ObjectId(),
+        "customerId": "",
+        "customerName": "",
+        "items": [
+            {
+                "_id": "68d069e748439d63f889b03d",
+                "name": "X-Burguer",
+                "category": "MainCourse",
+                "price": 15.9,
+                "amount": 3
+            }
+        ],
+        "status": "Done",
+        "payment": {
+            "method": "Pix",
+            "status": "Authorized"
+        },
+        "totalPrice": 47.7
+    },
+    {
+        "_id": ObjectId(),
+        "customerId": "",
+        "customerName": "",
+        "items": [
+            {
+                "_id": "68d069e748439d63f889b03d",
+                "name": "X-Burguer",
+                "category": "MainCourse",
+                "price": 15.9,
+                "amount": 3
+            }
+        ],
+        "status": "Finished",
+        "payment": {
+            "method": "Pix",
+            "status": "Authorized"
+        },
+        "totalPrice": 47.7
+    },
+    {
+        "_id": ObjectId(),
+        "customerId": "",
+        "customerName": "",
+        "items": [
+            {
+                "_id": "68d069e748439d63f889b03d",
+                "name": "X-Burguer",
+                "category": "MainCourse",
+                "price": 15.9,
+                "amount": 3
+            }
+        ],
+        "status": "Canceled",
+        "payment": {
+            "method": "Pix",
+            "status": "Refused"
+        },
+        "totalPrice": 47.7
     }
 ]);
