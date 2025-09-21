@@ -1,8 +1,8 @@
 db = db.getSiblingDB('fastfood');
 
 db.createUser({
-    user: "fastfooduser",
-    pwd: "f4sTf00dP4ssW0rd!",
+    user: "{{username}",
+    pwd: "{{password}}",
     roles: [{ role: "readWrite", db: "fastfood" }]
 });
 

@@ -127,7 +127,7 @@ Acesse o diretório `/k8s` e execute o comando `kubectl apply -f .`, isso fará 
 
 ### 🍔 Order (Pedido)
 - `GET /order?page=1&size=10&status=Received` — Listar todos pedidos em página
-- `GET /order/active?page=1&size=10` — Listar pedidos ativos em página
+- `GET /order/active?page=1&size=10` — Listar pedidos ativos em página de forma ordenada e excluindo pedidos inativos.
 - `GET /order/{id}` — Detalhar pedido
 - `POST /order` — Criar pedido
 - `PATCH /order/{id}/status` — Atualizar status do pedido
@@ -169,7 +169,6 @@ Se preferir, as requisições descritas acima podem ser acessadas via [Postman](
 ## 🏦 Banco de Dados
 
 - O MongoDB inicializa com uma seed de dados para um cardápio pré-preenchido. Isso ocorre via script em `scripts/init-db.js`.
-- Usuário padrão: `fastfooduser` / `f4sTf00dP4ssW0rd!`
-- Admin: `admin` / `admin` (para Mongo Express)
+- Por padrão o script não esta com os valores de usuário e senha configurados é necessário realizar a configuração manualmente, é possivel encontrar através dos placeholders: {{username}} e {{password}}.
 
 ---
