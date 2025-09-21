@@ -27,4 +27,12 @@ spec:
       serverAddress: http://prometheus-kube-prometheus-prometheus.monitoring.svc.cluster.local:9090
       metricName: http_request_rate
       query: sum(rate(http_requests_received_total{exported_endpoint!~"/health|/healthz|/metrics"}[30s]))
-      threshold: "20"
+      threshold: "20"  
+  - type: cpu
+    metadata:
+      type: Utilization
+      value: "70"
+  - type: memory
+    metadata:
+      type: Utilization
+      value: "75"
