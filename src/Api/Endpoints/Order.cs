@@ -27,9 +27,9 @@ public class Order : ControllerBase
     [HttpGet("{id:length(24)}")]
     public async Task<IActionResult> GetByIdAsync(string id, CancellationToken cancellationToken)
     {
-        var order = await _orderController.GetByIdAsync(id, cancellationToken);
+        var presenter = await _orderController.GetByIdAsync(id, cancellationToken);
 
-        return Ok(order);
+        return Ok(presenter.ViewModel);
     }
 
     [HttpGet]
@@ -41,9 +41,9 @@ public class Order : ControllerBase
     {
         var orderFilter = new OrderFilter(status, page, size);
 
-        var orders = await _orderController.GetAllAsync(orderFilter, cancellationToken);
+        var presenter = await _orderController.GetAllAsync(orderFilter, cancellationToken);
 
-        return Ok(orders);
+        return Ok(presenter.ViewModel);
     }
 
     [HttpGet("active")]
@@ -54,9 +54,9 @@ public class Order : ControllerBase
     {
         var orderFilter = new OrderFilter(null, page, size);
 
-        var orders = await _orderController.GetActiveAsync(orderFilter, cancellationToken);
+        var presenter = await _orderController.GetActiveAsync(orderFilter, cancellationToken);
 
-        return Ok(orders);
+        return Ok(presenter.ViewModel);
     }
 
     [HttpPatch("{id:length(24)}/status")]
@@ -65,9 +65,9 @@ public class Order : ControllerBase
         string id,
         CancellationToken cancellationToken)
     {
-        var updatedOrder = await _orderController.UpdateStatusAsync(id, request, cancellationToken);
+        var presenter = await _orderController.UpdateStatusAsync(id, request, cancellationToken);
 
-        return Ok(updatedOrder);
+        return Ok(presenter.ViewModel);
     }
 
     [HttpDelete("{id:length(24)}")]

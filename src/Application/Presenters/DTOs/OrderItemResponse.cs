@@ -1,4 +1,4 @@
-﻿namespace Adapter.Presenters;
+﻿namespace Adapter.Presenters.DTOs;
 
 public record OrderItemResponse
 (

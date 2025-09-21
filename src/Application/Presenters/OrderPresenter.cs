@@ -1,11 +1,13 @@
-﻿using Adapter.Presenters;
+﻿using Adapter.Controllers.DTOs.Extensions;
 using Adapter.Presenters.DTOs;
 using Business.Entities;
 
-namespace Adapter.Controllers.DTOs.Extensions;
-internal static class OrderEntityExtensions
+namespace Adapter.Presenters;
+public class OrderPresenter
 {
-    internal static OrderResponse ToResponse(this Order order)
+    public OrderResponse ViewModel { get; init; }
+
+    public OrderPresenter(Order order)
     {
         var id = order.Id ?? string.Empty;
         var customerId = order.CustomerId ?? string.Empty;
@@ -22,6 +24,6 @@ internal static class OrderEntityExtensions
         var paymentMethod = order.Payment;
         var totalPrice = order.TotalPrice;
 
-        return new OrderResponse(id, customerId, customerName, items, status, paymentMethod, totalPrice);
+        ViewModel = order.ToResponse();
     }
 }

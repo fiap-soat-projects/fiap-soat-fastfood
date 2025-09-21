@@ -1,6 +1,6 @@
 ﻿using Adapter.Controllers.DTOs;
 using Adapter.Controllers.Interfaces;
-using Adapter.Presenters;
+using Adapter.Presenters.DTOs;
 using Business.Entities;
 using Business.UseCases.Interfaces;
 

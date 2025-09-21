@@ -1,13 +1,13 @@
-﻿using Adapter.Presenters;
+﻿using Adapter.Presenters.DTOs;
 using Business.Entities;
 using Business.Entities.Page;
 
 namespace Adapter.Controllers.DTOs.Extensions;
 internal static class PaginationExtensions
 {
-    internal static Pagination<OrderGetResponse> ToResponse(this Pagination<Order> pagination)
+    internal static Pagination<OrderResponse> ToResponse(this Pagination<Order> pagination)
     {
-        return new Pagination<OrderGetResponse>()
+        return new Pagination<OrderResponse>()
         {
             Page = pagination.Page,
             Size = pagination.Size,

@@ -1,5 +1,5 @@
 ﻿using Adapter.Controllers.DTOs;
-using Adapter.Presenters;
+using Adapter.Presenters.DTOs;
 
 namespace Adapter.Controllers.Interfaces;
 
