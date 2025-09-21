@@ -21,9 +21,9 @@ public class Transaction : ControllerBase
         string id,
         CancellationToken cancellationToken)
     {
-        var checkoutResponse = await _orderController.CheckoutAsync(id, checkoutRequest, cancellationToken);
+        var presenter = await _orderController.CheckoutAsync(id, checkoutRequest, cancellationToken);
 
-        return Ok(checkoutResponse);
+        return Ok(presenter.ViewModel);
     }
 
     [HttpPost("{id:length(24)}/confirm-payment")]

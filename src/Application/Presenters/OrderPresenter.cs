@@ -1,5 +1,4 @@
-﻿using Adapter.Controllers.DTOs.Extensions;
-using Adapter.Presenters.DTOs;
+﻿using Adapter.Presenters.DTOs;
 using Business.Entities;
 
 namespace Adapter.Presenters;
@@ -21,9 +20,16 @@ public class OrderPresenter
         ));
 
         var status = order.Status.ToString();
-        var paymentMethod = order.Payment;
+        var payment = order.Payment;
         var totalPrice = order.TotalPrice;
 
-        ViewModel = order.ToResponse();
+        ViewModel = new OrderResponse(
+            id, 
+            customerId,
+            customerName, 
+            items,
+            status, 
+            payment, 
+            totalPrice);
     }
 }

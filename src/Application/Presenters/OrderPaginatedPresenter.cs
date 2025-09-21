@@ -1,5 +1,4 @@
-﻿using Adapter.Controllers.DTOs.Extensions;
-using Adapter.Presenters.DTOs;
+﻿using Adapter.Presenters.DTOs;
 using Business.Entities;
 using Business.Entities.Page;
 
