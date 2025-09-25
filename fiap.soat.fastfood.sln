@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 18
-VisualStudioVersion = 18.0.11018.127 d18.0
+VisualStudioVersion = 18.0.11018.127
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
 EndProject
@@ -41,7 +41,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "k6", "k6", "{C0635555-09F4-
 		k6\fastfood-api-get-menu.js = k6\fastfood-api-get-menu.js
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "k8s", "k8s", "{14FC12FE-D44F-4E57-B8AA-FEC3A0304E9B}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{1D27BCFA-B3F1-4E11-B0DC-1AFCDEBDFCEC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{7A43AFEA-6D9A-45C5-887E-8312ECC68A73}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\github-actions.yml = .github\workflows\github-actions.yml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "k8s", "k8s", "{F295F365-A31A-420C-9A5D-00E4C6978699}"
 	ProjectSection(SolutionItems) = preProject
 		k8s\fastfood-api-configmap.yaml = k8s\fastfood-api-configmap.yaml
 		k8s\fastfood-api-deployment.yaml = k8s\fastfood-api-deployment.yaml
@@ -56,7 +63,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "k8s", "k8s", "{14FC12FE-D44
 		k8s\fastfood-mongodb-service.yaml = k8s\fastfood-mongodb-service.yaml
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{D53C529E-544F-4E63-8081-418E6AC900C2}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{A9756BA2-95F8-4F2D-81D7-ED39400EBB1A}"
 	ProjectSection(SolutionItems) = preProject
 		scripts\init-db.js = scripts\init-db.js
 	EndProjectSection
@@ -114,6 +121,8 @@ Global
 		{C0635555-09F4-4FC6-A6B9-DE0C7C7F864E} = {53C57D7B-F25E-4F9F-B58C-CACBD97C1F03}
 		{1D27BCFA-B3F1-4E11-B0DC-1AFCDEBDFCEC} = {53C57D7B-F25E-4F9F-B58C-CACBD97C1F03}
 		{7A43AFEA-6D9A-45C5-887E-8312ECC68A73} = {1D27BCFA-B3F1-4E11-B0DC-1AFCDEBDFCEC}
+		{F295F365-A31A-420C-9A5D-00E4C6978699} = {53C57D7B-F25E-4F9F-B58C-CACBD97C1F03}
+		{A9756BA2-95F8-4F2D-81D7-ED39400EBB1A} = {53C57D7B-F25E-4F9F-B58C-CACBD97C1F03}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0FBC4EAE-604E-4437-A6BE-CA788CCBF395}
