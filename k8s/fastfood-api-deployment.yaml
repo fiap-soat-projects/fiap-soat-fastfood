@@ -6,7 +6,6 @@ metadata:
   labels:
     app: fastfood-api
 spec:
-  replicas: 1
   selector:
     matchLabels:
       app: fastfood-api
@@ -27,15 +26,22 @@ spec:
             httpGet:
               path: /healthz
               port: 8080
-            initialDelaySeconds: 10
+            initialDelaySeconds: 5
             periodSeconds: 5
             failureThreshold: 10
           livenessProbe:
             httpGet:
               path: /health
               port: 8080
-            initialDelaySeconds: 30
+            initialDelaySeconds: 5
             periodSeconds: 10
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 5
             failureThreshold: 3
           ports:
             - name: http
@@ -53,7 +59,7 @@ spec:
           resources:
             requests:
               cpu: "100m"
-              memory: "128Mi"
+              memory: "256Mi"
             limits:
-              cpu: "500m"
+              cpu: "200m"
               memory: "512Mi"

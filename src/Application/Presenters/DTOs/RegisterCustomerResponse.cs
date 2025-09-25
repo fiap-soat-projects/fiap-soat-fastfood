@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
-namespace Adapter.Presenters;
+namespace Adapter.Presenters.DTOs;
 
 [ExcludeFromCodeCoverage]
 public record RegisterCustomerResponse

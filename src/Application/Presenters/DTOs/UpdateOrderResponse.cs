@@ -1,14 +1,15 @@
 ﻿using Business.Entities;
 
-namespace Adapter.Presenters;
+namespace Adapter.Presenters.DTOs;
 
-public record OrderGetResponse
+public record UpdateOrderResponse
 (
     string Id,
     string CustomerId,
     string CustomerName,
     IEnumerable<OrderItemResponse> Items,
     string Status,
-    Payment? payment,
+    Payment? Payment,
     decimal TotalPrice
-) { }
+)
+{ }

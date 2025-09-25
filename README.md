@@ -64,7 +64,7 @@ No nosso repositório temos o diretório `/k8s` onde disponibilizamos todos os m
 
 Para utilizar esses recursos, precisaremos de alguns passos adicionais para preparação do ambiente:
 
-1. **Criar `namespaces` personalizados no Kubernetes**:
+2.1 **Criar `namespaces` personalizados no Kubernetes**:
 
    Com o cluster **K8s** habilitado, precisaremos executar os seguintes comandos:
 
@@ -72,7 +72,7 @@ Para utilizar esses recursos, precisaremos de alguns passos adicionais para prep
    - `kubectl create namespace keda`
    - `kubectl create namespace monitoring`
 
-2. **⚓ [Instalar o Helm](https://helm.sh/docs/intro/install/)**
+2.2 **⚓ [Instalar o Helm](https://helm.sh/docs/intro/install/)**
 
    O Helm é um gerenciador de pacotes para o Kubernetes e, através dele, podemos provisionar aplicações e ambientes inteiros de maneira simplificada. 
 
@@ -80,11 +80,11 @@ Para utilizar esses recursos, precisaremos de alguns passos adicionais para prep
 
    - `curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash`
 
-3. **Configurar serviços adicionais no K8s**:
+2.3 **Configurar serviços adicionais no K8s**:
 
    Temos 2 serviços principais que precisam estar em execução no nosso cluster **K8s** para que seja possível coletar as métricas da nossa aplicação e ajustar a escala dinamicamente. Para instalar esses recursos, precisamos que o **Helm** (passo 2) esteja disponível.
 
-   3.1. **Instalação do [KEDA](https://keda.sh/docs/2.9/deploy/)**
+   ##### - **Instalação do [KEDA](https://keda.sh/docs/2.9/deploy/)**
 
    O **KEDA** é um componente para o **K8s** que estende as capacidades do HPA. Ele permite que as aplicações escalem automaticamente com base em métricas de eventos externas, indo muito além das métricas de CPU e memória padrão.
 
@@ -94,7 +94,7 @@ Para utilizar esses recursos, precisaremos de alguns passos adicionais para prep
    - `helm repo update`
    - `helm install keda kedacore/keda -n keda`
 
-   3.2. **Instalação do [Prometheus](https://grafana.com/docs/grafana-cloud/monitor-infrastructure/kubernetes-monitoring/configuration/config-other-methods/prometheus/prometheus-operator/)**
+   ##### - **Instalação do [Prometheus](https://grafana.com/docs/grafana-cloud/monitor-infrastructure/kubernetes-monitoring/configuration/config-other-methods/prometheus/prometheus-operator/)**
 
    O **Prometheus** é uma ferramenta de monitoramento e alertas voltada para métricas de sistemas. Ele coleta dados em tempo real por meio de pulls em endpoints HTTP. As métricas são armazenadas em uma base de dados temporal e podem ser consultadas com a linguagem PromQL.
 
@@ -104,8 +104,36 @@ Para utilizar esses recursos, precisaremos de alguns passos adicionais para prep
    - `helm repo update`
    - `helm install prometheus prometheus-community/kube-prometheus-stack -n monitoring`
    - `helm install prometheus-adapter prometheus-community/prometheus-adapter -n monitoring`
+   
+   ##### - Instalação do [Metrics Server](https://github.com/kubernetes-sigs/metrics-server)
 
-4. Aplicar manifestos
+   O **Metrics Server** é um agregador de métricas de recursos usado pelo Kubernetes para fornecer dados de uso de CPU e memória dos pods e nodes. Ele é essencial para o funcionamento do HPA (Horizontal Pod Autoscaler) e para que ferramentas como o KEDA possam escalar os pods com base nessas métricas.
+
+   Para instalar o Metrics Server, execute os comandos abaixo:
+
+   ```sh
+   kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
+   ```
+
+   Se estiver rodando o cluster localmente (ex: Docker Desktop), pode ser necessário ajustar o deployment para permitir conexões inseguras (por exemplo, adicionar o argumento `--kubelet-insecure-tls`):
+
+   ```sh
+   kubectl -n kube-system edit deployment metrics-server
+   ```
+   Adicione o argumento abaixo em `spec.containers.args`:
+   ```yaml
+   - --kubelet-insecure-tls
+   ```
+
+   Após a instalação, verifique se o Metrics Server está funcionando corretamente:
+
+   ```sh
+   kubectl get --raw "/apis/metrics.k8s.io/v1beta1/nodes"
+   ```
+
+   Se retornar dados dos nodes, está tudo certo!
+
+2.4 Aplicar manifestos
 
 Acesse o diretório `/k8s` e execute o comando `kubectl apply -f .`, isso fará com que todos os recursos descritos nos manifestos sejam aplicados no **K8s**. Com essa ação, teremos as APIs disponíveis em `http://localhost:30080`.
 
@@ -127,7 +155,7 @@ Acesse o diretório `/k8s` e execute o comando `kubectl apply -f .`, isso fará 
 
 ### 🍔 Order (Pedido)
 - `GET /order?page=1&size=10&status=Received` — Listar todos pedidos em página
-- `GET /order/active?page=1&size=10` — Listar pedidos ativos em página
+- `GET /order/active?page=1&size=10` — Listar pedidos ativos em página de forma ordenada e excluindo pedidos inativos.
 - `GET /order/{id}` — Detalhar pedido
 - `POST /order` — Criar pedido
 - `PATCH /order/{id}/status` — Atualizar status do pedido
@@ -169,7 +197,50 @@ Se preferir, as requisições descritas acima podem ser acessadas via [Postman](
 ## 🏦 Banco de Dados
 
 - O MongoDB inicializa com uma seed de dados para um cardápio pré-preenchido. Isso ocorre via script em `scripts/init-db.js`.
-- Usuário padrão: `fastfooduser` / `f4sTf00dP4ssW0rd!`
-- Admin: `admin` / `admin` (para Mongo Express)
+- Por padrão o script não esta com os valores de usuário e senha configurados é necessário realizar a configuração manualmente, é possivel encontrar através dos placeholders: {{username}} e {{password}}.
 
 ---
+
+## 🧩 Arquitetura: Princípios SOLID & Clean Architecture
+
+Este projeto foi estruturado seguindo os princípios do **SOLID** e os conceitos do **Clean Architecture**, visando garantir um sistema desacoplado, coeso, testável e de fácil manutenção.
+
+### Princípios SOLID
+
+- **S**ingle Responsibility Principle (Responsabilidade Única):  
+  Cada classe ou módulo possui uma única responsabilidade bem definida, facilitando a manutenção e evolução do código.
+
+- **O**pen/Closed Principle (Aberto/Fechado):  
+  Os componentes do sistema são abertos para extensão, mas fechados para modificação, permitindo adicionar novas funcionalidades sem alterar o código existente.
+
+- **L**iskov Substitution Principle (Substituição de Liskov):  
+  As subclasses podem ser substituídas por suas classes base sem afetar o funcionamento do sistema.
+
+- **I**nterface Segregation Principle (Segregação de Interfaces):  
+  Interfaces específicas são preferidas a interfaces genéricas, evitando que classes dependam de métodos que não utilizam.
+
+- **D**ependency Inversion Principle (Inversão de Dependência):  
+  O domínio depende de abstrações (interfaces), e não de implementações concretas, promovendo baixo acoplamento entre as camadas.
+
+### Clean Architecture
+
+- **Separação de Camadas:**  
+  O projeto é dividido em camadas bem definidas, separada por projetos de Business, Adapters, Drivers(Api, Infrastructure)
+
+- **Isolamento da Lógica de Negócio:**  
+  A lógica de negócio reside na camada de domínio (Business), isolada de detalhes técnicos e de infraestrutura.
+
+- **Gateways e Interfaces:**  
+  Dependências externas (bancos de dados, APIs, etc.) são representadas por interfaces na camada de domínio. As implementações concretas ficam na infraestrutura.
+
+- **Injeção de Dependências:**  
+  A ligação entre interfaces e implementações é feita via injeção de dependências, facilitando testes e substituição de componentes.
+
+**Benefícios:**
+- Facilita testes unitários e integração.
+- Permite evolução e manutenção do sistema sem impactar a lógica de negócio.
+- Garante flexibilidade para trocar tecnologias e integrações externas.
+- Segue as melhores práticas de arquitetura de software moderna.
+
+> **Resumo:**  
+> O projeto foi desenhado para que cada camada tenha responsabilidades claras e isoladas, promovendo um código limpo, sustentável e preparado para mudanças futuras.

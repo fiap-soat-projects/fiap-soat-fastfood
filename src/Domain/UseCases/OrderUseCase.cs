@@ -34,7 +34,7 @@ internal class OrderUseCase : IOrderUseCase
 
     public async Task<Pagination<Order>> GetAllAsync(CancellationToken cancellationToken, OrderStatus? status = null, int page = 0, int size = 0)
     {
-        if (status is null)
+        if (status is null || status == OrderStatus.None)
         {
             var pageWithoutFilters = await _orderRepository.GetAllPaginateAsync(page, size, cancellationToken);
 

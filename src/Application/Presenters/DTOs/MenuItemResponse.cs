@@ -1,6 +1,6 @@
 ﻿using Business.Entities.Enums;
 
-namespace Adapter.Presenters;
+namespace Adapter.Presenters.DTOs;
 
 public record MenuItemResponse(
     string Id,
