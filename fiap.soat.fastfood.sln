@@ -14,7 +14,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.dockerignore = .dockerignore
 		.editorconfig = .editorconfig
 		.gitignore = .gitignore
-		docker-compose.yml = docker-compose.yml
+		docker-compose-local-example.yml = docker-compose-local-example.yml
 		Dockerfile = Dockerfile
 		scripts\init-db.js = scripts\init-db.js
 		README.md = README.md
@@ -35,25 +35,30 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application.Tests", "tests\
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Drivers", "Drivers", "{0B11CF59-D435-47E3-A014-7C0A587BE32E}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "k8s", "k8s", "{48ADCC53-36B4-481A-AC83-71DAE09B48E0}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "k6", "k6", "{C0635555-09F4-4FC6-A6B9-DE0C7C7F864E}"
+	ProjectSection(SolutionItems) = preProject
+		k6\fastfood-api-create-user.js = k6\fastfood-api-create-user.js
+		k6\fastfood-api-get-menu.js = k6\fastfood-api-get-menu.js
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "k8s", "k8s", "{14FC12FE-D44F-4E57-B8AA-FEC3A0304E9B}"
 	ProjectSection(SolutionItems) = preProject
 		k8s\fastfood-api-configmap.yaml = k8s\fastfood-api-configmap.yaml
 		k8s\fastfood-api-deployment.yaml = k8s\fastfood-api-deployment.yaml
-		k8s\fastfood-api-hpa.yaml = k8s\fastfood-api-hpa.yaml
+		k8s\fastfood-api-scaledobject.yaml = k8s\fastfood-api-scaledobject.yaml
 		k8s\fastfood-api-secret.yaml = k8s\fastfood-api-secret.yaml
 		k8s\fastfood-api-service.yaml = k8s\fastfood-api-service.yaml
+		k8s\fastfood-api-servicemonitor.yaml = k8s\fastfood-api-servicemonitor.yaml
 		k8s\fastfood-mongodb-configmap.yaml = k8s\fastfood-mongodb-configmap.yaml
 		k8s\fastfood-mongodb-deployment.yaml = k8s\fastfood-mongodb-deployment.yaml
-		k8s\fastfood-mongodb-hpa.yaml = k8s\fastfood-mongodb-hpa.yaml
 		k8s\fastfood-mongodb-pvc.yaml = k8s\fastfood-mongodb-pvc.yaml
 		k8s\fastfood-mongodb-secret.yaml = k8s\fastfood-mongodb-secret.yaml
 		k8s\fastfood-mongodb-service.yaml = k8s\fastfood-mongodb-service.yaml
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "k6", "k6", "{C0635555-09F4-4FC6-A6B9-DE0C7C7F864E}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{D53C529E-544F-4E63-8081-418E6AC900C2}"
 	ProjectSection(SolutionItems) = preProject
-		k6\fastfood-api-create-user.js = k6\fastfood-api-create-user.js
-		k6\fastfood-api-get-menu.js = k6\fastfood-api-get-menu.js
+		scripts\init-db.js = scripts\init-db.js
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{1D27BCFA-B3F1-4E11-B0DC-1AFCDEBDFCEC}"
@@ -106,7 +111,6 @@ Global
 		{3240ADB7-CF88-4C01-B584-B8EE29C99905} = {6CD282BB-7759-43DD-BBDA-C0A5E29F1E05}
 		{3A5DBFB8-D94F-44A1-B698-79B5DCC2F9CB} = {6CD282BB-7759-43DD-BBDA-C0A5E29F1E05}
 		{0B11CF59-D435-47E3-A014-7C0A587BE32E} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
-		{48ADCC53-36B4-481A-AC83-71DAE09B48E0} = {53C57D7B-F25E-4F9F-B58C-CACBD97C1F03}
 		{C0635555-09F4-4FC6-A6B9-DE0C7C7F864E} = {53C57D7B-F25E-4F9F-B58C-CACBD97C1F03}
 		{1D27BCFA-B3F1-4E11-B0DC-1AFCDEBDFCEC} = {53C57D7B-F25E-4F9F-B58C-CACBD97C1F03}
 		{7A43AFEA-6D9A-45C5-887E-8312ECC68A73} = {1D27BCFA-B3F1-4E11-B0DC-1AFCDEBDFCEC}

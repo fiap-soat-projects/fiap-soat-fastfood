@@ -19,36 +19,36 @@ public class Menu : ControllerBase
     [HttpPost]
     public async Task<IActionResult> RegisterAsync([FromBody] RegisterMenuItemRequest request, CancellationToken cancellationToken)
     {
-        var response = await _menuController.RegisterAsync(request, cancellationToken);
+        var presenter = await _menuController.RegisterAsync(request, cancellationToken);
 
         return Created(
             Url.Action(nameof(RegisterAsync),
-            new { id = response.Id }),
-            response);
+            new { id = presenter.ViewModel.Id }),
+            presenter.ViewModel);
     }
 
     [HttpGet("{id:length(24)}")]
     public async Task<IActionResult> GetByIdAsync(string id, CancellationToken cancellationToken)
     {
-        var response = await _menuController.GetByIdAsync(id, cancellationToken);
+        var presenter = await _menuController.GetByIdAsync(id, cancellationToken);
 
-        return Ok(response);
+        return Ok(presenter.ViewModel);
     }
 
     [HttpGet]
     public async Task<IActionResult> GetAllAsync([FromQuery] MenuFilter filter, CancellationToken cancellationToken)
     {
-        var menuItems = await _menuController.GetAllAsync(filter, cancellationToken);
+        var presenter = await _menuController.GetAllAsync(filter, cancellationToken);
 
-        return Ok(menuItems);
+        return Ok(presenter.ViewModel);
     }
 
     [HttpPut("{id:length(24)}")]
     public async Task<IActionResult> UpdateAsync(string id, [FromBody] UpdateMenuItemRequest request, CancellationToken cancellationToken)
     {
-        var response = await _menuController.UpdateAsync(id, request, cancellationToken);
+        var presenter = await _menuController.UpdateAsync(id, request, cancellationToken);
 
-        return Ok(response);
+        return Ok(presenter.ViewModel);
     }
 
     [HttpDelete("{id:length(24)}")]
