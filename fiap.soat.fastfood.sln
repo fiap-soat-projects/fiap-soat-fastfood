@@ -68,6 +68,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{A975
 		scripts\init-db.js = scripts\init-db.js
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{1D27BCFA-B3F1-4E11-B0DC-1AFCDEBDFCEC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{7A43AFEA-6D9A-45C5-887E-8312ECC68A73}"
+	ProjectSection(SolutionItems) = preProject
+		github-actions.yml = github-actions.yml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
