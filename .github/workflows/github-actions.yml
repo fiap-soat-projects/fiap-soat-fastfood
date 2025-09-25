@@ -7,7 +7,7 @@ on:
     branches: [ "main" ]
 
 jobs:
-  dotnet_build_and_tests:
+  dotnet_build:
     runs-on: ubuntu-latest
 
     steps:
@@ -71,14 +71,23 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Azure CLI Settings
+        uses: azure/login@v2
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+          enable-AzPSSession: false
+
       - name: Kubectl Version
         uses: azure/setup-kubectl@v4
         with:
           version: 'latest'
 
-      - name: Create kube config
+      - name: Get AKS Kubeconfig
         run: |
-          echo "${{ secrets.KUBE_CONFIG_DATA }}" | base64 -d > $HOME/.kube/config
+          az aks get-credentials \
+            --resource-group ${{ secrets.AZURE_RESOURCE_GROUP }} \
+            --name ${{ secrets.AKS_CLUSTER_NAME }} \
+            --overwrite-existing
 
       - name: Set image version (PR only)
         if: github.event_name == 'pull_request'
