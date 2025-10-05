@@ -4,7 +4,7 @@ Este projeto foi desenvolvido para o curso de [pós-graduação em Arquitetura d
 
 A API presente neste repositório disponibiliza rotas para gerenciamento de clientes, cardápio, pedidos e pagamentos, com integração direta com [MongoDB](https://www.mongodb.com/) e [Mercado Pago](https://www.mercadopago.com.br/developers/pt/reference).
 
-## 🏃 Integrantes do grupo 21
+## 🏃 Integrantes do grupo
 
 - Jeferson dos Santos Gomes - **RM 362669**
 - Jamison dos Santos Gomes - **RM 362671**
@@ -196,8 +196,65 @@ Se preferir, as requisições descritas acima podem ser acessadas via [Postman](
 
 ## 🏦 Banco de Dados
 
-- O MongoDB inicializa com uma seed de dados para um cardápio pré-preenchido. Isso ocorre via script em `scripts/init-db.js`.
-- Por padrão o script não esta com os valores de usuário e senha configurados é necessário realizar a configuração manualmente, é possivel encontrar através dos placeholders: {{username}} e {{password}}.
+Neste projeto utilizamos o [MongoDB Atlas](https://www.mongodb.com/products/platform) que é um serviço de banco de dados como serviço (DBaaS) totalmente gerenciado para o MongoDB, disponível na nuvem. Ele permite criar, escalar e gerenciar clusters MongoDB de forma simples, segura e automatizada, sem a necessidade de gerenciar infraestrutura física. O Atlas oferece recursos como backups automáticos, monitoramento, alta disponibilidade, escalabilidade sob demanda e integração com provedores de nuvem como AWS, Azure e Google Cloud.
+
+#### 📦 Estrutura das Collections MongoDB
+
+##### **orders**
+
+| Campo         | Tipo                |
+|---------------|---------------------|
+| _id           | ObjectId            |
+| CustomerId    | string              |
+| CustomerName  | string              |
+| Items         | array de objetos    |
+| Status        | int                 |
+| Payment       | objeto              |
+| TotalPrice    | decimal             |
+| CreatedAt     | datetime            |
+| UpdatedAt     | datetime/null       |
+
+**OrderItem** (subdocumento de `orders.Items`)
+
+| Campo   | Tipo     |
+|---------|----------|
+| Id      | string   |
+| Name    | string   |
+| Price   | decimal  |
+| Amount  | int      |
+| Category| int      |
+
+**Payment** (subdocumento de `orders.Payment`)
+
+| Campo  | Tipo   |
+|--------|--------|
+| Id     | string |
+| Method | int    |
+| Status | int    |
+
+##### **menu**
+
+| Campo       | Tipo        |
+|-------------|-------------|
+| _id         | ObjectId    |
+| Name        | string      |
+| Description | string      |
+| Price       | decimal     |
+| IsActive    | bool        |
+| Category    | int         |
+| CreatedAt   | datetime    |
+| UpdatedAt   | datetime/null |
+
+##### **customers**
+
+| Campo     | Tipo        |
+|-----------|-------------|
+| _id       | ObjectId    |
+| Name      | string      |
+| Cpf       | string      |
+| Email     | string      |
+| CreatedAt | datetime    |
+| UpdatedAt | datetime/null |
 
 ---
 
