@@ -1,0 +1,44 @@
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: fastfood-api
+  namespace: fiap
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: fastfood-api
+  pollingInterval: 30
+  cooldownPeriod: 30
+  minReplicaCount: 3
+  maxReplicaCount: 10
+  advanced:
+    horizontalPodAutoscalerConfig:
+      behavior:
+        scaleUp:
+          stabilizationWindowSeconds: 0
+          policies:
+            - type: Pods
+              value: 2
+              periodSeconds: 15
+        scaleDown:
+          stabilizationWindowSeconds: 30
+          policies:
+            - type: Percent
+              value: 100
+              periodSeconds: 30
+  triggers:
+    - type: prometheus
+      metadata:
+        serverAddress: http://prometheus-kube-prometheus-prometheus.monitoring.svc.cluster.local:9090
+        metricName: http_request_rate
+        query: sum(rate(http_requests_received_total{exported_endpoint!~"/health|/healthz|/metrics"}[10s]))
+        threshold: "1000"
+    - type: cpu
+      metadata:
+        value: "70"
+      metricType: "Utilization"
+    - type: memory
+      metadata:
+        value: "80"
+      metricType: "Utilization"

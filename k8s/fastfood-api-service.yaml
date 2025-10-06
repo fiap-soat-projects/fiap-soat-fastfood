@@ -5,13 +5,13 @@ metadata:
   namespace: fiap
   labels:
     app: fastfood-api
+  annotations:
+    service.beta.kubernetes.io/azure-load-balancer-resource-group: "rg-aks-prod"
+    service.beta.kubernetes.io/azure-load-balancer-ip: "aks-fiap-soat-prod-service-ip"
 spec:
-  selector:
-    app: fastfood-api  
+  type: LoadBalancer  
   ports:
-    - name: http
-      protocol: TCP
-      port: 80
+    - port: 80
       targetPort: 8080
-      nodePort: 30080
-  type: NodePort
+  selector:
+    app: fastfood-api
