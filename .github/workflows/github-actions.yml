@@ -96,5 +96,5 @@ jobs:
 
       - name: Deploy
         run: |
-          kubectl apply -f k8s/fastfood-api-deployment.yaml
-          kubectl rollout status deployment/fastfood-api -n prd
+          kubectl apply -f k8s/.
+          kubectl rollout status deployment/fastfood-api -n fiap
