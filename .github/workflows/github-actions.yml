@@ -110,7 +110,7 @@ jobs:
       - name: Update image tag using yq
         if: github.event_name == 'pull_request'
         run: |
-          yq e '.spec.template.spec.containers[0].image = "ajjposproj/fiap-soat-fastfood-api:'"$VERSION"'"' -i k8s/fastfood-api-deployment.yaml
+          yq e ".spec.template.spec.containers[0].image = \"ajjposproj/fiap-soat-fastfood-api:$VERSION\"" -i k8s/fastfood-api-deployment.yaml
 
       - name: Deploy
         run: |
