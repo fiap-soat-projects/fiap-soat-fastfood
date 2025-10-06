@@ -106,7 +106,7 @@ jobs:
       - name: Set image version (PR only)
         if: github.event_name == 'pull_request'
         run: |
-          sed -i "s|image: .*$|image: ${{ secrets.DOCKERHUB_TENANT }}/fiap-soat-fastfood-api:${{ env.VERSION }}|g" k8s/fastfood-api-deployment.yaml
+          sed -i "s|\(image: .*/fiap-soat-fastfood-api:\).*|\1${{ env.VERSION }}|" k8s/fastfood-api-deployment.yaml
 
       - name: Deploy
         run: |
