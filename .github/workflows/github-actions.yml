@@ -88,11 +88,14 @@ jobs:
             --resource-group ${{ secrets.AZURE_RESOURCE_GROUP }} \
             --name ${{ secrets.AKS_CLUSTER_NAME }} \
             --overwrite-existing
-          kubelogin convert-kubeconfig -l spn
-        env:
-          AAD_SERVICE_PRINCIPAL_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
-          AAD_SERVICE_PRINCIPAL_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
-          AAD_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+
+      - name: Convert Kubeconfig for SPN
+        run: |
+          kubelogin convert-kubeconfig \
+            -l spn \
+            --client-id "${{ secrets.AZURE_CLIENT_ID }}" \
+            --client-secret "${{ secrets.AZURE_CLIENT_SECRET }}" \
+            --tenant-id "${{ secrets.AZURE_TENANT_ID }}"
 
       - name: Create secrets manifest
         run: |
