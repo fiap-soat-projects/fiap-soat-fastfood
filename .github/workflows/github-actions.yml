@@ -103,6 +103,18 @@ jobs:
           ${{ secrets.API_SECRETS_MANIFEST }}
           EOF
 
+      - name: Create image tag
+        if: github.event_name == 'pull_request'
+        id: vars
+        run: |
+          if [ "${{ github.event_name }}" == "pull_request" ]; then
+            VERSION="pr-${{ github.event.pull_request.number }}"
+          else
+            VERSION="latest"
+          fi
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+
       - name: Install yq
         if: github.event_name == 'pull_request'
         uses: mikefarah/yq@v4
