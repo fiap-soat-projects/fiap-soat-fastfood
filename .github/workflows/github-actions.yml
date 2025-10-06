@@ -89,6 +89,12 @@ jobs:
             --name ${{ secrets.AKS_CLUSTER_NAME }} \
             --overwrite-existing
 
+      - name: Create secrets manifest
+        run: |
+          cat > ./k8s/fastfood-api-secret.yaml <<'EOF'
+          ${{ secrets.API_SECRETS_MANIFEST }}
+          EOF
+
       - name: Set image version (PR only)
         if: github.event_name == 'pull_request'
         run: |
