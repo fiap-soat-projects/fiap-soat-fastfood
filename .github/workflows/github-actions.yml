@@ -77,10 +77,10 @@ jobs:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
           enable-AzPSSession: false
 
-      - name: Kubectl Version
-        uses: azure/setup-kubectl@v4
-        with:
-          version: "latest"
+      - name: Install kubectl and kubelogin
+        run: |
+          az aks install-cli
+          kubelogin --version
 
       - name: Get AKS Kubeconfig
         run: |
