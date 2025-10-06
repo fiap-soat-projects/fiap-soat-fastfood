@@ -103,11 +103,14 @@ jobs:
           ${{ secrets.API_SECRETS_MANIFEST }}
           EOF
 
-      - name: Set image version (PR only)
+      - name: Install yq
+        if: github.event_name == 'pull_request'
+        uses: mikefarah/yq@v4
+
+      - name: Update image tag using yq
         if: github.event_name == 'pull_request'
         run: |
-            echo "VERSION=$VERSION"
-            sed -i "s|\(image: .*/fiap-soat-fastfood-api:\).*|\1$VERSION|" k8s/fastfood-api-deployment.yaml
+          yq e '.spec.template.spec.containers[0].image = "ajjposproj/fiap-soat-fastfood-api:'"$VERSION"'"' -i k8s/fastfood-api-deployment.yaml
 
       - name: Deploy
         run: |
