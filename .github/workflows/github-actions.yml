@@ -110,9 +110,9 @@ jobs:
       - name: Update image tag using yq
         if: github.event_name == 'pull_request'
         run: |
-          yq e ".spec.template.spec.containers[0].image = \"ajjposproj/fiap-soat-fastfood-api:$VERSION\"" -i k8s/fastfood-api-deployment.yaml
+          yq e ".spec.template.spec.containers[0].image = \"ajjposproj/fiap-soat-fastfood-api:${{ env.VERSION }}\"" -i k8s/fastfood-api-deployment.yaml
 
       - name: Deploy
         run: |
           kubectl apply -f k8s/.
-          kubectl rollout status deployment/fastfood-api -n fiap
+          kubectl rollout status deployment/fastfood-api -n fiap --timeout=60s
