@@ -56,11 +56,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "k8s", "k8s", "{F295F365-A31
 		k8s\fastfood-api-secret.yaml = k8s\fastfood-api-secret.yaml
 		k8s\fastfood-api-service.yaml = k8s\fastfood-api-service.yaml
 		k8s\fastfood-api-servicemonitor.yaml = k8s\fastfood-api-servicemonitor.yaml
-		k8s\fastfood-mongodb-configmap.yaml = k8s\fastfood-mongodb-configmap.yaml
-		k8s\fastfood-mongodb-deployment.yaml = k8s\fastfood-mongodb-deployment.yaml
-		k8s\fastfood-mongodb-pvc.yaml = k8s\fastfood-mongodb-pvc.yaml
-		k8s\fastfood-mongodb-secret.yaml = k8s\fastfood-mongodb-secret.yaml
-		k8s\fastfood-mongodb-service.yaml = k8s\fastfood-mongodb-service.yaml
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{A9756BA2-95F8-4F2D-81D7-ED39400EBB1A}"
@@ -68,11 +63,26 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{A975
 		scripts\init-db.js = scripts\init-db.js
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{1D27BCFA-B3F1-4E11-B0DC-1AFCDEBDFCEC}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{48B356B8-D7F2-459A-8934-1C78D85E490C}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{7A43AFEA-6D9A-45C5-887E-8312ECC68A73}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{9855A9F7-4D06-465F-8296-A501A9D2667E}"
 	ProjectSection(SolutionItems) = preProject
 		github-actions.yml = github-actions.yml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "local", "local", "{9E4A5685-6FAC-4734-8769-74F0C9592953}"
+	ProjectSection(SolutionItems) = preProject
+		k8s\local\fastfood-api-configmap.yaml = k8s\local\fastfood-api-configmap.yaml
+		k8s\local\fastfood-api-deployment.yaml = k8s\local\fastfood-api-deployment.yaml
+		k8s\local\fastfood-api-scaledobject.yaml = k8s\local\fastfood-api-scaledobject.yaml
+		k8s\local\fastfood-api-secret.yaml = k8s\local\fastfood-api-secret.yaml
+		k8s\local\fastfood-api-service.yaml = k8s\local\fastfood-api-service.yaml
+		k8s\local\fastfood-api-servicemonitor.yaml = k8s\local\fastfood-api-servicemonitor.yaml
+		k8s\local\fastfood-mongodb-configmap.yaml = k8s\local\fastfood-mongodb-configmap.yaml
+		k8s\local\fastfood-mongodb-deployment.yaml = k8s\local\fastfood-mongodb-deployment.yaml
+		k8s\local\fastfood-mongodb-pvc.yaml = k8s\local\fastfood-mongodb-pvc.yaml
+		k8s\local\fastfood-mongodb-secret.yaml = k8s\local\fastfood-mongodb-secret.yaml
+		k8s\local\fastfood-mongodb-service.yaml = k8s\local\fastfood-mongodb-service.yaml
 	EndProjectSection
 EndProject
 Global
@@ -123,6 +133,7 @@ Global
 		{7A43AFEA-6D9A-45C5-887E-8312ECC68A73} = {1D27BCFA-B3F1-4E11-B0DC-1AFCDEBDFCEC}
 		{F295F365-A31A-420C-9A5D-00E4C6978699} = {53C57D7B-F25E-4F9F-B58C-CACBD97C1F03}
 		{A9756BA2-95F8-4F2D-81D7-ED39400EBB1A} = {53C57D7B-F25E-4F9F-B58C-CACBD97C1F03}
+		{9E4A5685-6FAC-4734-8769-74F0C9592953} = {F295F365-A31A-420C-9A5D-00E4C6978699}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0FBC4EAE-604E-4437-A6BE-CA788CCBF395}

@@ -13,10 +13,14 @@ spec:
     metadata:
       labels:
         app: fastfood-api
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/path: "/metrics"
+        prometheus.io/port: "8080"
     spec:
       containers:
         - name: fastfood-api
-          image: ajjposproj/fiap-soat-fastfood-api:latest
+          image: jefersondsgomes/fiap-soat-fastfood-api:latest
           imagePullPolicy: IfNotPresent
           startupProbe:
             httpGet:
@@ -43,10 +47,10 @@ spec:
             - name: http
               containerPort: 8080
           env:
-            - name: POD_NAME
-              valueFrom:
-                fieldRef:
-                  fieldPath: metadata.name
+          - name: POD_NAME
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.name            
           envFrom:
             - configMapRef:
                 name: fastfood-api
