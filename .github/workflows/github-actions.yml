@@ -64,7 +64,7 @@ jobs:
 
   build_push_image:
     runs-on: ubuntu-latest
-    needs: dotnet_build
+    needs: sonarqube-analysis
     environment: prd
 
     steps:
