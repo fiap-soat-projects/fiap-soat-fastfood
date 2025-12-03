@@ -49,7 +49,7 @@ jobs:
       - name: SonarCloud - Begin analysis
         run: |
           dotnet-sonarscanner begin \
-            /k:"fiap-soat-fastfood" \
+            /k:"fiap-soat-projects_fiap-soat-fastfood" \
             /o:"fiap-soat-projects" \
             /d:sonar.token="${{ secrets.SONAR_TOKEN }}" \
             /d:sonar.host.url="https://sonarcloud.io"
